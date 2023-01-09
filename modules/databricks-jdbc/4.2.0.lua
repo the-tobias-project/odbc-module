@@ -45,7 +45,7 @@ pushenv("DATABRICKS_JAR",  db_jar)
 whatis("Name:        " .. pkg.name)
 whatis("Version:     " .. pkg.version)
 whatis("Category:    " .. "")
-whatis("URL:         " .. "")
+whatis("URL:         " .. "https://github.com/the-tobias-project/databricks-jdbc")
 whatis("Description: " .. "Module to make Databricks JDBC available for R.")
 
 -- module help
