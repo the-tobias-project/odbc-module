@@ -27,7 +27,7 @@ local db_jar = pathJoin(app.lib, "DatabricksJDBC42.jar")
 
 local r_script = [[
   install.packages(c("DBI", "RJDBC", "remotes"), repos="https://cloud.r-project.org/")
-  remotes::install_github("the-tobias-project/databricks-jdbc")
+  remotes::install_github("the-tobias-project/loaddatabricks")
 ]]
 
 os.execute("Rscript -e '" .. r_script .. "'")
