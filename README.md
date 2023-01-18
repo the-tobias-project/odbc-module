@@ -1,7 +1,11 @@
 # Modules
 
-This module is uing a custom R package we created with the Databricks JDBC driver: https://github.com/the-tobias-project/databricks-jdbc
+This module is using a custom R package we created with the Databricks JDBC driver: https://github.com/the-tobias-project/databricks-jdbc
 Driver from: https://www.databricks.com/spark/jdbc-drivers-download
+
+# Installation
+
+The structure of the directory would be the location of the corresponding folders in the cluster. Check it with the "tree" command.
 
 
 ## Usage
