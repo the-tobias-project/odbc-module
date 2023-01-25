@@ -21,6 +21,7 @@ app.lib  = pathJoin(app.root, "lib")
 -- dependencies
 depends_on("spark/3.2.1")
 depends_on("R/4.2.0")
+depends_on("java/11.0.11")
 
 
 local db_jar = pathJoin(app.lib, "DatabricksJDBC42.jar")
