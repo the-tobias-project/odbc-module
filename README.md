@@ -1,4 +1,4 @@
-# Modules
+# ODBC module
 
 This module is using a custom R package we created with Databricks ODBC driver.
 
@@ -11,11 +11,11 @@ Driver from: https://databricks-bi-artifacts.s3.us-east-2.amazonaws.com/simbaspa
 Run:
 
 ```bash
-git clone https://github.com/the-tobias-project/lua-modules
-cd lua-modules
+git clone https://github.com/the-tobias-project/odbc-module
+cd odbc-module
 bash install.sh
 cd ..
-echo "export MODULEPATH=$MODULEPATH:$HOME/lua-modules/software/modules/" >> ~/.bashrc
+echo "export MODULEPATH=$MODULEPATH:$HOME/odbc-module/software/modules/" >> ~/.bashrc
 source .bashrc
 ```
 
