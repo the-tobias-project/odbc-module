@@ -20,9 +20,9 @@ app.lib  = pathJoin(app.root, "simba/spark/lib")
 
 
 -- dependencies
-depends_on("spark/3.2.1")
 depends_on("R/4.2.0")
 depends_on("unixodbc/2.3.9")
+depends_on("spark/3.2.1")
 
 local r_script = [[
   install.packages("remotes", repos="https://cloud.r-project.org/")
