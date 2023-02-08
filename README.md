@@ -1,11 +1,50 @@
 # Modules
 
-This module is using a custom R package we created with the Databricks JDBC driver: https://github.com/the-tobias-project/databricks-jdbc
+This module is using a custom R package we created with Databricks JDBC and ODBC drivers: https://github.com/the-tobias-project/databricks-jdbc
 Driver from: https://www.databricks.com/spark/jdbc-drivers-download
+
 
 # Installation
 
-The structure of the directory would be the location of the corresponding folders in the cluster. Check it with the "tree" command.
+Run:
+
+
+```bash
+bash install.sh
+```
+
+This will download the ODBC driver and configure the folders. There will be a software folder at $HOME in addition to tho files: .odbc.ini and .odbcinst.ini. 
+
+
+## Module structure
+
+```bash
+├── get_databricks_driver.sh
+├── install.sh
+├── README.md
+└── software
+    ├── modules
+    │   └── contribs
+    │       ├── databricks-jdbc
+    │       │   └── 4.2.0.lua
+    │       └── databricks-odbc
+    │           └── 4.2.0.lua
+    └── user
+        └── open
+            ├── databricks-jdbc
+            │   └── 4.2.0
+            │       └── lib
+            │           └── DatabricksJDBC42.jar
+            └── databricks-odbc
+                └── 4.2.0
+                    ├── conf
+                    │   ├── odbc.ini
+                    │   └── odbcinst.ini
+                    └── lib
+                        └── 64
+                        
+
+```
 
 
 ## Usage
@@ -36,4 +75,7 @@ connection <- databricks_jdbc(address="adb-xxxx.azuredatabricks.net", port = "44
 
 ```r
 dbReadTable(connection, "tobias.shinyapp_input")
+```
+
+
 ```
