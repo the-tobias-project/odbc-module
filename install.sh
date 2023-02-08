@@ -20,12 +20,10 @@ echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
 mkdir -p  ~/.config/direnv
 touch  ~/.config/direnv/direnv.toml
 
-
-echo "# [DATABRICKS SETTINGS]\n
-DATABRICKS_HOSTNAME=\n
-DATABRICKS_TOKEN=\n
-DATABRICKS_HTTP_PATH=\n"
+echo "# [DATABRICKS SETTINGS]
+DATABRICKS_HOSTNAME=
+DATABRICKS_TOKEN=
+DATABRICKS_HTTP_PATH=" >> ~/.env
 
 echo "Done"
 echo "Pease fill in the .env file in $HOME/.env with the Databricks variables and then run: direnv allow"
-
