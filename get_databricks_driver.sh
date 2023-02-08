@@ -12,7 +12,7 @@ rm -rf SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 rpm2cpio simbaspark-2.6.29.1049-1.x86_64.rpm |  cpio -idmv
 rm -rf simbaspark-2.6.29.1049-1.x86_64.rpm
 cd ..
-mv driver/opt/simba/spark/lib/64/libsparkodbc_sb64.so software/user/open/databricks-odbc/4.2.0/lib/64/
+mv driver/opt/simba/ software/user/open/databricks-odbc/4.2.0/simba
 rm -rf driver
 
 
