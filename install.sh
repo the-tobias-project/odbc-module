@@ -33,7 +33,7 @@ DATABRICKS_HTTP_PATH=
 
 EOF
 
-cat > ~/.env <<EOF  
+cat >> ~/.env <<EOF  
 #[ENVIRONMENTAL VARIABLES]
 DATABRICKS_JAR=$PWD/software/user/open/databricks-jdbc/4.2.0/lib/DatabricksJDBC42.jar
 ODBCSYSINI=$HOME
