@@ -10,20 +10,25 @@ Driver from: https://databricks-bi-artifacts.s3.us-east-2.amazonaws.com/simbaspa
 
 Run:
 
+
 ```bash
 git clone https://github.com/the-tobias-project/odbc-module
 cd odbc-module
+bash configure.sh
+```
+
+Here, fill in the values in the .env file, then:
+
+```bash
+source .bashrc
+direnv allow
+
 bash install.sh
 cd ..
 echo "export MODULEPATH=$MODULEPATH:$HOME/odbc-module/software/modules/" >> ~/.bashrc
 source .bashrc
 ```
 
-Fill in the .env in your workspace with the corresponding Databricks parameters. Then activate direnv:
-```bash
-source .bashrc
-direnv allow
-```
 
 This will download the ODBC driver and configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. The installation process creates a series of directories. 
 
