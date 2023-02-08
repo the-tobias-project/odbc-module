@@ -24,12 +24,12 @@ prefix = [ "$HOME" ]
 load_dotenv = true
 EOF
 
-echo -e "\n\n# [DATABRICKS SETTINGS]
-DATABRICKS_HOSTNAME=
-DATABRICKS_TOKEN=
-DATABRICKS_HTTP_PATH=" >> ~/.env
+echo "\n\n#[DATABRICKS SETTINGS]"  >> ~/.env
+echo "DATABRICKS_HOSTNAME=" >> ~/.env
+echo "DATABRICKS_TOKEN=" >> ~/.env
+echo "DATABRICKS_HTTP_PATH=" >> ~/.env
 
-echo -e "\n\n [ENVIRONMENTAL VARIABLES]" >> .env
+echo "\n\n#[ENVIRONMENTAL VARIABLES]" >> .env
 echo "DATABRICKS_JAR=$PWD/software/user/open/databricks-jdbc/4.2.0/lib/DatabricksJDBC42.jar" >> .env
 echo "ODBCSYSINI=$HOME" >> .env
 echo "ODBCINI=$HOME/.odbc.ini" >> .env
