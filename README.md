@@ -14,10 +14,14 @@ Run:
 
 
 ```bash
+git clone https://github.com/the-tobias-project/lua-modules
+cd lua-modules
 bash install.sh
+source .bashrc
+cd ..
 ```
 
-This will download the ODBC driver and configure the folders. There will be a software folder at $HOME in addition to tho files: .odbc.ini and .odbcinst.ini. 
+This will download the ODBC driver and configure the folders. There will be a lua-modules folder and tho files at $HOME: .odbc.ini and .odbcinst.ini. 
 
 
 ## Module structure
