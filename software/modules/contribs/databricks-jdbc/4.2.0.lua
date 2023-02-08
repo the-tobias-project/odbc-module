@@ -26,7 +26,7 @@ depends_on("java/11.0.11")
 local db_jar = pathJoin(app.lib, "DatabricksJDBC42.jar")
 
 local r_script = [[
-  install.packages(c("DBI", "RJDBC", "remotes"), repos="https://cloud.r-project.org/")
+  install.packages("remotes", repos="https://cloud.r-project.org/")
   remotes::install_github("the-tobias-project/loaddatabricks")
 ]]
 

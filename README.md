@@ -1,10 +1,8 @@
 # Modules
 
-This module is using a custom R package we created with Databricks JDBC and ODBC drivers.
-Driver from: https://www.databricks.com/spark/jdbc-drivers-download
-There is a sha256 sum available for the version downloaded when this package was created: DatabricksJDBC42-2.6.32.1054.zip
+This module is using a custom R package we created with Databricks ODBC driver.
 
-For ODBC, the deb driver includes an md5 sum per file, that was the option in comparison with the rpm file that only has a 256 sum for the whole directory.
+The deb driver includes an md5 sum per file, that was the option in comparison with the rpm file that only has a 256 sum for the whole directory.
 Driver from: https://databricks-bi-artifacts.s3.us-east-2.amazonaws.com/simbaspark-drivers/odbc/2.6.29/SimbaSparkODBC-2.6.29.1049-Debian-64bit.zip
 
 
