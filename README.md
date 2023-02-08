@@ -17,8 +17,9 @@ Run:
 git clone https://github.com/the-tobias-project/lua-modules
 cd lua-modules
 bash install.sh
-source .bashrc
 cd ..
+echo "export MODULEPATH=$MODULEPATH:$HOME/lua-modules/software/modules/" >> ~/.bashrc
+source .bashrc
 ```
 
 This will download the ODBC driver and configure the folders. There will be a lua-modules folder and tho files at $HOME: .odbc.ini and .odbcinst.ini. 

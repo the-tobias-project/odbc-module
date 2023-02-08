@@ -15,7 +15,6 @@ pkg.lic = "open"
 -- app paths
 app.root  = pathJoin("~/lua-modules/software/user/", pkg.lic, pkg.name, pkg.version)
 
-app.src  = pathJoin(app.root, "src")
 app.lib  = pathJoin(app.root, "lib")
 
 -- dependencies
