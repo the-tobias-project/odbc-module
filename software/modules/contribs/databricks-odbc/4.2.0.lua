@@ -39,8 +39,8 @@ os.execute("Rscript -e '" .. r_script .. "'")
 -- set env
 -- pushenv("DATABRICKS_JAR",  db_jar)
 
-pushenv("ODBCSYSINI", os.getenv( "HOME" ))
-pushenv("ODBCINI",  pathJoin(os.getenv( "HOME" ), ".odbc.ini"))
+-- pushenv("ODBCSYSINI", os.getenv( "HOME" ))
+-- pushenv("ODBCINI",  pathJoin(os.getenv( "HOME" ), ".odbc.ini"))
 
 -- module info
 whatis("Name:        " .. pkg.name)

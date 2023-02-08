@@ -10,7 +10,6 @@ Driver from: https://databricks-bi-artifacts.s3.us-east-2.amazonaws.com/simbaspa
 
 Run:
 
-
 ```bash
 git clone https://github.com/the-tobias-project/lua-modules
 cd lua-modules
@@ -20,10 +19,16 @@ echo "export MODULEPATH=$MODULEPATH:$HOME/lua-modules/software/modules/" >> ~/.b
 source .bashrc
 ```
 
-This will download the ODBC driver and configure the folders. There will be a lua-modules folder and tho files at $HOME: .odbc.ini and .odbcinst.ini. 
+Fill in the .env in your workspace with the corresponding Databricks parameters. Then activate direnv:
+```bash
+source .bashrc
+direnv allow
+```
+
+This will download the ODBC driver and configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. The installation process creates a series of directories. 
 
 
-## Module structure
+## Module structure (pre-install)
 
 ```bash
 ├── get_databricks_driver.sh
@@ -50,39 +55,97 @@ This will download the ODBC driver and configure the folders. There will be a lu
                     └── lib
                         └── 64
                         
-
 ```
 
+
+## Post install
+
+```bash
+├── driver
+│   ├── DatabricksJDBC42-2.6.32.1054.zip
+│   └── SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
+├── get_databricks_driver.sh
+├── install.sh
+├── README.md
+└── software
+    ├── modules
+    │   └── contribs
+    │       ├── databricks-jdbc
+    │       │   └── 4.2.0.lua
+    │       └── databricks-odbc
+    │           └── 4.2.0.lua
+    └── user
+        └── open
+            ├── databricks-jdbc
+            │   └── 4.2.0
+            │       └── lib
+            │           └── DatabricksJDBC42.jar
+            └── databricks-odbc
+                └── 4.2.0
+                    ├── conf
+                    │   ├── odbc.ini
+                    │   └── odbcinst.ini
+                    └── simba
+                        └── spark
+                            ├── ErrorMessages
+                            │   └── en-US
+                            │       ├── DSMessages.xml
+                            │       ├── DSOAuthMessages.xml
+                            │       ├── ODBCMessages.xml
+                            │       ├── SparkODBCMessages.xml
+                            │       ├── SQLEngineMessages.xml
+                            │       └── ThriftExtensionMessages.xml
+                            ├── EULA.txt
+                            ├── lib
+                            │   └── 64
+                            │       ├── cacerts.pem
+                            │       ├── libsparkodbc_sb64.so
+                            │       ├── simba.sparkodbc.ini
+                            │       └── SparkODBC.did
+                            ├── release-notes.txt
+                            ├── Setup
+                            │   ├── odbc.ini
+                            │   └── odbcinst.ini
+                            ├── Simba\ Apache\ Spark\ ODBC\ Connector\ Install\ and\ Configuration\ Guide.pdf
+                            └── third-party-licenses.txt
+```
 
 ## Usage
 
-This module requires five parameters: address, port, organization, cluster and token. These could be extracted from the databricks url as follows:
 
-Go to compute > cluster in databricks, and select the cluster, then collect the following field:
-
-https://adb-12345.azuredatabricks.net/?o=6789#setting/clusters/abcd/configuration
-
+In the .env, fill in the parameters:
 
 ```
-address: adb-12345.azuredatabricks.net
-port: 443
-organization: 6789
-cluster: abcd
+DATABRICKS_HOSTNAME=
+DATABRICKS_TOKEN=
+DATABRICKS_HTTP_PATH=
+DATABRICKS_PORT=
 ```
 
-Excepting the port (443), the other values were set randomly just to show an example.
+Then activate direnv:
 
-Then with this module loaded, use the following function in your R session:
+```bash
+source .bashrc
+direnv allow
+```
 
+The module will unload R and load module unixodbc/2.3.9. It was observed that with R loaded, the install procedure fails.
+
+Check that the modules are available now:
+
+```bash
+[learoser@sh02-ln01 login ~]$ module spider | grep databricks
+contribs/databricks-jdbc: contribs/databricks-jdbc/4.2.0
+contribs/databricks-odbc: contribs/databricks-odbc/4.2.0
+```
+
+Then in R:
 
 ```r
 library(loaddatabricks)
-connection <- databricks_jdbc(address="adb-xxxx.azuredatabricks.net", port = "443", organization = "xxxx", cluster = "xxxx", token="xxxx")
+con <- connect_cluster()
 ```
 
 ```r
-dbReadTable(connection, "tobias.shinyapp_input")
-```
-
-
+dbListTables(con)
 ```
