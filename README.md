@@ -1,6 +1,6 @@
 # Modules
 
-This module is using a custom R package we created with Databricks JDBC and ODBC drivers: https://github.com/the-tobias-project/databricks-jdbc
+This module is using a custom R package we created with Databricks JDBC and ODBC drivers.
 Driver from: https://www.databricks.com/spark/jdbc-drivers-download
 
 
