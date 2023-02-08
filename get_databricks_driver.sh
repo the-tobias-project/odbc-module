@@ -16,4 +16,4 @@ echo "354bbf2ae6677779b581c2c410558e65ab4b8815c0e51cd317c5b909fd6ad416  Databric
 sha256sum -c shasum | tee >(grep "FAILED" && exit 1)
 unzip DatabricksJDBC42-2.6.32.1054.zip
 mv DatabricksJDBC42.jar $thispath/software/user/open/databricks-jdbc/4.2.0/lib 
-rm -rf docs EULA.txt
+rm -rf docs EULA.txt shasum
