@@ -29,14 +29,13 @@ DATABRICKS_HOSTNAME=
 DATABRICKS_TOKEN=
 DATABRICKS_HTTP_PATH=" >> ~/.env
 
-echo "Done"
-echo "Pease fill in the .env file in $HOME/.env with the Databricks variables and then run: direnv allow"
-
-
 echo -e "\n\n [ENVIRONMENTAL VARIABLES]" >> .env
-echo "DATABRICKS_JAR=$HOME/lua-modules/software/user/open/databricks-jdbc/4.2.0/lib/DatabricksJDBC42.jar" >> .env
+echo "DATABRICKS_JAR=$PWD/software/user/open/databricks-jdbc/4.2.0/lib/DatabricksJDBC42.jar" >> .env
 echo "ODBCSYSINI=$HOME" >> .env
 echo "ODBCINI=$HOME/.odbc.ini" >> .env
-echo "MODULEPATH=$MODULEPATH:$HOME/lua-modules/software/modules/" >> .env
+echo "MODULEPATH=$MODULEPATH:$PWD/software/modules/" >> .env
+
+echo "Done"
+echo "Pease fill in the .env file in $HOME/.env with the Databricks variables and then run: direnv allow"
 
 eval "$(direnv hook bash)"
