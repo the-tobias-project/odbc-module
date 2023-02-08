@@ -27,13 +27,13 @@ EOF
 echo "#[DATABRICKS SETTINGS]"  >> ~/.env
 echo "DATABRICKS_HOSTNAME=" >> ~/.env
 echo "DATABRICKS_TOKEN=" >> ~/.env
-echo "DATABRICKS_HTTP_PATH=\n\n" >> ~/.env
+echo -e "DATABRICKS_HTTP_PATH=\n\n" >> ~/.env
 
 echo "#[ENVIRONMENTAL VARIABLES]" >> .env
 echo "DATABRICKS_JAR=$PWD/software/user/open/databricks-jdbc/4.2.0/lib/DatabricksJDBC42.jar" >> .env
 echo "ODBCSYSINI=$HOME" >> .env
 echo "ODBCINI=$HOME/.odbc.ini" >> .env
-echo "MODULEPATH=$MODULEPATH:$PWD/software/modules/\n\n" >> .env
+echo -e "MODULEPATH=$MODULEPATH:$PWD/software/modules/\n\n" >> .env
 
 echo "Done"
 echo "Pease fill in the .env file in $HOME/.env with the Databricks variables and then run: direnv allow"
