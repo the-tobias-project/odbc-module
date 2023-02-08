@@ -10,7 +10,7 @@ sha256sum -c shasum | tee >(grep "FAILED" && exit 1)
 unzip SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 rpm2cpio simbaspark-2.6.29.1049-1.x86_64.rpm |  cpio -idmv
 rm opt/simba/spark/lib/64/simba.sparkodbc.ini
-rsync -av opt/simba/ $thispath/software/user/open/databricks-odbc/4.2.0/simba/
+rsync -av --ignore-existing opt/simba/ $thispath/software/user/open/databricks-odbc/4.2.0/simba/
 rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 
 echo "354bbf2ae6677779b581c2c410558e65ab4b8815c0e51cd317c5b909fd6ad416  DatabricksJDBC42-2.6.32.1054.zip" > shasum
