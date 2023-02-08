@@ -6,7 +6,6 @@ thispath=$PWD
 cd driver
 
 module unload R
-module load unixodbc/2.3.9
 
 echo "ce2b0e5b7f437a448cec784e2c79907b886e7cb28202d0c9d1733511b488aca2  SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip" > shasum
 sha256sum -c shasum | tee >(grep "FAILED" && exit 1)
