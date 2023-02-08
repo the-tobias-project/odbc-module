@@ -9,6 +9,7 @@ echo "ce2b0e5b7f437a448cec784e2c79907b886e7cb28202d0c9d1733511b488aca2  SimbaSpa
 sha256sum -c shasum | tee >(grep "FAILED" && exit 1)
 unzip SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 rpm2cpio simbaspark-2.6.29.1049-1.x86_64.rpm |  cpio -idmv
+rm opt/simba/spark/lib/64/simba.sparkodbc.ini
 mv opt/simba/* $thispath/software/user/open/databricks-odbc/4.2.0/simba/
 rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 
