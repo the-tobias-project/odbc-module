@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Messages [
+  <!ELEMENT Messages (Package*)>
+
+  <!ELEMENT Package (Error*)>
+  <!ATTLIST Package ID CDATA #REQUIRED>
+  <!ATTLIST Package DefaultComponent CDATA #REQUIRED>
+
+  <!ELEMENT Error (#PCDATA)>
+  <!ATTLIST Error Key ID #REQUIRED>
+  <!ATTLIST Error Component CDATA #IMPLIED>
+  <!ATTLIST Error NativeErrorCode CDATA #REQUIRED>
+  <!ATTLIST Error Params CDATA "0">
+]>
+
+<Messages>
+  <!-- Package TE_ERROR. ID corresponds to the TE_ERROR constant defined in ThriftExtension.h -->
+  <Package ID="200" DefaultComponent="ThriftExtension">
+    <!-- Error thrown when fail to initialize SASL library. -->
+    <Error Key="TEFailedInitializeSaslClientLib" Params="1" NativeErrorCode="0">Failed to initialize SASL client library: %1%</Error>
+
+    <!-- Error thrown when using Kerberos over HTTP and the Kerberos token factory has not been initialized. -->
+    <Error Key="TEKrbTokenFactoryNotInitialized" Params="0" NativeErrorCode="1">Kerberos token factory not initialized while trying to use Kerberos over HTTP(S).</Error>
+
+    <!-- Error thrown when authentication error occurs. -->
+    <Error Key="TEAuthError" Params="0" NativeErrorCode="2">Error occured during authentication.</Error>
+
+    <!-- Error thrown when driver is using a SASL mechanism to authenticate against a server that is not using SASL. -->
+    <Error Key="TESASLClientToNOSASLServer" Params="1" NativeErrorCode="3">Error occurred while contacting server: %1%. The connection has been configured to use a SASL mechanism for authentication. This error might be due to the server is not using SASL for authentication.</Error>
+
+    <!-- Error thrown when the driver is not using SASL to connection to a server that is using SASL for authentication. -->
+    <Error Key="TENOSASLClientToSASLServer" Params="1" NativeErrorCode="4">Error occurred while contacting server: %1%. The connection has been configured to not use SASL for authentication. This error might be due to the server has been configured to use SASL for authentication.</Error>
+    
+    <!-- Error thrown when non-SSL client tries to connect to SSL enabled server. -->
+    <Error Key="TENonSSLCxnToSSLServerError" Params="1" NativeErrorCode="5">Error occurred while contacting server: %1%. This could be because you are trying to establish a non-SSL connection to a SSL-enabled server.</Error>
+
+    <!-- Error thrown when driver tries use SSL to connect to non-SSL enabled server. -->
+    <Error Key="TESSLCxnToNonSSLServerError" Params="1" NativeErrorCode="6">Error occurred while contacting server: %1%. This could be because you are trying to establish a SSL connection to a server that does not have SSL enabled.</Error>
+
+    <!-- Error thrown when conversion is not supported. -->
+    <Error Key="TESaslKrbPluginError" Params="2" NativeErrorCode="7">The current connection is trying to use the %1% plugin but the SASL library has already been configured to use the %2% plugin by a previous connection. Using different SASL Kerberos plugins simultaneously in the same application is not supported.</Error>
+
+    <!-- Error thrown when access token expires. -->
+    <Error Key="TEAuthErrorWithDetails" Params="1" NativeErrorCode="8">Authentication/authorization error occurred. Error details: %1%</Error>
+
+    <!-- Error thrown when authentication/authorization error occurs when using SASL. -->
+    <Error Key="TESaslError" Params="1" NativeErrorCode="9">Error occurred while authenticating via SASL. Error details: %1%</Error>
+
+    <!-- Error thrown when authentication/authorization error occurs. -->
+    <Error Key="TEAuthTokenExpired" Params="1" NativeErrorCode="10">Access token expired: %1%</Error>
+
+    <!-- Error thrown when driver is using a Binary mechanism to authenticate against a server that is not using Binary. -->
+    <Error Key="TEBinaryClientToNonBinaryServer" Params="1" NativeErrorCode="11">Error occurred while contacting server: %1%. The connection has been configured to use a binary mechanism for authentication. This error might occur if the server is not using a binary mechanism for authentication.</Error>
+
+    <!-- Error thrown when driver is using a HTTP mechanism to authenticate against a server that is not using HTTP. -->
+    <Error Key="TEHTTPClientToNonHTTPServer" Params="1" NativeErrorCode="12">Error occurred while contacting server: %1%. The connection has been configured to use a HTTP mechanism for authentication. This error might be due to the server is not using HTTP for authentication.</Error>
+    
+    <!-- Error thrown when retry-after value is invalid -->
+    <Error Key="TEInvalidRetryAfterValueError" Params="1" NativeErrorCode="13">Invalid retry-after header value received from server for a %1% HTTP response, unable to retry.</Error>
+    
+    <!-- Error thrown when a detailed message is returned from the server for HTTP connections.-->
+    <Error Key="TEHTTPClientDetailedException" Params="1" NativeErrorCode="14">Unexpected response from server during a HTTP connection: %1%.</Error>
+
+    <!-- Error thrown when an error happens during testing.-->
+    <Error Key="TETestError" Params="1" NativeErrorCode="15">%1%</Error>
+
+    <!-- Error thrown when an error happens while parsing a HTTP status ranges string.-->
+    <Error Key="TEStatusRangesParsingError" Params="1" NativeErrorCode="16">%1%</Error>
+
+    <!-- Error thrown when an empty string is passed in for one of the API call name fields for a HTTP API retry related configuration.-->
+    <Error Key="TEEmptyApiCallNameError" Params="1" NativeErrorCode="17">One of the API call names passed in via the %1% configuration is an empty string which is not allowed. Please check your configuration.</Error>
+
+    <!-- Error thrown when an invalid API call name is passed in for one of the API call name fields for a HTTP API retry related configuration.-->
+    <Error Key="TEInvalidApiCallNameError" Params="2" NativeErrorCode="18">The API call name %1% passed in via the %2% configuration is not a valid API call name. Please check your configuration.</Error>
+    
+    <!-- Error thrown when the receive buffer of the Web server is full. -->
+    <Error Key="TEWebServerHttpBufferFull" Params="0" NativeErrorCode="19">The receive buffer of the web server is full.</Error>
+
+    <!-- Error thrown when the Web server failed to receive data with a socket error. -->
+    <Error Key="TEWebServerSocketError" Params="1" NativeErrorCode="20">The web server failed to receive data, the socket is invalid or closed, error code: %1%.</Error>
+
+    <!-- Error thrown when the Web server did not get connection before timeout. -->
+    <Error Key="TEWebServerNoConnection" Params="1" NativeErrorCode="21">The web server could not get connection from the Browser before timeout: %1% seconds.</Error>
+
+    <!-- Error thrown when SSO authentication flow failed to get token.-->
+    <Error Key="TESSOFailedGetToken" Params="1" NativeErrorCode="22">Failed to get SSO token: %1%</Error>
+
+    <!-- Error thrown when the Web server did not get content length from http header. -->
+    <Error Key="TEWebServerNoContentLength" Params="0" NativeErrorCode="23">The web server failed to get content length.</Error>
+
+    <!-- Error thrown when the Web server failed to start the listening port. -->
+    <Error Key="TEWebServerFailedToStartNoPort" Params="0" NativeErrorCode="24">The web server failed to start, no port is available.</Error>
+
+    <!-- Error thrown when the Web server failed to start the listening port. -->
+    <Error Key="TEWebServerFailedToStartPortConflicts" Params="1" NativeErrorCode="25">The web server failed to start, please verify if port %1% is being used by another connection or annother application.</Error>
+
+    <!-- Error thrown when the Web server did not get redirect url for SAML authentication. -->
+    <Error Key="TEWebBrowserFailedToGetURL" Params="0" NativeErrorCode="26">Could not get redirect url for SAML authentication.</Error>
+
+    <!-- Error thrown when the Web server could not open an browser for SAML authentication. -->
+    <Error Key="TEWebBrowserFailedToOpen" Params="0" NativeErrorCode="27">Could not open an web browser for SAML authentication.</Error>
+
+    <!-- Error thrown when the Web server could not open an browser for SAML authentication. -->
+    <Error Key="TEWebBrowserNotSupport" Params="0" NativeErrorCode="28">The browser based authentication is not supported on this platform.</Error>
+
+    <!-- Error thrown when the Web server could not open an browser for SAML authentication. -->
+    <Error Key="TEWebServerUnknowError" Params="0" NativeErrorCode="29">An unknown error happened to the web server.</Error>
+
+    <!-- Error thrown when SSO authentication flow failed to get token.-->
+    <Error Key="TESSOLoginTimeout" Params="1" NativeErrorCode="30">SQL_ATTR_LOGIN_TIMEOUT: %1% seconds is hit before SSO browser authentication flow. This may happen when the server is slow to respond. You can check the server settings or increase the SQL_ATTR_LOGIN_TIMEOUT.</Error>
+
+    <!-- Error thrown when the authentication flow is an invalid SAML authentication flow.-->
+    <Error Key="TEInvalidSAMLAuthFlow" Params="1" NativeErrorCode="31">%1% is not a valid SAML authentication flow.</Error>
+
+    <!-- Error thrown when the SQL_DRIVER_NOPROMPT is set while the driver is trying to do a SAML authentication flow.-->
+    <Error Key="TEDriverNoPromptForBrowserFlow" Params="0" NativeErrorCode="32">The application had set a SQL_DRIVER_NOPROMPT flag to prevent the driver from opening any dialog or browser Windows. The SSO browser authentication flow requires the driver to open a browser Windows. If you would like to use the SSO browser authentication flow and know that it is safe for the driver to ignore the SQL_DRIVER_NOPROMPT flag, then please set to SSOIgnoreDriverNoPrompt configuration to 1. For details on how to set the SSOIgnoreDriverNoPrompt, please refer to the driver's installation guide.</Error>
+
+    <!-- Error thrown when attempting to retrieve metadata from a catalog that is not the current catalog using a query. -->
+    <Error Key="TEGetMetadataWithQueryNotFromCurrentCatalogError" Params="2" NativeErrorCode="33">Getting metadata with query on a catalog that is not the current catalog is not allowed. Requested catalog: %1%. Current catalog: %2%.</Error>
+
+    <!-- Error thrown when the server supports catalogs but the driver still attempts to use the synthetic catalog with requests to the server.-->
+    <Error Key="TEServerSupportsCatalogButSyntheticCatalogUsedError" Params="3" NativeErrorCode="34">Using the synthetic catalog %1% with the %2% %3% is not allowed.</Error>
+
+    <!-- Error thrown when metadata is required for a catalog that is not the synthetic catalog when the server does not support catalogs. -->
+    <Error Key="TEMetadataForNonSyntheticCatalogError" Params="1" NativeErrorCode="35">Requesting metadata for a catalog that is not the synthetic catalog when the server does not support catalogs is not allowed. Catalog: %1%</Error>
+
+    <!-- Error thrown when the synthetic catalog is used in the query being sent to the server.-->
+    <Error Key="TESyntheticCatalogInQueryError" Params="0" NativeErrorCode="36">An attempt was made to use the synthetic catalog in a query being sent to the server. This type of operation is not allowed.</Error>
+    
+    <!-- Error thrown when temp tables or temp views are not associated with the empty string catalog. -->
+    <Error Key="TETempTableOrViewNotAssociatedWithEmptyStringCatalogError" Params="2" NativeErrorCode="37">Temp table/view %1% is not associated with the empty string catalog but is associated with the %2% instead.</Error>
+
+    <!-- Error thrown when attempting to set an empty string as the current catalog.-->
+    <Error Key="TEEmptyStringAsCurrentCatalogError" Params="0" NativeErrorCode="38">An attempt was made to set an empty string as the current catalog. This type of operation is not allowed.</Error>
+
+    <!-- Error thrown when TOpenSessionResp.initialNamespace is not set.-->
+    <Error Key="TEUnsetTNamespaceError" Params="0" NativeErrorCode="39">The server did not set the initialNamespace field in the TOpenSessionResp.</Error>
+
+    <!-- Error thrown when TOpenSessionResp.initialNamespace.catalogName is not set.-->
+    <Error Key="TEUnsetTNamespaceCatalogNameError" Params="0" NativeErrorCode="40">The server did not set the initialNamespace.catalogName field in the TOpenSessionResp.</Error>
+
+    <!-- Error thrown when an empty string has been set as the current catalog.-->
+    <Error Key="TEEmptyStringCurrentCatalogSetError" Params="0" NativeErrorCode="41">The current catalog has been set as an empty string which is not allowed.</Error>
+
+    <!-- Error thrown when the server enabled multiple catalogs support while the driver did not request for it.-->
+    <Error Key="TEServerEnabledMultipleCatalogsButDriverDidNotRequestError" Params="0" NativeErrorCode="42">The server enabled multiple catalogs support for the session but the driver did not request for it.</Error>
+
+    <!-- Error thrown when creating RSA signature from request. -->
+    <Error Key="TERSASignatureError" Params="1" NativeErrorCode="43">Unable to complete RSA Signature: %1%.</Error>
+
+    <!-- Error thrown when failed to retrive OCI region from the host.-->
+    <Error Key="TECouldNotExtractOCIRegion" Params="2" NativeErrorCode="44">Unable to retrieve OCI region from host: %1%. You can set OCI region with %2%.</Error>
+
+    <!-- Error thrown when creating RSA signature from request. -->
+    <Error Key="TEFailedGenerateRSAKey" Params="1" NativeErrorCode="45">Failed to generate RSA key pair: %1%.</Error>
+
+    <!-- Error thrown when the SQL_DRIVER_NOPROMPT is set when the driver is trying to do a OCI browser-based authentication flow.-->
+    <Error Key="TEDriverNoPromptForOCIBrowserFlow" Params="0" NativeErrorCode="46">The application had set a SQL_DRIVER_NOPROMPT flag to prevent the driver from opening any dialog or browser Windows. The SSO browser authentication flow requires the driver to open a browser Windows. If you would like to use the SSO browser authentication flow and know that it is safe for the driver to ignore the SQL_DRIVER_NOPROMPT flag, then please set to OCIIgnoreDriverNoPrompt configuration to 1. For details on how to set the OCIIgnoreDriverNoPrompt, please refer to the driver's installation guide.</Error>
+
+    <!-- Error thrown when SSO authentication flow failed to get token.-->
+    <Error Key="TEOCILoginTimeout" Params="1" NativeErrorCode="47">SQL_ATTR_LOGIN_TIMEOUT: %1% seconds is hit before the driver can get finish the authentication. This may happen when the server is slow to respond. You can check the server settings or increase the SQL_ATTR_LOGIN_TIMEOUT.</Error>
+
+    <!-- Error thrown when the translation for CREATE TABLE ... AS SELECT ... syntax is disabled.-->
+    <Error Key="TETranslationForCtasDisabled" Params="0" NativeErrorCode="48">Translation for CREATE TABLE ... AS SELECT ... syntax is disabled.</Error>
+  </Package> 
+</Messages>

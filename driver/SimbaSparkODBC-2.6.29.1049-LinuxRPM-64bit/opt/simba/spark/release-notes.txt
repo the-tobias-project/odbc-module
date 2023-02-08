@@ -1,0 +1,479 @@
+============================================================================== 
+Magnitude Simba Apache Spark ODBC Data Connector Release Notes 
+==============================================================================
+
+The release notes provide details of enhancements, features, known issues, and
+workflow changes in Simba Apache Spark ODBC Connector 2.6.29, as well as the 
+version history. 
+
+For information about upcoming support deprecations or removals, see the 
+Workflow Changes section. Deprecated features will not receive any updates,
+but will continue to be usable in their current state until support is removed
+in a future release.
+
+
+2.6.29 =======================================================================
+
+Released 2022-11-04
+
+Enhancements & New Features
+
+ * [SPARKO-972] SQLPrimaryKeys and SQLForeignKeys support
+
+   The connector now supports SQLPrimaryKeys and SQLForeignKeys catalog 
+   functions when connecting to a server of a supported version. For the
+   SQLForeignKeys function, when the catalog, schema and table name parameters
+   are specified for the primary key table while those for the foreign key 
+   table are left as NULL, the data source can choose not to support this 
+   restriction combination. To do this, set the 
+   ThrowOnUnsupportedPkFkRestriction connection property to 1. 
+   The SQLPrimaryKeys and SQLForeignKeys catalog functions can also be turned 
+   off by setting the EnablePKFK connection property to 0. For more 
+   information, see the Installation and Configuration Guide.
+
+
+Resolved Issues
+The following issue has been resolved in Simba Apache Spark ODBC Connector 
+2.6.29.
+
+ * [SPARKO-1008] When libcurl logging is enabled, the connector leaks the URLs
+   of cloud fetch results.
+
+
+Known Issues 
+The following are known issues that you may encounter due to limitations in 
+the data source, the connector, or an application.
+
+ * [SPARKO-879] When connecting to a server that supports multiple catalogs, 
+   the connector no longer reports the catalog for schemas and tables as
+   SPARK.
+  
+   The Spark server now reports the catalog. 
+
+ * [SPARKO-670] In some cases, when retrieving timestamp data, the connector 
+   returns an error.
+ 
+   In some cases, when connecting to certain distributions of 
+   Apache Spark, the connector returns the following error: "Conversion from
+   number to string failed due to undersized character buffer". This issue 
+   affects versions 2.6.12 to 2.6.14 of the Spark ODBC connector. 
+   
+   As a workaround, set EnableArrow=0 in the connection string or DSN. 
+   
+ * [SPARKO-620] Issue with date and timestamp before the beginning of the 
+   Gregorian calendar when connecting to Spark 2.4.4 or later, or versions 
+   previous to 3.0, with Arrow result set serialization.
+ 
+   When using Spark 2.4.4 or later, or versions previous to Spark 3.0, DATE 
+   and TIMESTAMP data before October 15, 1582 may be returned incorrectly if 
+   the server supports serializing query results using Apache Arrow. This 
+   issue should not impact most distributions of Apache Spark.
+
+   To confirm if your distribution of Spark 2.4.4 or later has been impacted 
+   by this issue, you can execute the following query:
+
+   SELECT DATE '1581-10-14'
+
+   If the result returned by the connector is 1581-10-24, then you are 
+   impacted by the issue. In this case, if your data set contains date and/or 
+   timestamp data earlier than October 15, 1582, you can work around this 
+   issue by adding EnableArrow=0 in your DSN or connection string to disable 
+   the Arrow result set serialization feature. 
+
+ * When retrieving data from a BINARY column, a ClassCastException error 
+   occurs.
+
+   In Spark 1.6.3 or earlier, the server sometimes returns a 
+   ClassCastException error when attempting to retrieve data from a BINARY 
+   column.
+
+   This issue is fixed as of Spark 2.0.0.
+
+   For more information, see the JIRA issue posted by Apache named "When
+   column type is binary, select occurs ClassCastException in Beeline" at
+   https://issues.apache.org/jira/browse/SPARK-12143.
+
+
+Workflow Changes =============================================================
+
+The following changes may disrupt established workflows for the connector. 
+
+In addition to changes that are already implemented in the current version of 
+the connector, this section describes potentially disruptive changes that will 
+be implemented in a future version of the connector, so that you can plan 
+accordingly.
+   
+   
+Upcoming ---------------------------------------------------------------------
+
+ * [SPARKO-585][SPARKO-587] Removing support for Spark 1.6, 2.1, and 2.2
+
+   As early as December 2022, the connector will no longer support servers that 
+   run Spark version 1.6, 2.1, or 2.2. For information about the supported 
+   Spark versions, see the Installation and Configuration Guide.
+   
+
+2.6.17 -----------------------------------------------------------------------
+
+ * [SPARKO-539][SPARKO-553][SPARKO-557][SPARKO-744] Removed support for 
+   multiple operating systems
+
+   Beginning with this release, the connector no longer supports the following
+   operating systems:
+   - Windows 7 SP1
+   - Windows Server 2008 R2
+   - macOS 10.9, 10.10, 10.11, and 10.12
+   - CentOS 6
+   - Red Hat Enterprise Linux (RHEL) 6
+   - Ubuntu 14.04
+
+   For a list of supported operating systems, see the Installation and 
+   Configuration Guide.
+   
+
+2.6.12 ------------------------------------------------------------------------
+
+ * [SPARKO-545] Removed support for the Visual C++ Redistributable for 
+   Visual Studio 2013
+
+   Beginning with this release, the connector now requires the 2015 version of
+   this dependency instead of the 2013 version. 
+
+   To download the installation packages for the Visual C++ Redistributable 
+   for Visual Studio 2015, go to 
+   https://www.microsoft.com/en-ca/download/details.aspx?id=48145.
+
+ * [SPARKO-583] Removed support for Spark 2.0
+
+   Beginning with this release, the connector no longer supports servers that 
+   run Spark version 2.0. For information about the supported Spark versions, 
+   see the Installation and Configuration Guide.
+
+
+2.6.0 ------------------------------------------------------------------------
+
+ * Minimum TLS Version
+
+   Beginning with this release, the connector requires a minimum version of 
+   TLS for encrypting the data store connection. By default, the connector 
+   requires TLS version 1.2. This requirement may cause existing DSNs and 
+   connection strings to stop working, if they are used to connect to data 
+   stores that use a TLS version earlier than 1.2.
+
+   To resolve this, in your DSN or connection string, set the Minimum TLS 
+   option (the Min_TLS property) to the appropriate version of TLS for your 
+   server. For more information, see the Installation and Configuration Guide.
+   
+
+Version History ==============================================================
+
+2.6.27 -----------------------------------------------------------------------
+
+Released 2022-08-10
+
+Enhancements & New Features
+
+ * [SPARKO-682] MapR SASL support
+
+   You can now authenticate your using MapR SASL. To do this, set the 
+   Mechanism option to MapR SASL (or set the AuthMech property to 13). For 
+   more information, see the Installation and Configuration Guide.
+
+
+2.6.26 -----------------------------------------------------------------------
+
+Released 2022-07-12
+
+Enhancements & New Features
+
+ * [SPARKO-968] Updated query support 
+
+   You can now asynchronously cancel queries on HTTP connections upon API
+   request.
+   
+
+Resolved Issues
+The following issue has been resolved in Simba Apache Spark ODBC Connector 
+2.6.26.
+
+ * [SPARKO-994] When using custom queries in Spotfire, the connector becomes
+   unresponsive. 
+
+
+2.6.25 -----------------------------------------------------------------------
+
+Released 2022-06-15
+
+Enhancements & New Features
+
+ * [SPARKO-973][SPARKO-980] Mitigate straggling downloads
+
+   You can now configure the connector to mitigate straggling result file 
+   download operations. To do this, set the following properties to the 
+   desired options:
+   - EnableStragglerDownloadMitigation
+   - EnableSynchronousDownloadFallback
+   - MaximumStragglersPerQuery
+   - StragglerDownloadMultiplier
+   - StragglerDownloadPadding
+   - StragglerDownloadQuantile 
+   
+   For more information, see the Installation and Configuration Guide.     
+   
+   
+Resolved Issues
+The following issue has been resolved in Simba Apache Spark ODBC Connector 
+2.6.25.
+
+ * [SPARKO-974] In some cases, the configuration of FILEDSN is removed from 
+   the connection string, causing the ConfigsFromFileDSN property to not 
+   function as expected. 
+   
+   This issue has been resolved. A new alias, FILEDSNPATH, has been added to 
+   FILEDSN. For more information, see the Installation and Configuration 
+   Guide.
+
+
+2.6.24 -----------------------------------------------------------------------
+
+Released 2022-05-25 
+
+Enhancements & New Features
+
+ * [SPARKO-911] Configure query translation for CTAS syntax
+
+   You can now configure the connector to perform a query translation for the
+   CTAS syntax. To do this, select the Enable Translation For CTAS check box 
+   (set the EnableTranslationForCTAS property to 1). For more information, see 
+   the Installation and Configuration Guide.
+   
+ * [SPARKO-967] Override SQL_ATTR_QUERY_TIMEOUT
+
+   You can now configure the connector to override SQL_ATTR_QUERY_TIMEOUT. To 
+   do this, set the QueryTimeoutOverride property to the desired amount of 
+   time in seconds. For more information, see the Installation and 
+   Configuration Guide.   
+   
+ * [SPARKO-962] Updated OpenSSL library
+ 
+   The connector now uses version 1.1.1n of the OpenSSL library. Previously, 
+   the connector used version 1.1.1l.    
+   
+Resolved Issues
+The following issues have been resolved in Simba Apache Spark ODBC Connector 
+2.6.24.
+
+ * [SPARKO-915] The connector does not allow the use of server and 
+   intermediate certificates that do not have a CRL distribution points (CDP)
+   entry.
+
+ * [SPARKO-964] When using a proxy, the connector sets the incorrect host name 
+   for SSL Server Name Indication (SNI).
+   
+
+2.6.23 -----------------------------------------------------------------------
+
+Released 2022-04-22
+
+Enhancements & New Features
+
+ * [SPARKO-911] Configure query translation for CTAS syntax
+
+   You can now configure the connector to perform a query translation for the
+   CTAS syntax. To do this, select the Enable Translation For CTAS check box 
+   (set the EnableTranslationForCTAS property to 1). For more information, see 
+   the Installation and Configuration Guide.
+   
+ * [SPARKO-967] Override SQL_ATTR_QUERY_TIMEOUT
+
+   You can now configure the connector to override SQL_ATTR_QUERY_TIMEOUT. To 
+   do this, set the QueryTimeoutOverride property to the desired amount of 
+   time in seconds. For more information, see the Installation and 
+   Configuration Guide.   
+   
+ * [SPARKO-962] Updated OpenSSL library
+ 
+   The connector now uses version 1.1.1n of the OpenSSL library. Previously, 
+   the connector used version 1.1.1l.    
+   
+
+Resolved Issues
+The following issue has been resolved in Simba Apache Spark ODBC Connector 
+2.6.23.
+
+ * [SPARKO-966] In some cases, after an SSL_read error, the HTTP client does
+   not reinitialize.   
+   
+
+2.6.22 -----------------------------------------------------------------------
+
+Released 2022-01-21
+
+Enhancements & New Features
+
+ * [SPARKO-934] Configuring the DSN file
+
+   On Windows, the connector can now read configuration names from the DSN 
+   file. To do this, set the ConfigsFromFileDSN property to a comma-separated
+   list of configuration names. For more information, see the Installation and
+   Configuration Guide.
+   
+
+Resolved Issues
+The following issue has been resolved in Simba Apache Spark ODBC Connector 
+2.6.22.
+
+ * [SPARKO-929] In some cases, when using LZ4 decompression, files are not
+   decompressed properly. 
+   
+
+2.6.20 -----------------------------------------------------------------------
+
+Released 2021-10-01
+
+Enhancements & New Features
+
+ * [SPARKO-781][SPARKO-782][SPARKO-783] Support for DFI cluster
+
+   The connector can now connect to a DFI cluster.
+
+
+2.6.19 -----------------------------------------------------------------------
+
+Released 2021-10-01
+
+Resolved Issues
+The following issues have been resolved in Simba Apache Spark ODBC Connector 
+2.6.19.
+
+ * [SPARKO-880] If an error occurs during an API call to the server and the 
+   server returns the SQLState in the API call response, the connector 
+   propagates the SQLState in the error exception that is thrown for the 
+   error.
+
+ * [SPARKO-909] In some cases, the connector removes the word SPARK from a 
+   table name in a query.
+
+
+2.6.18 -----------------------------------------------------------------------
+
+Released 2021-07-30
+
+Enhancements & New Features
+
+ * [SPARKO-879] Multiple catalogs support
+
+   The connector now supports multiple catalogs when connecting to a server
+   that supports multiple catalogs.
+
+ * [SPARKO-882] Updated UseNativeQuery property
+
+   The connector can now determine whether to use native query language, 
+   depending on the server's capability. To enable this, set the 
+   UseNativeQuery property to 2. For more information, see the Installation 
+   and Configuration Guide.
+
+ * [SPARKO-874] Updated AOSS service 
+
+   The connector now supports connection_host for the AOSS service. 
+
+
+Resolved Issues
+The following issues have been resolved in Simba Apache Spark ODBC Connector 
+2.6.18.
+
+ * [SPARKO-668] In some cases, on Linux and macOS, when checking the license,
+   the connector terminates unexpectedly. 
+
+ * [SPARKO-756] If a CREATE TABLE AS SELECT query contains subqueries, the
+   query fails. 
+
+ * [SPARKO-804] When columns have reserved keywords as names, even when 
+   quoted, the query fails to translate. 
+
+ * [SPARKO-878] In some cases, when sending heartbeat messages to the server,
+   the connector terminates unexpectedly. 
+
+ * [SPARKO-883] When you download compressed result set files from cloud
+   storage and the compressed file size is larger than the uncompressed file
+   size, the connector does not retrieve the query results. 
+   
+
+2.6.17 -----------------------------------------------------------------------
+
+Released 2021-05-11
+
+Enhancements & New Features
+
+ * [SPARKO-698][SPARKO-724] Download from cloud store
+
+   The connector now supports the downloading of query results from cloud 
+   stores, if the server supports the URL_BASED_SET result set type.  
+
+ * [SPARKO-683] Optimized retrieval behavior
+ 
+   If the Thrift wire protocol version used for the session opened with Spark 
+   server is SPARK_CLI_SERVICE_PROTOCOL_V1 or higher, the connector no longer
+   issues a "SET -V" command to retrieve server information.
+   
+ * [SPARKO-819] Heartbeat messages
+
+   The connector now attempts to send heartbeat messages to the server while 
+   fetching query results to keep the query operation active.
+
+ * [SPARKO-821] Default value for MaxBytesPerFetchRequest
+
+   The default value for MaxBytesPerFetchRequest, the property that specifies
+   the maximum number of bytes to retrieve from the server for every 
+   FetchResults API call, is now 300 MB. Previously, the default value was 10 
+   MB.
+
+ * [SPARKO-770] Max protocol version information
+
+   The connector now passes information about the max protocol version 
+   supported by the connector in the OpenSession request.      
+
+ * [SPARKO-625][SPARKO-747][SPARKO-752][SPARKO-785] Support for multiple
+   operating systems
+   
+   The connector now supports the following operating systems:
+   - Windows Server 2019
+   - macOS 10.15
+   - SUSE Linux Enterprise Server (SLES) 15
+   - Ubuntu 18.04 and 20.04
+   
+   For a list of supported operating systems, see the Installation and 
+   Configuration Guide.   
+
+ * [SPARKO-778] Updated OpenSSL library
+ 
+   The connector now uses version 1.1.1k of the OpenSSL library. Previously, 
+   the connector used version 1.1.1g. 
+   
+ * [SPARKO-758] Improvements to documentation
+ 
+   The Installation and Configuration Guide now includes clarification 
+   regarding which Linux distributions the RPM file and Debian packages are 
+   meant to be used on. 
+   
+
+Resolved Issues
+The following issues have been resolved in Simba Apache Spark ODBC Connector 
+2.6.17.
+
+ * [SPARKO-764] When using UnixODBC on Linux, error messages are truncated. 
+   
+   The value of ErrMsgMaxLen can now be changed, but this may cause the 
+   connector to terminate unexpectedly in some cases. This is due to a 
+   limitation of UnixODBC.
+ 
+ * [SPARKO-780] In some cases, the connector does not honor the 
+   MaxBytesPerFetchRequest property configuration.
+
+ * [SPARKO-825] In some cases, when using Linux, and executing the query 
+   "SELECT * from range(0, 1000000, 1, 1000)" against a Spark cluster that 
+   supports uploading query results to a cloud store, the connector terminates 
+   unexpectedly.
+
+
+============================================================================== 

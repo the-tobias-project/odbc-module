@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Messages [
+  <!ELEMENT Messages (Package*)>
+
+  <!ELEMENT Package (Error*)>
+  <!ATTLIST Package ID CDATA #REQUIRED>
+  <!ATTLIST Package DefaultComponent CDATA #REQUIRED>
+
+  <!ELEMENT Error (#PCDATA)>
+  <!ATTLIST Error Key ID #REQUIRED>
+  <!ATTLIST Error Component CDATA #IMPLIED>
+  <!ATTLIST Error NativeErrorCode CDATA #REQUIRED>
+  <!ATTLIST Error Params CDATA "0">
+]>
+
+<Messages>
+  <!-- Package HARDY_ERROR. ID corresponds to the HARDY_ERROR constant defined in Hardy.h -->
+  <Package ID="100" DefaultComponent="Hardy">
+    <!-- Error thrown when the license check fails. -->
+    <Error Key="HardyLicenseFailure" Params="1" NativeErrorCode="0">License validation error: %1%. Please contact Simba Technologies Inc. at sales@simba.com.</Error>
+    
+    <!-- Error thrown when failed to manage or allocate memory. -->
+    <Error Key="HardyMemMgmtErr" NativeErrorCode="1">Memory management error.</Error>
+
+    <!-- Error thrown when cannot find the requested metadata column. -->
+    <Error Key="HardyMetadataColumnNotFound" NativeErrorCode="2">Metadata column not found.</Error>
+
+    <!-- Error thrown when result set traversal direction is not supported. -->
+    <Error Key="HardyResultSetTraverseDirNotSupported" NativeErrorCode="3">Result set traversal direction is not supported.</Error>
+
+    <!-- Error thrown when metadata source ID is invalid or not supported. -->
+    <Error Key="HardyMetadataSourceIDNotSupported" NativeErrorCode="4">Metadata source ID not supported.</Error>
+
+    <!-- Error thrown when attempting to map Hardy type to SQL type. -->
+    <Error Key="HardyUnknownType" NativeErrorCode="5">Unknown data type.</Error>
+
+    <!-- Error thrown when attempting to access an invalid column. -->
+    <Error Key="HardyInvalidColumnIndex" Params="1" NativeErrorCode="6">Invalid column index: %1%.</Error>
+
+    <!-- Error thrown when an error occurs while opening a table file. -->
+    <Error Key="HardyFileOpenError" Params="1" NativeErrorCode="8">Error attempting to open file: %1%.</Error>
+
+    <!-- Error thrown when an error occurs while reading from a table . -->
+    <Error Key="HardyFileReadError" Params="1" NativeErrorCode="9">Error attempting to read data from file: %1%.</Error>
+
+    <!-- Error thrown when the DBF path isn't found in the registry. -->
+    <Error Key="HardyDbfNotFound" NativeErrorCode="10">DBF key not found in connection string.</Error>
+
+    <!-- Error thrown when the file is an invalid format. -->
+    <Error Key="HardyInvalidFileFormat" NativeErrorCode="11">The selected file is not encoded using UTF16-LE.</Error>
+
+    <!-- Error thrown when an attempt is made to retrieve data for a row that has not been processed. -->
+    <Error Key="HardyRowNotProcessed" NativeErrorCode="12">GetData() called before MoveFirst().</Error>
+
+    <!-- Error thrown when opening a table metadata file fails. -->
+    <Error Key="HardyTableMetadataFileOpenError" Params="1" NativeErrorCode="13">Unable to open table metadata file for table: %1%</Error>
+
+    <!-- Error thrown when writing a table metadata file fails. -->
+    <Error Key="HardyTableMetadataFileWriteError" Params="1" NativeErrorCode="14">Unable to write table metadata file for table: %1%</Error>
+
+    <!-- Error thrown when parsing a table metadata file fails. -->
+    <Error Key="HardyTableMetadataParseFormatError" Params="2" NativeErrorCode="15">Unable to parse table metadata file %1%: %2%</Error>
+
+    <!-- Error thrown when a table metadata file has invalid attributes. -->
+    <Error Key="HardyTableMetadataInvalidFormat" NativeErrorCode="16">Invalid table metadata file format.</Error>
+
+    <!-- Error thrown when the catalog name is invalid. -->
+    <Error Key="HardyInvalidCatalog" Params="1" NativeErrorCode="17">The catalog name '%1%' is invalid.</Error>
+
+    <!-- Error thrown when the table name does not exist. -->
+    <Error Key="HardyTableDoesNotExist" Params="1" NativeErrorCode="18">The table '%1%' does not exist.</Error>
+
+    <!-- Warning posted when a row count is requested via SQLRowCount. -->
+    <Error Key="HardyRowCountUnknown" Params="0" NativeErrorCode="19">The row count is unknown.</Error>
+
+    <!-- Error thrown when cannot find custom property. -->
+    <Error Key="CustomPropNotFound" Params="1" NativeErrorCode="20">Custom property not found: %1%</Error>
+
+    <!-- Error thrown when cannot find custom property key. -->
+    <Error Key="CustomPropKeyNotFound" Params="1" NativeErrorCode="21">Custom property key not found: %1%</Error>
+
+    <!-- Error thrown from the ThriftHiveClient. -->
+    <Error Key="HardyThriftHiveClientError" Params="1" NativeErrorCode="22">Error from server: %1%</Error>
+
+    <!-- Error thrown from the HardyThriftHiveClient when execute while the query has not been set. -->
+    <Error Key="HardyExecuteNullQueryError" Params="0" NativeErrorCode="23">Can not execute a null query.</Error>
+
+    <!-- Error thrown when an illegal operation has been performed. -->
+    <Error Key="HardyIllegalOperation" Params="0" NativeErrorCode="24">Illegal operation.</Error>
+
+    <!-- Error thrown when an illegal operation has been performed. -->
+    <Error Key="HardyParameterizedHiveQL" Params="0" NativeErrorCode="25">Parameterized HiveQL is not supported.</Error>
+
+    <!-- Error thrown when cannot find custom property key. -->
+    <Error Key="InvalidHiveDataType" Params="1" NativeErrorCode="26">Invalid data type: %1%</Error>
+
+    <!-- Error thrown when an unsupported SQL type is found. -->
+    <Error Key="HardyUnsupportSQLType" Params="0" NativeErrorCode="27">Unsupported SQL Type.</Error>
+
+    <!-- Error thrown when the EXCEPT expression is used in the query statement. It is not supported by HiveQL. -->
+    <Error Key="HardyExceptExpressionUsed" Params="0" NativeErrorCode="28">EXCEPT expression not support.</Error>
+
+    <!-- Error thrown when the INTERSECT expression is used in the query statement. It is not supported by HiveQL. -->
+    <Error Key="HardyIntersectExpressionUsed" Params="0" NativeErrorCode="29">INTERSECT expression not support.</Error>
+
+    <!-- Error thrown when the NOT boolean factor is operating on an IN predicate. It is not supported by HiveQL. -->
+    <Error Key="HardyNOTBooleanFactorUsed" Params="0" NativeErrorCode="30">NOT boolean factor not support.</Error>
+
+    <!-- Error thrown when a top level UNION is used in the query statement. It is not supported by HiveQL. -->
+    <Error Key="HardyTopLevelUnionUsed" Params="0" NativeErrorCode="31">Top level UNION not support.</Error>
+
+    <!-- Error thrown when a top percent is used in the query statement. It is not supported by HiveQL. -->
+    <Error Key="HardyTopPercentUsed" Params="0" NativeErrorCode="32">TOP/LIMIT clause expression as a percentage not support.</Error>
+
+    <!-- Error thrown when the NOT boolean factor is operating on an IN predicate. It is not supported by HiveQL. -->
+    <Error Key="HardySubqueryAsInPredicateValueUsed" Params="0" NativeErrorCode="33">Subquery as IN predicate value not support.</Error>
+
+    <!-- Error thrown from the TCLIServiceClient. -->
+    <Error Key="HardyHiveError" Params="1" NativeErrorCode="34">Error from server: %1%.</Error>
+
+    <!-- Error thrown from the TCLIServiceClient. -->
+    <Error Key="HardyTCLIServiceClientStatusError" Params="2" NativeErrorCode="35">Error from server: error code: '%1%' error message: '%2%'.</Error>
+
+    <!-- Error thrown when fail to initialize Windows sockets. -->
+    <Error Key="HardyFailedInitializeWinSockets" Params="0" NativeErrorCode="36">Failed to initialize WinSockets.</Error>
+
+    <!-- Error thrown when fail to initialize SASL library. -->
+    <Error Key="HardyFailedInitializeSaslClientLib" Params="1" NativeErrorCode="37">Failed to initialize SASL client library: %1%</Error>
+
+    <!-- Error indicating that the gssapi DLL can't be loaded for Kerberos. -->
+    <Error Key="HardyGssapiDllNeededForKrb" Params="0" NativeErrorCode="38">The gssapi DLL can not be loaded and it is needed for authenticating using Kerberos. Please ensure MIT Kerberos is installed.</Error>
+
+    <!-- Error thrown when the server is sending more rows than the driver can handle. -->
+    <Error Key="HardyFetchSizeTooBig" Params="0" NativeErrorCode="39">Server is sending more data than the negotiated max security buffer size. You may want to set the "Rows fetched per block" to a smaller value.</Error>
+
+    <!-- Error thrown when an unknown error has occurred while fetching query result set. -->
+    <Error Key="HardyGenericRSFetchError" Params="0" NativeErrorCode="40">Error occurred while fetching result set.</Error>
+
+    <!-- Error thrown when an unknown error has occurred while getting schema names from server. -->
+    <Error Key="HardyGetSchemaNamesError" Params="0" NativeErrorCode="41">Error occurred while retrieving schema names from server.</Error>
+
+    <!-- Error thrown when an unknown error has occurred while getting result set schema from server. -->
+    <Error Key="HardyGetRSSchemaError" Params="0" NativeErrorCode="42">Error occurred while retrieving result set schema from server.</Error>
+
+    <!-- Error thrown when an unknown error has occurred while getting table names from server. -->
+    <Error Key="HardyGetTableNamesError" Params="1" NativeErrorCode="43">Error occurred while retrieving table names of schema "%1%" from server.</Error>
+
+    <!-- Error thrown when an unknown error has occurred while getting table schema from server. -->
+    <Error Key="HardyGetTableSchemaError" Params="2" NativeErrorCode="44">Error occurred while retrieving table schema from server. Schema name: "%1%" Table name: "%2%"</Error>
+
+    <!-- Error thrown when an unknown error has occurred while calling server to executing a query. -->
+    <Error Key="HardyExecuteQueryError" Params="1" NativeErrorCode="45">Error occurred while calling server to execute query "%1%".</Error>
+
+    <!-- Error thrown when an unknown error has occurred while initializing the client. -->
+    <Error Key="HardyInitHiveClientError" Params="0" NativeErrorCode="46">Error occurred while initializing the client.</Error>
+
+    <!-- Error thrown when an unknown error has occurred while getting table metadata from server. -->
+    <Error Key="HardyGetTableMetaError" Params="2" NativeErrorCode="47">Error occurred while retrieving table metadata from server. Schema name: "%1%" Table name: "%2%"</Error>
+
+    <!-- Error thrown when an unknown error has occurred while closing an Hive Server 2 operation. -->
+    <Error Key="HardyHS2CloseOperationError" Params="0" NativeErrorCode="48">Error occurred while closing an operation against the server.</Error>
+
+    <!-- Error thrown when an unknown error has occurred while closing an Hive Server 2 session. -->
+    <Error Key="HardyHS2CloseSessionError" Params="0" NativeErrorCode="49">Error occurred while closing a session against the server.</Error>
+
+    <!-- Warning posted when a decimal value is right truncated. -->
+    <Error Key="HardyDecimalRightTruncationWarning" Params="1" NativeErrorCode="50">Decimal value %1% right truncated because there are more digits to the right of the decimal point than the scale of the column.</Error>
+
+    <!-- Error thrown when the wrong authentication mechanism is used for Hive Server 1. -->
+    <Error Key="InvalidHS1AuthMechError" Params="1" NativeErrorCode="51">Invalid authentication mechanism for HS1 type service: %1%</Error>
+
+    <!-- Error thrown when an HTTP error occurs when using REST service. -->
+    <Error Key="HardyRESTErr" Params="2" NativeErrorCode="52">Error communicating with the %1% service: %2%</Error>
+
+    <!-- Error thrown when the temporary table specified doesn't exist. -->
+    <Error Key="TempTableNotExistError" Params="1" NativeErrorCode="53">The temporary table %1% doesn't exists.</Error>
+
+    <!-- Error thrown when trying to create a temporary table that already exists. -->
+    <Error Key="TempTableAlreadyExistsError" Params="1" NativeErrorCode="54">Temporary table %1% already exists.</Error>
+
+    <!-- Error thrown when trying to do insert to a table while the operation is not supported. -->
+    <Error Key="InsertNotSupportedError" Params="1" NativeErrorCode="55">Insert operation is not support for table: %1%</Error>
+    
+    <!-- Error thrown when invalid JSON is returned by WebHDFS. -->
+    <Error Key="JSONParseError" Params="1" NativeErrorCode="56">JSON parsing error: %1%.</Error>
+
+    <!-- Error thrown when an unknown WebHDFS HTTP request type is used. -->
+    <Error Key="HardyUnknownHttpRequestType" Params="1" NativeErrorCode="57">Unknown HTTP request type: %1%</Error>
+
+    <!-- Error thrown when an getting 0 columns from server for a particular table. -->
+    <Error Key="HardyTableNoLongerExistError" Params="1" NativeErrorCode="58">Server returns zero column for table %1%. The table may no longer exist in server.</Error>
+
+    <!-- Error thrown when an getting 0 columns from server for a particular temporary table. -->
+    <Error Key="HardyTempTableNoLongerExistError" Params="1" NativeErrorCode="59">Server returns zero column for temporary table %1%. The temporary table may have expired and no longer exist in server.</Error>
+    
+    <!-- Error thrown when SQLCancel is attempted to be used to interrupt a query. -->
+    <Error Key="CancelUnsupported" Params="0" NativeErrorCode="60">Query cancellation from another thread is not supported.</Error>
+
+    <!-- Error thrown when Server returns error for an operation but doesn't provide an error message. -->
+    <Error Key="ErrorFromHiveWithEmptyErrorMsg" Params="1" NativeErrorCode="61">Server returned error with no error message during operation: %1%</Error>
+
+    <!-- Error thrown when error occurs while trying to load data into temporary table. -->
+    <Error Key="LoadDataIntoTempTableError" Params="2" NativeErrorCode="62">Error occurred while trying to load data into temporary table %1%. Message from server: %2%</Error>
+
+    <!-- Error thrown when invalid varchar column length is used in a CREATE TABLE statement. -->
+    <Error Key="InvalidVarcharColLenError" Params="1" NativeErrorCode="63">Invalid varchar column length: %1%</Error>
+
+    <!-- Error thrown when conversion fails. -->
+    <Error Key="DataConversionError" Params="3" NativeErrorCode="64">Failed to convert value %1% of type %2% to type %3%.</Error>
+
+    <!-- Error thrown when conversion is not supported. -->
+    <Error Key="UnsupportedDataConversionError" Params="2" NativeErrorCode="65">Converting from type %1% to type %2% is not supported.</Error>
+
+    <!-- Error thrown when HS2 returns a result column with no value. -->
+    <Error Key="HS2ResultColNotSetError" Params="0" NativeErrorCode="66">HS2 returns a column with no value.</Error>
+
+    <!-- Error thrown when trying to execute query while the operation has been cancelled by another thread. -->
+    <Error Key="HardyQueryCancelled" Params="0" NativeErrorCode="67">Query was cancelled.</Error>
+
+    <!-- Error thrown when fail to set the initial database. -->
+    <Error Key="HardySetInitialDatabaseError" Params="3" NativeErrorCode="68">Error returned trying to set %1% as the initial database: %2%; Also tried quoting the database name `%1%` but the query failed with the following error: %3%</Error>
+
+    <!-- Error thrown when unknown error occurs during test connection. -->
+    <Error Key="HardyTestConnectionUnknownError" Params="0" NativeErrorCode="69">Unknown error occurred during test connection.</Error>
+  
+    <!-- Error thrown when connection timeout occurs. -->
+    <Error Key="HardyConnTimeoutError" Params="0" NativeErrorCode="70">Connection timeout expired.</Error>
+
+    <!-- Error thrown when connection error occurred and auto reconnect is not allowed. -->
+    <Error Key="HardyAutoReconnectNotAllowedError" Params="1" NativeErrorCode="71">Auto reconnect is not allowed for this connection. Original Error: %1%</Error>
+
+    <!-- Error thrown when query execution timeout expired. -->
+    <Error Key="HardyQueryExecTimeoutError" Params="0" NativeErrorCode="72">Query execution timeout expired.</Error>
+
+    <!-- Error thrown when an unknown error has occurred while getting function names from server. -->
+    <Error Key="HardyGetFunctionNamesError" Params="0" NativeErrorCode="73">Error occurred while retrieving function names from server.</Error>
+
+    <!-- Error thrown when trying when calling an operating that requires the query to executed but no query has been executed. -->
+    <Error Key="HardyQueryNotExecutedError" Params="1" NativeErrorCode="74">Cannot call %1% when query has not been executed.</Error>
+
+    <!-- Error thrown when unable to connect to ZooKeeper. -->
+    <Error Key="HardyZkConnError" Params="0" NativeErrorCode="76">Error connecting to ZooKeeper. Please ensure the ZooKeeper host(s) and other connection information are configured correctly.</Error>
+
+    <!-- Error thrown when ZooKeeper did not return any HS2 hosts. -->
+    <Error Key="HardyZkNoServerHostError" Params="0" NativeErrorCode="77">No server host URI returned by ZooKeeper. Please ensure the ZooKeeper namespace is specified correctly and at least one server has successfully registered against ZooKeeper.</Error>
+
+    <!-- Error thrown for showing the changed HardySettings for emulated ZooKeeper. -->
+    <Error Key="HardyZkEmulatedSettings" Params="1" NativeErrorCode="78">Settings with the emulated ZooKeeper: %1%</Error>
+
+    <!-- Error thrown when the reconnect attempt failed. -->
+    <Error Key="HardyReconnectFailed" Params="0" NativeErrorCode="79">Failed to reconnect to server.</Error>
+  
+    <!-- Error thrown when syntax or semantic analysis error thrown in server while executing query. -->
+    <Error Key="HardyHQLSyntaxOrSemanticError" Params="1" NativeErrorCode="80">Syntax or semantic analysis error thrown in server while executing query. Error message from server: %1%</Error>
+  
+    <!-- Error thrown when trying to connect to the wrong server type. -->
+    <Error Key="IncorrectServerType" Params="1" NativeErrorCode="81">Attempting to connect to an incorrect server type: %1%. Please check your configuration.</Error>
+
+    <!-- Error thrown when trying to delete a row from a table while the operation is not supported. -->
+    <Error Key="DeleteNotSupportedError" Params="1" NativeErrorCode="82">Delete operation is not support for table: %1%</Error>
+
+    <!-- Error thrown when trying to do write-back a table while the operation is not supported. -->
+    <Error Key="WriteBackNotSupportedError" Params="1" NativeErrorCode="83">Write-back operation is not support for table: %1%</Error>
+    
+    <!-- Error thrown when trying to use Windows Azure HDInsigh Emulator. -->
+    <Error Key="HDInsightEmulatorDeprecated" Params="0" NativeErrorCode="84">Windows Azure HDInsigh Emulator is deprecated.</Error>
+    
+    <!-- Error thrown when trying to use Hive Server Type 1 for Microsoft brand driver. -->
+    <Error Key="HiveServerType1IsDeprecated" Params="0" NativeErrorCode="85">Hive Server Type 1 is deprecated</Error>
+
+    <!-- Error thrown when trying to get primary keys and foreign keys using HS1 type back-end. -->
+    <Error Key="PkFkNotSupportedByHS1" Params="0" NativeErrorCode="86">Primary keys and foreign keys are not support by HS1 type back-end.</Error>
+    
+    <!-- Error thrown when trying to use fake schema(Spark temporary table) #TEMP -->
+    <Error Key="InvalidSparkTempTableOperation" Params="1" NativeErrorCode="87">Syntax or semantic analysis error for Spark Temporary Table. %1%</Error>
+    
+    <!-- Error thrown when trying to insert into spark table while spark version does not support it -->
+    <Error Key="InsertIntoValuesNotSupported" Params="0" NativeErrorCode="88">INSERT INTO VALUES is not support in current Spark Version</Error>
+
+    <!-- Error thrown when an unknown error occurred in the API client. -->
+    <Error Key="HardyClientUnknownError" Params="1" NativeErrorCode="89">An unknown error occurred in function: %1%</Error>
+
+    <!-- Error thrown when an unknown method error returned from the server when executing a Thrift Client API method. -->
+    <Error Key="HardyUnknownThriftClientAPI" Params="2" NativeErrorCode="90">Thrift client API method not supported by server. API method : %1%  Error message from server: %2%</Error>
+
+    <!-- Error thrown when and empty statement string is being prepared or executed. -->
+    <Error Key="HardyEmptyStatementString" Params="0" NativeErrorCode="91">Empty statement string is not allowed.</Error>
+
+    <!-- Error thrown when attempting to use a m_tableNameColIndex thats larger than number of columns in result set. -->
+    <Error Key="HardyInvalidTableNameColIdx" Params="2" NativeErrorCode="92">Invalid ShowTablesTableNameColIdx value: %1%. SHOW TABLES result set has %2% columns.</Error>
+    
+    <!-- Error thrown when result set column that m_tableNameColIndex points to is not a string column. -->
+    <Error Key="HardyTableNameColInvalidDataType" Params="1" NativeErrorCode="93">The SHOW TABLES result set column that ShowTablesTableNameColIdx %1% points to is not a string column.</Error>
+
+    <!-- Error thrown when trying to insert into spark table while spark version does not support it. -->
+    <Error Key="CastValuesNotSupported" Params="0" NativeErrorCode="94">Unknown destination SQL type for CAST function.</Error>
+
+    <!-- Error thrown when CAST argument number does not equal two. -->
+    <Error Key="CastArgumentsWrongNumber" Params="1" NativeErrorCode="95">CAST scalar function expects two arguments. The number of arguments passed in is %1%.</Error>
+
+    <!-- Error thrown when CAST argument number does not equal two. -->
+    <Error Key="CastArgumentTypeMismatch" Params="0" NativeErrorCode="96">CAST scalar function expects the second argument to be a literal.</Error>
+
+    <!-- Error thrown when trying to retrieve table schema from server and an error from server. -->
+    <Error Key="HardyGetTableSchemaErrorFromServer" Params="1" NativeErrorCode="97">Error occurred while trying to get table schema from server. Error: %1%</Error>
+
+    <!-- Error thrown when trying to use Hive ODBC driver to connect to Spark server. -->
+    <Error Key="HardyConnectHiveDriverToSparkServerError" Params="0" NativeErrorCode="98">The host and port specified for the connection appear to belong to a Spark server. Using the Hive ODBC driver to connect to Spark server is not supported. Please check your configuration.</Error>
+
+    <!-- Error thrown when trying to use Spark ODBC driver to connect to Hive server. -->
+    <Error Key="HardyConnectSparkDriverToHiveServerError" Params="0" NativeErrorCode="99">The host and port specified for the connection appear to belong to a Hive server. Using the Spark ODBC driver to connect to Hive server is not supported. Please check your configuration.</Error>
+
+    <!-- Error thrown when trying to use Spark ODBC driver to connect to non-Spark server. -->
+    <Error Key="HardyConnectSparkDriverToNonSparkServerError" Params="0" NativeErrorCode="100">The host and port specified for the connection do not seem to belong to a Spark server. Please check your configuration.</Error>
+
+    <!-- Error thrown when an incorrect database is specified for the connection. -->
+    <Error Key="HardyIncorrectDatabaseError" Params="1" NativeErrorCode="101">Incorrect database %1% specified. Please check your configuration.</Error>
+    
+    <!-- Error thrown when trying to query foreign key with NULL foreign key schema and/or table restriction/filter from Hive Server earlier than 3.0. -->
+    <Error Key="HiveServerBug16788" Params ="0" NativeErrorCode="102">According to https://issues.apache.org/jira/browse/HIVE-16788 Hive earlier than version 3.0 incorrectly returns null pointer exception error when foreign key schema and/or table restriction/filter is NULL. To handle this the driver is returning an empty result set instead of an error for compatibility with certain BI tools. To workaround this please specify non-NULL foreign key schema and foreign key table restrictions for the SQLForeignKeys ODBC API call.</Error>
+    
+  <!-- Error thrown when an unsupported timestamp interval is specified in a timestamp function. -->
+    <Error Key="HardyUnsupportedTimestampInterval" Params="1" NativeErrorCode="103">The timestamp interval %1% is not supported by this server version.</Error>
+
+    <!-- Error thrown when the driver is not able to discover any server to connect to. -->
+    <Error Key="HardyUnableToDiscoverAnyServerError" Params="1" NativeErrorCode="104">Unable to discover any server for the connection. Error detail: %1%</Error>
+
+    <!-- Error thrown when unable to connect to any of the servers returned by discovery service. -->
+    <Error Key="HardyUnableToConnectToAnyDiscoveredServersError" Params="1" NativeErrorCode="105">Not able to connect to any of the servers returned by discovery service. Error detail: %1%</Error>
+
+    <!-- Error thrown when the service discovery mode being used cannot be recognized. -->
+    <Error Key="HardyUnrecognizedServiceDiscoveryModeError" Params="1" NativeErrorCode="106">Unrecognized service discovery mode: %1%</Error>
+
+    <!-- Error thrown when the wrong authentication mechanism is used for AOSS service discovery endpoint. -->
+    <Error Key="InvalidAuthMechForAOSS" Params="1" NativeErrorCode="107">Invalid authentication mechanism %1% for AOSS status endpoint.</Error>
+
+    <!-- Error thrown when clicking the OK button on the DSN Setup/Connection dialog while Service Discovery Mode is ZooKeeper and ZooKeeper Namespace is empty. -->
+    <Error Key="HardyEmptyZkNamespaceErr" Params="0" NativeErrorCode="108">ZooKeeper Namespace is required. Please select "Service Discovery Options..." and enter a value for "ZooKeeper Namespace".</Error>
+
+    <!-- Error thrown when clicking the OK button on the DSN Setup/Connection dialog while AuthMeth is OAuth Client Credentials and Authorization URL, Client ID or Client Secret is empty. -->
+    <Error Key="HardyEmptyOAuthCredentialsErr" Params="2" NativeErrorCode="109">%1% are required. Please select "OAuth Options..." and enter a value for %2%</Error>    
+
+    <!-- Error thrown when failed to establish connection with unknown error. -->
+    <Error Key="HardyFailedToConnectWithUnknownError" Params="0" NativeErrorCode="110">Failed to establish connection with unknown error.</Error>
+
+    <!-- Error thrown when the connection failed with error. -->
+    <Error Key="HardyConnFailedWithError" Params="1" NativeErrorCode="115">Connection failed with error: %1%</Error>
+
+    <!-- Error thrown when emulating ErrorException for fetch test. -->
+    <Error Key="HardyEmulatedFetchErrorException" Params="0" NativeErrorCode="120">Emulated ErrorException for fetch test.</Error>
+    
+    <!-- Error thrown when TSparkDirectResults is expected but not received. For internal testing only. -->
+    <Error Key="HardyDirectResultRespError" Params="0" NativeErrorCode="121">Expected TSparkDirectResults, but did not receive one.</Error>
+
+    <!-- Error thrown when HTTP Temporarily Unavailable retry-after timeout value has been hit. -->
+    <Error Key="HardyTemporarilyUnavailableRetryAfterTimeoutError" Params="2" NativeErrorCode="122">Temporarily Unavailable timeout of %1% seconds has been hit. Use TemporarilyUnavailableRetryTimeout to alter this value. Error from server: %2%</Error>
+    
+    <!-- Error thrown when HTTP rate limiting retry-after timeout value has been hit. -->
+    <Error Key="HardyRateLimitRetryAfterTimeoutError" Params="2" NativeErrorCode="123">Rate limit timeout of %1% seconds has been hit. Use RateLimitRetryTimeout to alter this value. Error: %2%</Error>
+    
+    <!-- Error thrown when HTTP retry after code is received but no retry-after header is returned. -->
+    <Error Key="HardyMissingRetryAfterError" Params="2" NativeErrorCode="124">A %1% response was returned but no Retry-After header was provided. Original error: %2%</Error>	
+	
+	  <!-- Error thrown when OAuth token expires while fetching results -->
+    <Error Key="HardyFetchTokenError" Params="1" NativeErrorCode="125">Token expired while fetching results: %1%. Please update the token and try again.</Error>
+
+    <!-- Error thrown when the result set metadata is not available during result set deserialization. -->
+    <Error Key="HardyResultSetMetadataNotAvailableForDeserialization" Params="0" NativeErrorCode="126">The necessary result set metadata for deserialization is not available. Unable to deserialize the current rowset.</Error>
+
+    <!-- Error thrown when the server returns an unknown data type for a rowset. -->
+    <Error Key="HardyServerReturnedUnknownDataTypeInRowSet" Params="1" NativeErrorCode="127">Server returned unknown type "%1%" in rowset.</Error>
+
+    <!-- Error thrown when the an error occurs while deserializing an Arrow result set batch. -->
+    <Error Key="HardyArrowRecordDeserializationError" Params="2" NativeErrorCode="128">An error had occurred while deserializing an Arrow result set batch. [Status code: %1%] [Error message: %2%]</Error>
+
+    <!-- Error thrown when a NULL Arrow array is returned by the server unexpectedly. -->
+    <Error Key="HardyNullArrowError" Params="1" NativeErrorCode="129">Server returned a NULL array for column %1%.</Error>
+
+    <!-- Error thrown when an error occurred while executing an INSERT statement causing a reconnect event to occurred. -->
+    <Error Key="HardyInsertErrorCausingReconnect" Params="0" NativeErrorCode="130">An error occurred while executing an INSERT statement which causes the driver to reconnect to the server.</Error>
+
+    <!-- Error thrown when HTTP retry after code is received but no retry-after header is returned. -->
+    <Error Key="HardyDisabledRetryAfterError" Params="3" NativeErrorCode="131">%1% is disabled, but a %2% HTTP response code was returned. Original error: %3%</Error>
+
+    <!-- Error thrown when the result file download operation did not finish after waiting for it to finish. -->
+    <Error Key="HardyResultFileDownloadNotCompletedError" Params="1" NativeErrorCode="132">%1%The operation to download a result file did not finish after waiting for it to finish. There may have been an error with how the download handler is used.</Error>
+
+    <!-- Error thrown when an error occurred while attempting to download a result file from a cloud store. -->
+    <Error Key="HardyResultFileDownloadError" Params="2" NativeErrorCode="133">%1%An error occurred while attempting to download a result file from the cloud store. Error Detail: %2%</Error>
+
+    <!-- Error thrown when a retriable error occurred while attempting to download a result file from a cloud store and the retry limit had been exceeded. -->
+    <Error Key="HardyResultFileDownloadNoMoreRetryError" Params="2" NativeErrorCode="134">%1%A retriable error occurred while attempting to download a result file from the cloud store but the retry limit had been exceeded. Error Detail: %2%</Error>
+
+    <!-- Error thrown when a retriable error occurred while attempting to download a result file from a cloud store and retry is not allowed. -->
+    <Error Key="HardyResultFileDownloadRetryNotAllowedError" Params="2" NativeErrorCode="135">%1%A retriable error occurred while attempting to download a result file from the cloud store but retry is not allowed for the connection. Error Detail: %2%</Error>
+
+    <!-- Error thrown when SSL is not enabled for the connection when downloading a result file from a cloud store. -->
+    <Error Key="HardyResultFileDownloadSslRequiredError" Params="0" NativeErrorCode="136">Unable to download result file from the cloud store as SSL is not enabled for the connection and SSL is required.</Error>
+
+    <!-- Error thrown when a result file download handler has been configured to handle synchronous download but is being run asynchronously. -->
+    <Error Key="HardyAsyncDownloadMisconfigError" Params="1" NativeErrorCode="137">%1%The result file download handler has been configured to handle synchronous download but is being run asynchronously.</Error>
+
+    <!-- Error thrown when the SET -V command is executed during connect. -->
+    <Error Key="HardySetDashVUsedError" Params="0" NativeErrorCode="138">The SET -V command is executed unexpectedly during connect.</Error>
+
+    <!-- Error thrown when the client_protocol_i64 field in the TOpenSessionReq is not set. -->
+    <Error Key="HardyClientProtocolI64FieldNotSetError" Params="0" NativeErrorCode="139">The client_protocol_i64 field in the TOpenSessionReq is not set.</Error>
+
+    <!-- Error thrown when the client_protocol_i64 field in the TOpenSessionReq does not contain the expected value. -->
+    <Error Key="HardyUnexpectedClientProtocolI64Error" Params="2" NativeErrorCode="140">The value of the client_protocol_i64 field in the TOpenSessionReq is %1% but it is expected to be %2%.</Error>
+
+    <!-- Error thrown when the maxBytes field in the TFetchResultsReq is not set. -->
+    <Error Key="HardyMaxBytesFieldNotSetError" Params="0" NativeErrorCode="141">The maxBytes field in the TFetchResultsReq is not set.</Error>
+
+    <!-- Error thrown when the maxBytes field in the TFetchResultsReq does not contain the expected value. -->
+    <Error Key="HardyUnexpectedMaxBytesError" Params="2" NativeErrorCode="142">The value of the maxBytes field in the TFetchResultsReq is %1% but it is expected to be %2%.</Error>
+
+    <!-- Error thrown when unsupported thrift API call is called. -->
+    <Error Key="HardyUnsupportedThriftAPICall" Params="1" NativeErrorCode="143">The Thrift API call, %1%, is not supported by the driver.</Error>
+
+    <!-- Error thrown when AuthMech is SAML_2.0 but SSL is not enabled.-->
+    <Error Key="HardySAMLWithoutSSL" Params="0" NativeErrorCode="144">SAML 2.0 authentication requires SSL to be enabled for the connection.</Error>
+
+    <!-- Error thrown when an unknown error has occurred while getting catalog names from server using the GetCatalogs API call. -->
+    <Error Key="HardyGetCatalogsError" Params="0" NativeErrorCode="145">An unknown error occurred while retrieving catalog names from server using the GetCatalogs API call.</Error>
+
+    <!-- Error thrown when an invalid value is passed in for the ApiCallForSqlStateEmulation configuration. -->
+    <Error Key="HardyInvalidApiCallForSqlStateEmulationError" Params="1" NativeErrorCode="146">Invalid value "%1%" passed in for the ApiCallForSqlStateEmulation configuration.</Error>
+
+    <!-- Error thrown when an invalid value is passed in for the EmulatedSqlState configuration. -->
+    <Error Key="HardyInvalidEmulatedSqlStateError" Params="1" NativeErrorCode="147">Invalid value "%1%" passed in for the EmulatedSqlState configuration.</Error>
+
+    <!-- Warning thrown for testing warning during connect. -->
+    <Error Key="HardyConnectionTestWarning" Params="0" NativeErrorCode="148">Connection test warning.</Error>
+
+    <!-- Error thrown when AuthMech is SAML_2.0 but SSL is not enabled.-->
+    <Error Key="HardyRefreshOCIError" Params="0" NativeErrorCode="149">Error when requesting to refresh the OCI token: %1%.</Error>
+	
+	<!-- Error thrown when a negative value is passed in for the StragglerDownloadMultiplier.-->
+    <Error Key="HardyStragglerDownloadMultiplierNegativeError" Params="1" NativeErrorCode="150">Negative value: %1% passed in for StragglerDownloadMultiplier. It should be greater than 0.</Error>
+	
+	<!-- Error thrown when an invalid value is passed in for the StragglerDownloadQuantile.-->
+    <Error Key="HardyStragglerDownloadQuantileOutOfBoundsError" Params="1" NativeErrorCode="151">Invalid value: %1% passed in for StragglerDownloadQuantile. It should be between 0 and 1.</Error>
+	
+	<!-- Error thrown when an unsupported AsyncCancelQuery request is sent to a HS1 Client.-->
+    <Error Key="AsyncCancelQueryNotSupportedByHS1" Params="0" NativeErrorCode="152">Error requesting AsyncQueryCancellation on a HS1 client connection.</Error>
+  
+	<!-- Error thrown when an unknown error has occurred when asynchronously sending a CancelOperation API call. -->
+    <Error Key="HardyAsyncCancelQueryError" Params="0" NativeErrorCode="153">An unknown error occurred while asynchronously cancelling query using the CancelOperation API call.</Error>
+	
+	<!-- Error thrown when Async Query Cancellation testing exceeds maximum time in seconds.-->
+    <Error Key="HardyExceededMaxQueryCancellationTime" Params="0" NativeErrorCode="154">Error from max time exceeded for AsyncQueryCancellation test.</Error>
+	
+	<!-- Error thrown when Async Query Cancellation testing does not return a cancel exception.-->
+    <Error Key="HardyQueryCancelNotCompleted" Params="0" NativeErrorCode="155">Error from AsyncQueryCancellation not returning a cancel exception.</Error>
+  
+  <!-- Error thrown when Mapr SASL is not supoported for the customer.-->
+    <Error Key="MapRSASLNotSupported" Params="0" NativeErrorCode="156">Mapr SASL is not supported.</Error>
+
+    <!-- Error thrown when runAsync is not set in GetPrimaryKeys/GetCrossReferences request. -->
+    <Error Key="HardyGetPkFkAsyncNotSetError" Params="0" NativeErrorCode="157">The runAsync field in the TGetPrimaryKeysReq or TGetCrossReferenceReq is not set.</Error>
+
+    <!-- Error thrown when getDirectResults is not set in GetPrimaryKeys/GetCrossReferences request. -->
+    <Error Key="HardyGetPkFkGetDirectResultsNotSetError" Params="0" NativeErrorCode="158">The getDirectResults field in the TGetPrimaryKeysReq or TGetCrossReferenceReq is not set.</Error>
+
+    <!-- Error thrown when GetOperationStatus() is called if runAsync is set in GetPrimaryKeys/GetCrossReferences request. This is an expected error to verify runAsync works properly. -->
+    <Error Key="HardyGetOperationStatusCalledOnGetPkFkRunAsync" Params="0" NativeErrorCode="159">The GetOperationStatus() is called as expected during the retrieval of primary keys/foreign keys when runAsync field in the TGetPrimaryKeysReq or TGetCrossReferenceReq is set.</Error>
+
+    <!-- Error thrown when the restriction combination in GetPrimaryKeys/GetCrossReferences request is not supported. -->
+    <Error Key="HardyRestrictionsOnPkFkNotSupported" Params="0" NativeErrorCode="160">The specified restriction combination for primary keys/foreign keys is currently not supported.</Error>
+
+  </Package>
+</Messages>
