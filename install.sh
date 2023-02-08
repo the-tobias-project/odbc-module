@@ -2,7 +2,8 @@
 
 set -e
 
-THISPATH=$PWD
+export THISPATH=$PWD
+export SPARKPATH=$THISPATH/software/user/open/databricks-odbc/4.2.0/simba/spark
 cd driver
 module unload R
 eval "$(direnv hook bash)"
@@ -17,10 +18,11 @@ rm opt/simba/spark/lib/64/simba.sparkodbc.ini
 rsync -av --ignore-existing opt/simba/ $THISPATH/software/user/open/databricks-odbc/4.2.0/simba/
 rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 
+
 envsubst < "$THISPATH/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "$HOME/.odbc.ini"
 envsubst < "$THISPATH/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "$HOME/.odbcinst.ini"
-envsubst < "$THISPATH/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini" > temporal.txt
-mv temporal.txt "$THISPATH/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini"
+envsubst < "$SPARKPATH/lib/64/simba.sparkodbc.ini" > temporal.txt
+mv temporal.txt "$SPARKPATH/lib/64/simba.sparkodbc.ini"
 module use --append "$THISPATH/software/modules/contribs"
 
 
