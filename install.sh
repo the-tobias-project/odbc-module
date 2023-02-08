@@ -2,7 +2,7 @@
 
 set -e
 
-cd odbc-module/driver
+cd driver
 module unload R
 THISPATH=$PWD
 
