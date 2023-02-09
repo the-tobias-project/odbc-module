@@ -1,7 +1,7 @@
 configure:
-	./configure.sh
+	./scripts/configure.sh
 
 install: 
 	source ~/.bashrc
 	direnv allow
-	./install.sh
+	./scripts/install.sh
