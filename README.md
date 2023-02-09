@@ -25,13 +25,13 @@ make install
 ## NOTE:
 The raw odbc module can be downloaded from https://www.databricks.com/spark/odbc-drivers-download, or with
 
-````bash
+```bash
 wget https://databricks-bi-artifacts.s3.us-east-2.amazonaws.com/simbaspark-drivers/odbc/2.6.29/SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 ```
 
 - WARNING: sha256 sum does not mach with the provided digest
 
-````bash
+```bash
 echo "ce2b0e5b7f437a448cec784e2c79907b886e7cb28202d0c9d1733511b488aca2  SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip" | sha256sum --check
 
 SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip: FAILED
@@ -45,19 +45,19 @@ This will download the ODBC driver and configure the system for the correspondin
 
 This is visible oafter loading the odbc driver in the terminal session:
 
-````bash
+```bash
 [learoser@sh03-ln02 login ~]$ whereis libodbc.so.2
 libodbc.so: /usr/lib64/libodbc.so /usr/lib64/libodbc.so.2
-````
+```
 
 However this is not visible in the on demand session. With the unixodbc library loaded. 
 
 
 This package includes the unixodbc library and is setting this variable:
 
-````bash
+```bash
 export LD_LIBRARY_PATH=/home/users/learoser/odbc-module/driver/unixODBC-2.3.11/DriverManager/.libs
-````
+```
 
 However this does not appears to modify the above result. 
 
