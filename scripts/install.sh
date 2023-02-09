@@ -2,7 +2,7 @@
 
 set -e
 
-export THISPATH=$(dirname $PWD)
+export THISPATH=$PWD
 export SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
 cd driver
 module unload R
