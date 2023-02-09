@@ -10,7 +10,6 @@ Driver from: https://databricks-bi-artifacts.s3.us-east-2.amazonaws.com/simbaspa
 
 Run:
 
-
 ```bash
 git clone https://github.com/the-tobias-project/odbc-module
 cd odbc-module
@@ -39,9 +38,28 @@ SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip: FAILED
 sha256sum: WARNING: 1 computed checksum did NOT match
 ```
 
-
-
 This will download the ODBC driver and configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. The installation process creates a series of directories. 
+
+
+## Problems in on demand sessions
+
+This is visible oafter loading the odbc driver in the terminal session:
+
+````bash
+[learoser@sh03-ln02 login ~]$ whereis libodbc.so.2
+libodbc.so: /usr/lib64/libodbc.so /usr/lib64/libodbc.so.2
+````
+
+However this is not visible in the on demand session. With the unixodbc library loaded. 
+
+
+This package includes the unixodbc library and is setting this variable:
+
+````bash
+export LD_LIBRARY_PATH=/home/users/learoser/odbc-module/driver/unixODBC-2.3.11/DriverManager/.libs
+````
+
+However this does not appears to modify the above result. 
 
 
 ## Module structure (pre-install)
