@@ -62,87 +62,24 @@ export LD_LIBRARY_PATH=/home/users/learoser/odbc-module/driver/unixODBC-2.3.11/D
 However this does not appears to modify the above result. 
 
 
-## Module structure (pre-install)
-
-```bash
-├── get_databricks_driver.sh
-├── install.sh
-├── README.md
-└── software
-    ├── modules
-    │   └── contribs
-    │       ├── databricks-jdbc
-    │       │   └── 4.2.0.lua
-    │       └── databricks-odbc
-    │           └── 4.2.0.lua
-    └── user
-        └── open
-            ├── databricks-jdbc
-            │   └── 4.2.0
-            │       └── lib
-            │           └── DatabricksJDBC42.jar
-            └── databricks-odbc
-                └── 4.2.0
-                    ├── conf
-                    │   ├── odbc.ini
-                    │   └── odbcinst.ini
-                    └── lib
-                        └── 64
-                        
-```
-
-
-## Post install
+## Module structure
 
 ```bash
 ├── driver
-│   ├── DatabricksJDBC42-2.6.32.1054.zip
-│   └── SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
-├── get_databricks_driver.sh
-├── install.sh
+│   ├── SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
+│   ├── unixODBC-2.3.11
+│   ├── unixODBC-2.3.11.tar.gz
+│   └── unixODBC-2.3.11.tar.gz.md5
+├── Makefile
 ├── README.md
+├── scripts
+│   ├── configure.sh
+│   └── install.sh
 └── software
     ├── modules
-    │   └── contribs
-    │       ├── databricks-jdbc
-    │       │   └── 4.2.0.lua
-    │       └── databricks-odbc
-    │           └── 4.2.0.lua
     └── user
-        └── open
-            ├── databricks-jdbc
-            │   └── 4.2.0
-            │       └── lib
-            │           └── DatabricksJDBC42.jar
-            └── databricks-odbc
-                └── 4.2.0
-                    ├── conf
-                    │   ├── odbc.ini
-                    │   └── odbcinst.ini
-                    └── simba
-                        └── spark
-                            ├── ErrorMessages
-                            │   └── en-US
-                            │       ├── DSMessages.xml
-                            │       ├── DSOAuthMessages.xml
-                            │       ├── ODBCMessages.xml
-                            │       ├── SparkODBCMessages.xml
-                            │       ├── SQLEngineMessages.xml
-                            │       └── ThriftExtensionMessages.xml
-                            ├── EULA.txt
-                            ├── lib
-                            │   └── 64
-                            │       ├── cacerts.pem
-                            │       ├── libsparkodbc_sb64.so
-                            │       ├── simba.sparkodbc.ini
-                            │       └── SparkODBC.did
-                            ├── release-notes.txt
-                            ├── Setup
-                            │   ├── odbc.ini
-                            │   └── odbcinst.ini
-                            ├── Simba\ Apache\ Spark\ ODBC\ Connector\ Install\ and\ Configuration\ Guide.pdf
-                            └── third-party-licenses.txt
 ```
+                        
 
 ## Usage
 
