@@ -23,6 +23,23 @@ Here, fill in the values in the .env file, then:
 make install
 ```
 
+## NOTE:
+The raw odbc module can be downloaded from https://www.databricks.com/spark/odbc-drivers-download, or with
+
+````bash
+wget https://databricks-bi-artifacts.s3.us-east-2.amazonaws.com/simbaspark-drivers/odbc/2.6.29/SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
+```
+
+- WARNING: sha256 sum does not mach with the provided digest
+
+````bash
+echo "ce2b0e5b7f437a448cec784e2c79907b886e7cb28202d0c9d1733511b488aca2  SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip" | sha256sum --check
+
+SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match
+```
+
+
 
 This will download the ODBC driver and configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. The installation process creates a series of directories. 
 
