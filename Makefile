@@ -1,5 +1,7 @@
 configure:
 	./configure.sh
 
-install: get_driver
+install: 
+	source ~/.bashrc
+	direnv allow
 	./install.sh

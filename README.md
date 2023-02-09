@@ -14,19 +14,13 @@ Run:
 ```bash
 git clone https://github.com/the-tobias-project/odbc-module
 cd odbc-module
-bash configure.sh
+make configure
 ```
 
 Here, fill in the values in the .env file, then:
 
 ```bash
-source .bashrc
-direnv allow
-
-bash install.sh
-cd ..
-echo "export MODULEPATH=$MODULEPATH:$HOME/odbc-module/software/modules/" >> ~/.bashrc
-source .bashrc
+make install
 ```
 
 
