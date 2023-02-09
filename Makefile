@@ -1,7 +1,9 @@
+DIR := ${CURDIR}
+
 configure:
-	./scripts/configure.sh
+        . ${DIR}/scripts/configure.sh
 
 install: 
-	source ~/.bashrc
-	direnv allow
-	./scripts/install.sh
+        direnv hook bash
+        direnv allow
+        . ${DIR}/scripts/install.sh
