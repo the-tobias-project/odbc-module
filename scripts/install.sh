@@ -45,7 +45,7 @@ mylib=$HOME/R/x86_64-pc-linux-gnu-library/4.2
 R --vanilla <<EOF
 dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive=TRUE)
 .libPaths(Sys.getenv("R_LIBS_USER"))  
-install.packages(c('DBI', 'odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
+install.packages(c('DBI', 'odbc', 'dotenv'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
 q()
 EOF
 
