@@ -26,7 +26,7 @@ So the sha256sum does not match. See below the options 'make install check=false
 
 ## Installation instructions
 
-In your $HOME in Skerlock, 
+In your $HOME in Sherlock, 
 
 Run:
 
