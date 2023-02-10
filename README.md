@@ -1,4 +1,4 @@
-# ODBC module
+# ODBC module - Working on command-line and on-demand sessions
 
 This module is using a custom R package we created with Databricks ODBC driver.
 
