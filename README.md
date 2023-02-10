@@ -85,9 +85,9 @@ dbListTables(con)
 ```
 
 
-## Problems in on demand sessions
+## Problems in on demand sessions for previous versions of this package
 
-This is visible oafter loading the odbc driver in the terminal session:
+This was visible oafter loading the odbc driver in the terminal session:
 
 ```bash
 [learoser@sh03-ln02 login ~]$ whereis libodbc.so.2
@@ -104,6 +104,22 @@ export LD_LIBRARY_PATH=/home/users/learoser/odbc-module/driver/unixODBC-2.3.11/D
 ```
 
 However this does not appears to modify the above result. 
+
+
+The solution I found was to add to the R code the following:
+
+```bash
+    dyn.load(paste0(odbc_module_path, "/odbc-module/driver/unixODBC-2.3.11/odbcinst/.libs/libodbcinst.so"),
+             now=TRUE)
+    dyn.load(paste0(odbc_module_path, "/odbc-module/driver/unixODBC-2.3.11/DriverManager/.libs/libodbc.so.2"),
+             now=TRUE)
+  }
+
+```
+
+The code is here: https://github.com/the-tobias-project/loaddatabricks/blob/main/R/connect_databricks.R
+
+This is hardcoded and might not be ideal. But it is a solution that works in the on-demand sessions. 
 
 
 ## Module structure
