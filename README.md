@@ -36,7 +36,7 @@ cd odbc-module
 make
 ```
 
-Here, fill in the values in the .env file:
+Here, fill in the values in the .env file at $HOME:
 
 ```
 DATABRICKS_HOSTNAME=
