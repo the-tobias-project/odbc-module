@@ -1,7 +1,5 @@
 DIR := ${CURDIR}
-
-.PHONY: default
-default: configure 
+check := true
 
 configure:
 	. ${DIR}/scripts/configure.sh
@@ -9,4 +7,7 @@ configure:
 install: 
 	direnv hook bash
 	direnv allow
-	. ${DIR}/scripts/install.sh
+	. ${DIR}/scripts/install.sh ${check}
+
+.PHONY: default
+default: configure 
