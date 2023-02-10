@@ -39,6 +39,7 @@ module use --append "$THISPATH/software/modules/contribs"
 ### install R package 
 
 module load R/4.2.0
+module load unixodbc/2.3.9
 
 mylib=$HOME/R/x86_64-pc-linux-gnu-library/4.2
 
