@@ -85,7 +85,7 @@ dbListTables(con)
 
 ## Problems in on demand sessions for previous versions of this package
 
-This was visible oafter loading the odbc driver in the terminal session:
+This was visible after loading the odbc driver in the terminal session:
 
 ```bash
 [learoser@sh03-ln02 login ~]$ whereis libodbc.so.2
