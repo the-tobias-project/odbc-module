@@ -25,23 +25,6 @@ depends_on("system")
 depends_on("unixodbc/2.3.9")
 depends_on("spark/3.2.1")
 
-local r_script = [[
-  install.packages("remotes", repos="https://cloud.r-project.org/")
-  remotes::install_github("the-tobias-project/loaddatabricks")
-]]
-
-os.execute("Rscript -e '" .. r_script .. "'")
-
--- set paths
---prepend_path("R_LIBS_USER ",            app.bin)
---prepend_path("LIBRARY_PATH",    app.lib)
---prepend_path("LD_LIBRARY_PATH", app.lib)
-
--- set env
--- pushenv("DATABRICKS_JAR",  db_jar)
-
--- pushenv("ODBCSYSINI", os.getenv( "HOME" ))
--- pushenv("ODBCINI",  pathJoin(os.getenv( "HOME" ), ".odbc.ini"))
 
 -- module info
 whatis("Name:        " .. pkg.name)
