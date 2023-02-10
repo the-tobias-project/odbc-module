@@ -143,5 +143,5 @@ This is hardcoded and might not be ideal. But it is a solution that works in the
 
 ## NOTES FOR ON-DEMAND SESSIONS
 
-Use R 4.2.0 and contribs/databricks-odbc/4.2.0. The solutions is currently hardcoded to this R version. 
+Use R 4.2.0 and contribs/databricks-odbc/4.2.0. The solutions is currently hardcoded to this R version. Future versions might need to take into account versioning of the odbc R package (I tested other versions and the package had major changes from version 1.2.2 https://cran.r-project.org/src/contrib/Archive/odbc/), etc.  
        
