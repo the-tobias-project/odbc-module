@@ -42,7 +42,16 @@ cd odbc-module
 make
 ```
 
-Here, fill in the values in the .env file, then:
+Here, fill in the values in the .env file:
+
+```
+DATABRICKS_HOSTNAME=
+DATABRICKS_TOKEN=
+DATABRICKS_HTTP_PATH=
+DATABRICKS_PORT=
+```
+
+Then run:
 
 ```bash
 make install
@@ -55,9 +64,30 @@ make install check=false
 ```
 
 
-This will download the ODBC driver and configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. The installation process creates a series of directories. 
+This will download the ODBC driver and configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. The installation process creates a series of directories. The module will first unload R and load module unixodbc/2.3.9. It was observed that with R loaded, the install procedure fails. Then install the deps.
 
 This will also install the loaddatabricks package: https://github.com/the-tobias-project/loaddatabricks
+
+
+
+Check that the modules are available now:
+
+```bash
+[learoser@sh02-ln01 login ~]$ module spider | grep databricks
+contribs/databricks-odbc: contribs/databricks-odbc/4.2.0
+```
+
+Then in R:
+
+```r
+library(loaddatabricks)
+con <- connect_cluster()
+```
+
+```r
+dbListTables(con)
+```
+
 
 ## Problems in on demand sessions
 
@@ -97,44 +127,4 @@ However this does not appears to modify the above result.
     ├── modules
     └── user
 ```
-                        
-
-## Usage
-
-
-In the .env, fill in the parameters:
-
-```
-DATABRICKS_HOSTNAME=
-DATABRICKS_TOKEN=
-DATABRICKS_HTTP_PATH=
-DATABRICKS_PORT=
-```
-
-Then activate direnv:
-
-```bash
-source .bashrc
-direnv allow
-```
-
-The module will unload R and load module unixodbc/2.3.9. It was observed that with R loaded, the install procedure fails.
-
-Check that the modules are available now:
-
-```bash
-[learoser@sh02-ln01 login ~]$ module spider | grep databricks
-contribs/databricks-jdbc: contribs/databricks-jdbc/4.2.0
-contribs/databricks-odbc: contribs/databricks-odbc/4.2.0
-```
-
-Then in R:
-
-```r
-library(loaddatabricks)
-con <- connect_cluster()
-```
-
-```r
-dbListTables(con)
-```
+       
