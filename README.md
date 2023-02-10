@@ -39,7 +39,7 @@ Run:
 ```bash
 git clone https://github.com/the-tobias-project/odbc-module
 cd odbc-module
-make configure
+make
 ```
 
 Here, fill in the values in the .env file, then:
