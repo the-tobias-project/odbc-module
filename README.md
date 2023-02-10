@@ -125,7 +125,6 @@ This is hardcoded and might not be ideal. But it is a solution that works in the
 ```bash
 ├── driver
 │   ├── SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
-│   ├── unixODBC-2.3.11
 │   ├── unixODBC-2.3.11.tar.gz
 │   └── unixODBC-2.3.11.tar.gz.md5
 ├── Makefile
