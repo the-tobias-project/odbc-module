@@ -58,7 +58,7 @@ make install check=false
 ```
 
 
-This will download the ODBC driver and configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. The installation process creates a series of directories. The module will first unload R and load module unixodbc/2.3.9. It was observed that with R loaded, the install procedure fails. Then install the deps.
+This will configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. No special permissions needed. The installation process creates a series of directories. The module will first unload R and load module unixodbc/2.3.9. It was observed that with R loaded, the install procedure fails. Then install the deps.
 
 This will also install the loaddatabricks package: https://github.com/the-tobias-project/loaddatabricks
 
