@@ -1,5 +1,8 @@
 DIR := ${CURDIR}
 
+.PHONY: default
+default: configure 
+
 configure:
 	. ${DIR}/scripts/configure.sh
 
