@@ -10,13 +10,6 @@ Driver from: https://databricks-bi-artifacts.s3.us-east-2.amazonaws.com/simbaspa
 
 ## NOTE
 
-- You need to comment out line 21 of the script at scripts/install.sh:
-
-```bash
-sha256sum -c shasum | tee /dev/tty | grep "FAILED" && echo "MD5SUM DOES NOT MATCH FOR SimbaSparkODBC" && exit 1
-```
-
-
 The raw odbc module can be downloaded from https://www.databricks.com/spark/odbc-drivers-download, or with
 
 ```bash
@@ -31,6 +24,9 @@ echo "ce2b0e5b7f437a448cec784e2c79907b886e7cb28202d0c9d1733511b488aca2  SimbaSpa
 SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip: FAILED
 sha256sum: WARNING: 1 computed checksum did NOT match
 ```
+
+So the sha256sum does not match. See below the options 'make install check=false' to not take into account this during install.
+
 
 ## Installation instructions
 
