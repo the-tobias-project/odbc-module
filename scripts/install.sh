@@ -11,7 +11,7 @@ export RLIB=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 cd driver
 module unload R
 eval "$(direnv hook bash)"
-direnv allow
+direnv allow $HOME
 
 ### install unixODBC
 
