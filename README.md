@@ -139,4 +139,9 @@ This is hardcoded and might not be ideal. But it is a solution that works in the
     ├── modules
     └── user
 ```
+
+
+## NOTES FOR ON-DEMAND SESSIONS
+
+Use R 4.2.0 and contribs/databricks-odbc/4.2.0. The solutions is currently hardcoded to this R version. 
        
