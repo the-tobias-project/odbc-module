@@ -4,6 +4,8 @@ set -e
 
 export THISPATH=$PWD
 export SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
+export RLIB=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
+
 cd driver
 module unload R
 eval "$(direnv hook bash)"
@@ -47,8 +49,6 @@ dir.create(Sys.getenv("RLIB"), showWarnings = FALSE, recursive=TRUE)
 install.packages(c('DBI', 'odbc', 'dotenv'), repos='http://cran.us.r-project.org', lib=Sys.getenv("RLIB"))
 q()
 EOF
-
-
 
 git clone https://github.com/the-tobias-project/loaddatabricks
 R CMD build loaddatabricks 
