@@ -14,7 +14,8 @@ md5sum -c unixODBC-2.3.11.tar.gz.md5 | tee /dev/tty | grep "FAILED" && echo "MD5
 tar xvf unixODBC-2.3.11.tar.gz
 cd unixODBC-2.3.11/
 ./configure && make
-echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs/libodbc.so.2" >> ~/.env
+echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs" >> ~/.env
+echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs" >> ~/.env
 cd $THISPATH/driver
 
 echo "ce2b0e5b7f437a448cec784e2c79907b886e7cb28202d0c9d1733511b488aca2  SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip" > shasum
