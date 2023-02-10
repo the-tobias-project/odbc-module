@@ -41,6 +41,8 @@ module use --append "$THISPATH/software/modules/contribs"
 module load R/4.2.0
 
 R --vanilla <<EOF
+dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE)
+.libPaths(Sys.getenv("R_LIBS_USER"))  
 install.packages(c('DBI', 'odbc'), repos='http://cran.us.r-project.org')
 q()
 EOF
