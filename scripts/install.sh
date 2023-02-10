@@ -41,14 +41,14 @@ module use --append "$THISPATH/software/modules/contribs"
 module load R/4.2.0
 module load unixodbc/2.3.9
 
-mylib=$HOME/R/x86_64-pc-linux-gnu-library/4.2
-
 R --vanilla <<EOF
-dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive=TRUE)
-.libPaths(Sys.getenv("R_LIBS_USER"))  
-install.packages(c('DBI', 'odbc', 'dotenv'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
+dir.create(Sys.getenv("RLIB"), showWarnings = FALSE, recursive=TRUE)
+.libPaths(Sys.getenv("RLIB"))  
+install.packages(c('DBI', 'odbc', 'dotenv'), repos='http://cran.us.r-project.org', lib=Sys.getenv("RLIB"))
 q()
 EOF
+
+
 
 git clone https://github.com/the-tobias-project/loaddatabricks
 R CMD build loaddatabricks 
