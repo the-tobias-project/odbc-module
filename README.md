@@ -48,6 +48,11 @@ Here, fill in the values in the .env file, then:
 make install
 ```
 
+This will stop the install process if the hash of the sha256 sum does not match with the provided for odbc and simbaspark libraries. If you don't want to check the hash of the files (due to the problem mentioned above), use:
+
+```bash
+make install check=false
+```
 
 
 This will download the ODBC driver and configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. The installation process creates a series of directories. 
