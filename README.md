@@ -52,6 +52,7 @@ make install
 
 This will download the ODBC driver and configure the system for the corresponding cluster/user using tho files at $HOME: .odbc.ini and .odbcinst.ini. The installation process creates a series of directories. 
 
+This will also install the loaddatabricks package: https://github.com/the-tobias-project/loaddatabricks
 
 ## Problems in on demand sessions
 
