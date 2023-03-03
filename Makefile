@@ -9,7 +9,7 @@ install:
 	. ${DIR}/scripts/install.sh ${check}
 
 clean:
-	rm -rf ~/.env && \	
+	rm -rf ~/.env && \
 	THISPATH=${PWD} && \
 	rm -rf ${THISPATH}/R && \
 	rm -rf ${THISPATH}/software && \
