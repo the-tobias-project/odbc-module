@@ -12,10 +12,8 @@ clean:
 	rm -rf ~/.env
 	sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > ~/.bashrc
 	$(grep -v $(RLIB) < ~/.Renviron) > ~/.Renviron
-	rm -rf ${DIR}
 	source ~/.bashrc
-	cd .. && pwd
-	echo -e "\nDone!"
+	echo -e "\nYou can remove now this directory"
 
 .PHONY: configure install clean
 default: configure
