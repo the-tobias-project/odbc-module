@@ -1,20 +1,20 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
 check=$1
 
-export THISPATH=$PWD
-export SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
-export RLIB=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
+export THISPATH=${PWD}
 
+## Needed to unload any R version in this step
 cd driver
 module unload R
-eval "$(direnv hook bash)"
-direnv allow $HOME
 
-### install unixODBC
+## install unixODBC
+### We need to install unixODBC 2.3.11 because the version available at the cluster level does not work
+### with the simbaspark driver (the databricks driver)
 
+### Here, checking that the md5sum provided is matching
 if [ "$check" == "true" ]; then
     md5sum -c unixODBC-2.3.11.tar.gz.md5 | tee /dev/tty | grep "FAILED" && echo "MD5SUM DOES NOT MATCH FOR uninxODBC" && exit 1
 fi
@@ -24,10 +24,11 @@ cd unixODBC-2.3.11/
 ./configure && make
 echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs" >> ~/.env
 echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs" >> ~/.env
-cd $THISPATH/driver
+cd ${THISPATH}/driver
 
-### Install SimbaSpark
+## Install SimbaSpark
 
+### Here, checking that the md5sum provided is matching. At least for this version, it wasn't the case
 if [ "$check" == "true" ]; then
     echo "ce2b0e5b7f437a448cec784e2c79907b886e7cb28202d0c9d1733511b488aca2  SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip" > shasum
     sha256sum -c shasum | tee /dev/tty | grep "FAILED" && echo "MD5SUM DOES NOT MATCH FOR SimbaSparkODBC" && exit 1
@@ -36,18 +37,18 @@ fi
 unzip SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 rpm2cpio simbaspark-2.6.29.1049-1.x86_64.rpm | cpio -idmv
 rm opt/simba/spark/lib/64/simba.sparkodbc.ini
-rsync -av --ignore-existing opt/simba/ $THISPATH/software/user/open/databricks-odbc/4.2.0/simba/
+rsync -av --ignore-existing opt/simba/ ${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/
 rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 
 
-envsubst < "$THISPATH/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "$HOME/.odbc.ini"
-envsubst < "$THISPATH/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "$HOME/.odbcinst.ini"
-envsubst < "$SPARKPATH/lib/64/simba.sparkodbc.ini" > temporal.txt
-mv temporal.txt "$SPARKPATH/lib/64/simba.sparkodbc.ini"
-module use --append "$THISPATH/software/modules/contribs"
+## Fill in fields corresponding to installed files in .env
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${THISPATH}/odbc.ini"
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${THISPATH}/odbcinst.ini"
+envsubst < "${THISPATH}/lib/64/simba.sparkodbc.ini" > temporal.txt
+mv temporal.txt "${THISPATH}/lib/64/simba.sparkodbc.ini"
+module use --append "${THISPATH}/software/modules/contribs"
 
-### install R package 
-
+## install custom R package required to connect with Databricks and dependencies in custom library, set .Renviron
 module load R/4.2.0
 module load unixodbc/2.3.9
 
@@ -60,8 +61,9 @@ EOF
 
 git clone https://github.com/the-tobias-project/loaddatabricks
 R CMD build loaddatabricks 
-R CMD INSTALL loaddatabricks*.tar.gz
+R CMD INSTALL -l ${RLIB} loaddatabricks*.tar.gz
 rm -rf loaddatabricks*
 
+echo "R_LIBS_USER=${RLIB}" >> ${HOME}/.Renviron
 
 echo "Databricks modules succesfully installed!"
