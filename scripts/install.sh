@@ -59,17 +59,17 @@ module load R/4.2.0
 module load unixodbc/2.3.9
 
 R --vanilla <<EOF
-dir.create(Sys.getenv("RLIB"), showWarnings = FALSE, recursive=TRUE)
-.libPaths(Sys.getenv("RLIB"))  
-install.packages(c('DBI', 'odbc', 'dotenv'), repos='http://cran.us.r-project.org', lib=Sys.getenv("RLIB"))
+dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive=TRUE)
+.libPaths(Sys.getenv("R_LIBS_USER"))  
+install.packages(c('DBI', 'odbc', 'dotenv'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
 q()
 EOF
 
 git clone https://github.com/the-tobias-project/loaddatabricks
 R CMD build loaddatabricks 
-R CMD INSTALL -l ${RLIB} loaddatabricks*.tar.gz
+R CMD INSTALL -l ${R_LIBS_USER} loaddatabricks*.tar.gz
 rm -rf loaddatabricks*
 
-echo "R_LIBS_USER=${RLIB}" >> ${HOME}/.Renviron
+#echo "R_LIBS_USER=${R_LIBS_USER}" >> ${HOME}/.Renviron
 
 echo "Databricks modules succesfully installed!"

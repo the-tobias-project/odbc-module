@@ -18,7 +18,7 @@ cat >> ~/.env <<EOF
 ODBCSYSINI=${THISPATH}
 ODBCINI=${THISPATH}/odbc.ini
 MODULEPATH=$MODULEPATH:${THISPATH}/software/modules/
-RLIB=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
+R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
 EOF
 
