@@ -32,9 +32,8 @@ Please visit https://github.com/the-tobias-project/odbc-module/wiki
 The install process will generate:
 
 
-.env file with environmental variables. These are loaded via lines of code added to ~/.bashrc. The install process is reversible running: make clean. 
-
-The “software” directory will be fill in. The structure will correspond to the structure of modules for Sherlock. At higher level, this is the structure:
+- .env file with environmental variables. These are loaded via lines of code added to ~/.bashrc. The install process is reversible running: make clean. 
+- The “software” directory will be fill in. The structure will correspond to the structure of modules for Sherlock. At higher level, this is the structure:
 
 
 ```bash
