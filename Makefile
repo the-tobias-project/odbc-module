@@ -12,7 +12,7 @@ install:
 .ONESHELL:
 clean:
 	@rm -rf ~/.env
-	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > ~/.bashrc
+	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ~/.bashrc
 	@$(grep -v $(RLIB) < ~/.Renviron) > ~/.Renviron
 	@source ~/.bashrc
 	@echo -e "\nYou can remove now this directory"
