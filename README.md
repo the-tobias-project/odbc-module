@@ -148,7 +148,9 @@ However this is not visible in the on demand session. With the unixodbc library 
 
 This package includes the unixodbc library and is setting this variable:
 
+```bash
 export LD_LIBRARY_PATH=/home/users/learoser/odbc-module/driver/unixODBC-2.3.11/DriverManager/.libs
+```
 
 However this does not appears to modify the above result. 
 
