@@ -29,10 +29,8 @@ Please visit https://github.com/the-tobias-project/odbc-module/wiki
     └── user
 ```
 
-
 The install process will generate:
 
-.Renviron in $HOME  (created if it does not exist, RLIB set up if exists)
 
 .env file with environmental variables. These are loaded via lines of code added to ~/.bashrc. The install process is reversible running: make clean. 
 
