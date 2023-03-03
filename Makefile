@@ -1,6 +1,7 @@
 DIR := ${CURDIR}
 check := true
 
+.ONESHELL:
 configure:
 	. ${DIR}/scripts/configure.sh
 	source ~/.bashrc
