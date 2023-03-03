@@ -3,7 +3,7 @@
 set -e
 
 ## The goal of this script is to create a .env file with all the paths
-export THISPATH=$PWD
+export THISPATH=${PWD}
 
 cat > ~/.env <<EOF  
 #[DATABRICKS SETTINGS]
