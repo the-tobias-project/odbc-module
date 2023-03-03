@@ -2,6 +2,12 @@
 
 set -e
 
+# ----------------------------------------------------------------------------------------------
+# This script will generate the module creating the content for the following two main folders:
+## /user/open/databricks-odbc
+## modules/contrib/databricks-odbc
+# ----------------------------------------------------------------------------------------------
+
 check=$1
 
 export THISPATH=${PWD}
@@ -44,7 +50,7 @@ rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 ## Fill in fields corresponding to installed files in .env
 envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${THISPATH}/odbc.ini"
 envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${THISPATH}/odbcinst.ini"
-envsubst < "${THISPATH}/lib/64/simba.sparkodbc.ini" > temporal.txt
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini" > temporal.txt
 mv temporal.txt "${THISPATH}/lib/64/simba.sparkodbc.ini"
 module use --append "${THISPATH}/software/modules/contribs"
 
