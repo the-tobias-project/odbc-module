@@ -10,13 +10,12 @@ install:
 
 clean:
 	rm -rf ~/.env && \
-	THISPATH=${PWD} && \
-	rm -rf ${THISPATH}/R && \
-	rm -rf ${THISPATH}/software && \
-	rm -rf ${THISPATH}/driver && \
-	rm -rf ${THISPATH}/lib && \
+	rm -rf ${PWD}/R && \
+	rm -rf ${PWD}/software && \
+	rm -rf ${PWD}/driver && \
+	rm -rf ${PWD}/lib && \
 	sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > ~/.bashrc && \
-	$(grep -v ${RLIB} < ~/.Renviron) > ~/.Renviron && \
+	$(grep -v $(RLIB) < ~/.Renviron) > ~/.Renviron && \
 	source ~/.bashrc && \
 	echo "You can remove this folder now"
 
