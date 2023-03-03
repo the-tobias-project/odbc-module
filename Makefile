@@ -10,14 +10,11 @@ install:
 
 clean:
 	rm -rf ~/.env && \
-	rm -rf ${PWD}/R && \
-	rm -rf ${PWD}/software && \
-	rm -rf ${PWD}/driver && \
-	rm -rf ${PWD}/lib && \
 	sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > ~/.bashrc && \
 	$(grep -v $(RLIB) < ~/.Renviron) > ~/.Renviron && \
+	rm -rf ${DIR} && \
 	source ~/.bashrc && \
-	echo "You can remove this folder now"
+	echo -e "\nDone!"
 
 .PHONY: configure install clean
 default: configure 
