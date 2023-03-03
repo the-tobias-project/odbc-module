@@ -14,7 +14,7 @@ Please visit https://github.com/the-tobias-project/odbc-module/wiki
 
 ### Repository home: https://github.com/the-tobias-project/odbc-module 
 
-
+```bash
 ├── driver
 │   ├── SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 │   ├── unixODBC-2.3.11.tar.gz
@@ -27,7 +27,7 @@ Please visit https://github.com/the-tobias-project/odbc-module/wiki
 └── software
     ├── modules
     └── user
-
+```
 
 
 The install process will generate:
@@ -39,7 +39,7 @@ The install process will generate:
 The “software” directory will be fill in. The structure will correspond to the structure of modules for Sherlock. At higher level, this is the structure:
 
 
-
+```bash
  ├── modules 
    │   └── contribs 
    │       └── databricks-odbc 
@@ -52,7 +52,7 @@ The “software” directory will be fill in. The structure will correspond to t
                    │   ├── odbc.ini 
                    │   └── odbcinst.ini 
                    └── simba
-
+```
 
 
 Note that during configuration, this variable is set: 
@@ -65,20 +65,20 @@ So, this is allowing to make the module visible to the system.
 
 ### Dependencies:
 
-R/4.2.0
+- R/4.2.0
 
-system
+- system
 
-unixodbc/2.3.9
+- unixodbc/2.3.9
 
-spark/3.2.1
+- spark/3.2.1
 
 
 
 As included in the module lua file itself: https://github.com/the-tobias-project/odbc-module/blob/main/software/modules/contribs/databricks-odbc/4.2.0.lua 
 
-## Installation
 
+## Installation
 
 
 In your $HOME in Sherlock run:
