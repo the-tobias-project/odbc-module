@@ -9,12 +9,13 @@ install:
 	. ${DIR}/scripts/install.sh ${check}
 
 clean:
-	rm -rf ~/.env && \
-	sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > ~/.bashrc && \
-	$(grep -v $(RLIB) < ~/.Renviron) > ~/.Renviron && \
-	rm -rf ${DIR} && \
-	source ~/.bashrc && \
+	rm -rf ~/.env
+	sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > ~/.bashrc
+	$(grep -v $(RLIB) < ~/.Renviron) > ~/.Renviron
+	rm -rf ${DIR}
+	source ~/.bashrc
+	cd .. && pwd
 	echo -e "\nDone!"
 
 .PHONY: configure install clean
-default: configure 
+default: configure
