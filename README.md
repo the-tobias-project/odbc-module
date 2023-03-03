@@ -57,7 +57,9 @@ The “software” directory will be fill in. The structure will correspond to t
 
 Note that during configuration, this variable is set: 
 
+```bash
 MODULEPATH=$MODULEPATH:${THISPATH}/software/modules/
+```
 
 So, this is allowing to make the module visible to the system.
 
