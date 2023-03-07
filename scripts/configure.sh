@@ -22,6 +22,6 @@ R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
 EOF
 
-echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ~/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> ~/.bashrc
+echo -e "\n#ODBC CONFIGURATION>>>>\nfor elem in \$(grep -v '#' < ~/.env); do export \${elem}; done\n#<<<<ODBC CONFIGURATION" >> ~/.bashrc
 echo "Done"
 echo "Pease fill in the .env file at $HOME/.env with the Databricks variables and then run: make install"
