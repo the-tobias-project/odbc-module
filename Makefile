@@ -12,7 +12,7 @@ install:
 
 clean:
 	@rm -rf ~/.env
-	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ~/.bashrc`
+	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ~/.bashrc
 	@echo -e "\nYou can remove now this directory"
 
 .PHONY: configure install clean
