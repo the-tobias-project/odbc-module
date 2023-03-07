@@ -16,6 +16,7 @@ EOF
 
 cat >> "${HOME}/.env" <<EOF  
 #[ENVIRONMENTAL VARIABLES] # do not modify
+MODULE_FOLDER=${THISPATH}
 ODBCINI=${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini
 ODBCSYSINI=${ODBCSYSINI}:${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/
 MODULEPATH=${MODULEPATH}:${THISPATH}/software/modules/
