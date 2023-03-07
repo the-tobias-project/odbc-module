@@ -46,7 +46,7 @@ This will also install the loaddatabricks package: [https://github.com/the-tobia
 
 Check that the modules are available now:
 
-`[learoser@sh02-ln01 login ~]$ module spider |` `grep` `databricks`
+`module spider |` `grep` `databricks`
 
 `contribs``/databricks-odbc``: contribs``/databricks-odbc/4``.2.0`
 
