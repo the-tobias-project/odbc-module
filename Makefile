@@ -4,7 +4,7 @@ check := true
 .ONESHELL:
 configure:
 	. ${DIR}/scripts/configure.sh
-	source ~/.bashrc
+	export $$(grep -v '^#' ~/.env | xargs)
 
 install: 
 	. ${DIR}/scripts/install.sh ${check}
@@ -12,7 +12,7 @@ install:
 .ONESHELL:
 clean:
 	@rm -rf ~/.env
-	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ~/.bashrc
+	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ~/.bashrc`
 	@source ~/.bashrc
 	@echo -e "\nYou can remove now this directory"
 
