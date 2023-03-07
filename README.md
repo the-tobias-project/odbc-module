@@ -34,11 +34,9 @@ Individual users
 1.  In your $HOME in Sherlock run:
     
 
-`git clone https:``//github``.com``/the-tobias-project/odbc-module`
-
-`cd` `odbc-module`
-
-`make` `install` `check=``false`
+`git clone https://github.com/the-tobias-project/odbc-module`
+`cd odbc-module`
+`make install check=false`
 
 The command will configure the system for the corresponding cluster/user using tho files at `~/odbc-module`: odbc.ini and odbcinst.ini. No special permissions needed. It also compiles the drivers among other tasks. The module will first unload R and load module unixodbc/2.3.9. It was observed that with R loaded, the install procedure fails. Then install the deps.
 
@@ -46,15 +44,15 @@ This will also install the loaddatabricks package: [https://github.com/the-tobia
 
 Check that the modules are available now:
 
-`module spider |` `grep` `databricks`
+`module spider | grep databricks`
 
-`contribs``/databricks-odbc``: contribs``/databricks-odbc/4``.2.0`
+`contribs /databricks-odbc: contribs/databricks-odbc/4.2.0`
 
 2\. Then configure the Databricks credentials:
 
-`make` `configure group=false`
+`make configure group=false`
 
-`source` `~/.bashrc`
+`source ~/.bashrc`
 
 If this worked, the following command should not return an empty result:
 
@@ -77,11 +75,11 @@ Here, fill in the values in the .env file at $HOME (eg, run: nano ~/.env)
 
 And finally generate the ~/.odbc.ini and ~/.odbcinst.ini files:
 
-`make setenv group=``false`
+`make setenv group=false`
 
 3\. Load the module and start an R session:
 
-`[learoser@sh02-ln01 login ~]$ module load contribs``/databricks-odbc/4``.2.0`
+`[learoser@sh02-ln01 login ~]$ module load contribs/databricks-odbc/4.2.0`
 
 `[learoser@sh02-ln01 login ~]$ R`
 
@@ -89,11 +87,11 @@ Then in R:
 
 `library(loaddatabricks)`
 
-`con <- connect_cluster(``"~/.env"``)`
+`con <- connect_cluster("~/.env")`
 
 `library(DBI)`
 
-`dbListTables(con) # your tables should be visible` `if` `properly configured`
+`dbListTables(con) # your tables should be visible if properly configured`
 
 Groups
 ------
@@ -103,29 +101,29 @@ Groups
 1.  In your groups folder in Sherlock, i.e., /home/groups/$(id -ng), run:
     
 
-`git clone https:``//github``.com``/the-tobias-project/odbc-module`
+`git clone https://github.com/the-tobias-project/odbc-module`
 
-`cd` `odbc-module`
+`cd odbc-module`
 
-`make` `install` `check=``false`
+`make= install check=false`
 
 Check that the modules are available now:
 
-`[learoser@sh02-ln01 login ~]$ module spider |` `grep` `databricks`
+`[learoser@sh02-ln01 login ~]$ module spider | grep databricks`
 
-`contribs``/databricks-odbc``: contribs``/databricks-odbc/4``.2.0`
+`contribs/databricks-odbc: contribs/databricks-odbc/4.2.0`
 
 ### User level steps
 
 2\. Then, each $USER should configure the module with their credentials. For this, the user should run in his $HOME in Sherlock:
 
-`git clone https:``//github``.com``/the-tobias-project/odbc-module`
+`git clone https://github.com/the-tobias-project/odbc-module`
 
-`cd` `odbc-module`
+`cd odbc-module`
 
-`make` `configure group=``true`
+`make configure group=true`
 
-`source` `~/.bashrc`
+`source ~/.bashrc`
 
 If this worked, the following command should not return an empty result:
 
@@ -148,11 +146,11 @@ Here, the $USER should fill in the values in the .env file at $HOME (eg, run: na
 
 And finally generate the ~/.odbc.ini and ~/.odbcinst.ini files:
 
-`make setenv group=``true`
+`make setenv group=true`
 
 3\. Load the module and start an R session:
 
-`[learoser@sh02-ln01 login ~]$ module load contribs``/databricks-odbc/4``.2.0`
+`[learoser@sh02-ln01 login ~]$ module load contribs/databricks-odbc/4.2.0`
 
 `[learoser@sh02-ln01 login ~]$ R`
 
@@ -164,7 +162,7 @@ Then in R:
 
 `library(DBI)`
 
-`dbListTables(con) # your tables should be visible` `if` `properly configured`
+`dbListTables(con) # your tables should be visible if properly configured`
 
 Uninstall
 =========
