@@ -45,7 +45,6 @@ rm opt/simba/spark/lib/64/simba.sparkodbc.ini
 rsync -av --ignore-existing opt/simba/ ${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/
 rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 
-
 ## install custom R package required to connect with Databricks and dependencies in custom library, set .Renviron
 module use --append "${THISPATH}/software/modules/contribs"
 module load R/4.2.0

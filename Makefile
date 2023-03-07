@@ -3,7 +3,10 @@ check := true
 group := false
 installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell dirname $(shell pwd)))
 
-install:
+uninstall:
+	git checkout . && git clean -fd
+
+install: uninstall
 	. $(DIR)/scripts/install.sh $(check)
 
 configure:
@@ -11,9 +14,6 @@ configure:
 
 setenv:
 	. $(DIR)/scripts/setenv.sh $(installdir)
-
-uninstall:
-	git checkout . && git clean -fd
 
 clean:
 	@rm -rf ~/.env
