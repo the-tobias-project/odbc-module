@@ -62,4 +62,7 @@ R CMD build loaddatabricks
 R CMD INSTALL -l ${R_LIBS_USER} loaddatabricks*.tar.gz
 rm -rf loaddatabricks*
 
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini" > temporal.txt
+mv temporal.txt "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini"
+
 echo "Databricks modules succesfully installed!"
