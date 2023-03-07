@@ -4,7 +4,7 @@ set -e
 
 ## The goal of this script is to create a .env file with all the paths
 
-export THISPATH=$1
+export THISPATH=$1/odbc-module
 
 cat > "${HOME}/.env" <<EOF  
 #[DATABRICKS SETTINGS]
