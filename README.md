@@ -5,7 +5,6 @@ ODBC module - Working on command line and on-demand sessions
 
 This module is using unixODBC, SimbaSpark ODBC driver (provided by Databricks as RPM package) and a custom R package that allows to connect R to databricks via ODBC.
 
-/\*<!\[CDATA\[\*/ div.rbtoc1678209446909 {padding: 0px;} div.rbtoc1678209446909 ul {list-style: disc;margin-left: 0px;} div.rbtoc1678209446909 li {margin-left: 0px;padding-left: 0px;} /\*\]\]>\*/
 
 *   1 [Installation](ODBC-module---Working-on-command-line-and-on-demand-sessions.17006634.html#ODBCmodule-Workingoncommandlineandon-demandsessions-Installation)
     *   1.1 [Individual users](ODBC-module---Working-on-command-line-and-on-demand-sessions.17006634.html#ODBCmodule-Workingoncommandlineandon-demandsessions-Individualusers)
