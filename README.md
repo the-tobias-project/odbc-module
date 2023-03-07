@@ -33,10 +33,11 @@ Individual users
 
 1.  In your $HOME in Sherlock run:
     
-
-`git clone https://github.com/the-tobias-project/odbc-module`
-`cd odbc-module`
-`make install check=false`
+```bash
+git clone https://github.com/the-tobias-project/odbc-module
+cd odbc-module
+make install check=false
+```
 
 The command will configure the system for the corresponding cluster/user using tho files at `~/odbc-module`: odbc.ini and odbcinst.ini. No special permissions needed. It also compiles the drivers among other tasks. The module will first unload R and load module unixodbc/2.3.9. It was observed that with R loaded, the install procedure fails. Then install the deps.
 
@@ -44,24 +45,30 @@ This will also install the loaddatabricks package: [https://github.com/the-tobia
 
 Check that the modules are available now:
 
-`module spider | grep databricks`
-
-`contribs /databricks-odbc: contribs/databricks-odbc/4.2.0`
+```bash
+module spider | grep databricks
+contribs /databricks-odbc: contribs/databricks-odbc/4.2.0
+```bash
 
 2\. Then configure the Databricks credentials:
 
-`make configure group=false`
-
-`source ~/.bashrc`
+```bash
+make configure group=false
+source ~/.bashrc
+```
 
 If this worked, the following command should not return an empty result:
 
-`echo $R_LIBS_USER`
+```bash
+echo $R_LIBS_USER
+```
 
 For example:
 
-`[learoser@sh02-ln01 login ~/odbc-module]$ echo $R_LIBS_USER`  
-`/home/users/learoser/odbc-module/R/x86_64-pc-linux-gnu-library/4.2`  
+```bash
+[learoser@sh02-ln01 login ~/odbc-module]$ echo $R_LIBS_USER
+/home/users/learoser/odbc-module/R/x86_64-pc-linux-gnu-library/4.2
+```
 
 Here, fill in the values in the .env file at $HOME (eg, run: nano ~/.env)
 
@@ -75,23 +82,26 @@ Here, fill in the values in the .env file at $HOME (eg, run: nano ~/.env)
 
 And finally generate the ~/.odbc.ini and ~/.odbcinst.ini files:
 
-`make setenv group=false`
+```bash
+make setenv group=false
+```
 
 3\. Load the module and start an R session:
 
-`[learoser@sh02-ln01 login ~]$ module load contribs/databricks-odbc/4.2.0`
-
-`[learoser@sh02-ln01 login ~]$ R`
+```bash
+[learoser@sh02-ln01 login ~]$ module load contribs/databricks-odbc/4.2.0
+[learoser@sh02-ln01 login ~]$ R
+```
 
 Then in R:
 
-`library(loaddatabricks)`
+```bash
+library(loaddatabricks)
+con <- connect_cluster("~/.env")
+library(DBI)
+dbListTables(con) # your tables should be visible if properly configured
+```
 
-`con <- connect_cluster("~/.env")`
-
-`library(DBI)`
-
-`dbListTables(con) # your tables should be visible if properly configured`
 
 Groups
 ------
@@ -101,38 +111,42 @@ Groups
 1.  In your groups folder in Sherlock, i.e., /home/groups/$(id -ng), run:
     
 
-`git clone https://github.com/the-tobias-project/odbc-module`
-
-`cd odbc-module`
-
-`make= install check=false`
+```bash
+git clone https://github.com/the-tobias-project/odbc-module
+cd odbc-module
+make= install check=false
+```
 
 Check that the modules are available now:
 
-`[learoser@sh02-ln01 login ~]$ module spider | grep databricks`
-
-`contribs/databricks-odbc: contribs/databricks-odbc/4.2.0`
+```bash
+[learoser@sh02-ln01 login ~]$ module spider | grep databricks
+contribs/databricks-odbc: contribs/databricks-odbc/4.2.0
+```
 
 ### User level steps
 
 2\. Then, each $USER should configure the module with their credentials. For this, the user should run in his $HOME in Sherlock:
 
-`git clone https://github.com/the-tobias-project/odbc-module`
-
-`cd odbc-module`
-
-`make configure group=true`
-
-`source ~/.bashrc`
+```bash
+git clone https://github.com/the-tobias-project/odbc-module
+cd odbc-module
+make configure group=true
+source ~/.bashrc
+```
 
 If this worked, the following command should not return an empty result:
 
-`echo $R_LIBS_USER`
+```bash
+echo $R_LIBS_USER
+```
 
 For example:
 
-`[learoser@sh02-ln01 login ~/odbc-module]$ echo $R_LIBS_USER`  
-`/home/users/learoser/odbc-module/R/x86_64-pc-linux-gnu-library/4.2`
+```bash
+[learoser@sh02-ln01 login ~/odbc-module]$ echo $R_LIBS_USER
+/home/users/learoser/odbc-module/R/x86_64-pc-linux-gnu-library/4.2
+```
 
 Here, the $USER should fill in the values in the .env file at $HOME (eg, run: nano ~/.env)
 
@@ -146,23 +160,25 @@ Here, the $USER should fill in the values in the .env file at $HOME (eg, run: na
 
 And finally generate the ~/.odbc.ini and ~/.odbcinst.ini files:
 
-`make setenv group=true`
+```bash
+make setenv group=true
+```
 
 3\. Load the module and start an R session:
 
-`[learoser@sh02-ln01 login ~]$ module load contribs/databricks-odbc/4.2.0`
-
-`[learoser@sh02-ln01 login ~]$ R`
+```bash
+[learoser@sh02-ln01 login ~]$ module load contribs/databricks-odbc/4.2.0
+[learoser@sh02-ln01 login ~]$ R
+```
 
 Then in R:
 
-`library(loaddatabricks)`
-
-`con <- connect_cluster(``"~/.env"``)`
-
-`library(DBI)`
-
-`dbListTables(con) # your tables should be visible if properly configured`
+```R
+library(loaddatabricks)
+con <- connect_cluster(``"~/.env"``)
+library(DBI)
+dbListTables(con) # your tables should be visible if properly configured`
+```
 
 Uninstall
 =========
@@ -172,11 +188,11 @@ Individual users
 
 In the folder, run:
 
-`make clean`
-
-`source ~/.bashrc`
-
-`cd .. && rm -rf odbc-module`
+```bash
+make clean
+source ~/.bashrc
+cd .. && rm -rf odbc-module
+```
 
 Groups
 ------
@@ -185,17 +201,19 @@ Groups
 
 Remove the odbc-module folder:
 
-`rm -rf odbc-module`
+```bash
+rm -rf odbc-module
+```
 
 ### User level steps
 
 In the $HOME folder of the $USER, run:
 
-`make clean`
-
-`source ~/.bashrc`
-
-`cd .. && rm -rf odbc-module`
+```bash
+make clean
+source ~/.bashrc
+cd .. && rm -rf odbc-module
+```
 
 Repository structure
 ====================
@@ -333,7 +351,9 @@ So the sha256sum does not match. See below the options 'make install check=false
 
 During install, running:
 
-`make` `install`
+```bash
+make install
+```
 
 without check=false, will stop the install process if the hash of the sha256 sum does not match with the provided for odbc and simbaspark libraries. That is the current case, and is a problem with the driver provider.
 
@@ -354,9 +374,10 @@ Troubleshoot
 
 1.  Running this step in R (installlation step #6) Results in an error message:
     
-    `library(loaddatabricks)`
-    
-    `con <- connect_cluster(``"~/.env"``)`
+    ```R
+    library(loaddatabricks)
+    con <- connect_cluster("~/.env")
+    ```
     
 
 `Error: nanodbc/nanodbc.cpp:1118: 00000: [Simba][ThriftExtension] (14) Unexpected response from server during a HTTP connection: Could not resolve host for client socket..`
@@ -377,12 +398,16 @@ The information can be extracted in databricks from: compute > <your cluster> > 
 
 If make install was run, you can reconfigure the driver with:
 
-`make setenv`
+```bash
+make setenv
+```
 
 2\. I need to reinstall the module
 
 **Solution**: If downloaded, you can run:
 
-`make uninstall`
+```bash
+make uninstall
+```
 
 This will revert the module folder to the initial state. Then proceed again with the installation
