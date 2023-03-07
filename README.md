@@ -52,7 +52,7 @@ Check that the modules are available now:
 
 2\. Then configure the Databricks credentials:
 
-`make` `configure group=``false`
+`make` `configure group=false`
 
 `source` `~/.bashrc`
 
