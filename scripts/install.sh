@@ -46,11 +46,6 @@ rsync -av --ignore-existing opt/simba/ ${THISPATH}/software/user/open/databricks
 rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 
 
-# Fill in some variables
-echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs" >> ~/.env
-echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs" >> ~/.env
-
-
 ## install custom R package required to connect with Databricks and dependencies in custom library, set .Renviron
 module use --append "${THISPATH}/software/modules/contribs"
 module load R/4.2.0
@@ -68,6 +63,7 @@ R CMD build loaddatabricks
 R CMD INSTALL -l ${R_LIBS_USER} loaddatabricks*.tar.gz
 rm -rf loaddatabricks*
 
-#echo "R_LIBS_USER=${R_LIBS_USER}" >> ${HOME}/.Renviron
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini" > temporal.txt
+mv temporal.txt "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini"
 
 echo "Databricks modules succesfully installed!"

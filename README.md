@@ -232,11 +232,13 @@ Repository home: [https://github.com/the-tobias-project/odbc-module](https://git
 
 `├── README.md`
 
+
 `├── scripts`
 
-`│   ├── configure.sh`
+`│   ├── configure.sh`
 
-`│   └──` `install``.sh`
+`│   └──` `install``.sh`
+
 
 `└── software`
 
@@ -257,18 +259,20 @@ The install process will generate:
 
 The structure of the folders in “software” corresponds to the canonical structure of modules for Sherlock. At higher level, this is the structure:
 
- `├── modules`  
-   `│   └── contribs`  
-   `│       └── databricks-odbc`  
-   `│           └── 4.2.0.lua`  
-   `└── user`  
-       `└── open`  
-           `└── databricks-odbc`  
-               `└── 4.2.0`  
-                   `├── conf`  
-                   `│   ├── odbc.ini`  
-                   `│   └── odbcinst.ini`  
-                   `└── simba`
+
+ `├── modules`  
+   `│   └── contribs`  
+   `│       └── databricks-odbc`  
+   `│           └── 4.2.0.lua`  
+   `└── user`  
+       `└── open`  
+           `└── databricks-odbc`  
+               `└── 4.2.0`  
+                   `├── conf`  
+                   `│   ├── odbc.ini`  
+                   `│   └── odbcinst.ini`  
+                   `└── simba`
+
 
 Note that during configuration, this variable is set:
 
@@ -410,4 +414,5 @@ make setenv
 make uninstall
 ```
 
+=======
 This will revert the module folder to the initial state. Then proceed again with the installation
