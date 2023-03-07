@@ -1,8 +1,4 @@
-ODBC module - Working on command line and on-demand sessions
 
-*   [![Data Science Infrastructure](_scroll_external/attachments/dsi-4198b046f02130a02822abda0dc77fda4ba5299cfd853711908c2a129ef3b59c "Data Science Infrastructure")](ODBC-module---Working-on-command-line-and-on-demand-sessions.17006634.html)
-
-1.  [ODBC module - Working on command line and on-demand sessions](ODBC-module---Working-on-command-line-and-on-demand-sessions.17006634.html)
 
 ODBC module - Working on command line and on-demand sessions
 ============================================================
