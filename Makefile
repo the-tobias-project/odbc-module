@@ -15,7 +15,7 @@ uninstall:
 clean:
 	@rm -rf ~/.env
 	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ~/.bashrc
+	@rm ${HOME}/.odbc.ini ${HOME}/.odbcinst.ini
 	@echo -e "\nYou can remove now this directory and, if the module was installed at group level, the folder at $(installdir)"
 
 .PHONY: configure install clean
-default: configure
