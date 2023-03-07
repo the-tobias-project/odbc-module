@@ -17,13 +17,18 @@ EOF
 cat >> "${HOME}/.env" <<EOF  
 #[ENVIRONMENTAL VARIABLES] # do not modify
 MODULE_FOLDER=${THISPATH}
-ODBCINI=${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini
-ODBCSYSINI=${ODBCSYSINI}:${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/
+ODBCINI=${HOME}/.odbc.ini
+ODBCSYSINI=${HOME}
 MODULEPATH=${MODULEPATH}:${THISPATH}/software/modules/
 R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
 EOF
+
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${HOME}/.odbc.ini"
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini" > temporal.txt
+mv temporal.txt "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini"
 
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ~/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 echo "Done"
