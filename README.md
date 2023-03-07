@@ -95,7 +95,7 @@ make setenv group=false
 
 Then in R:
 
-```bash
+```R
 library(loaddatabricks)
 con <- connect_cluster("~/.env")
 library(DBI)
