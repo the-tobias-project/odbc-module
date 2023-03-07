@@ -4,7 +4,7 @@ check := true
 .ONESHELL:
 configure:
 	. ${DIR}/scripts/configure.sh
-	export $$(grep -v '^#' ~/.env | xargs)
+	source ~/.bashrc
 
 install: 
 	. ${DIR}/scripts/install.sh ${check}
