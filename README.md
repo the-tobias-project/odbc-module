@@ -48,7 +48,7 @@ Check that the modules are available now:
 ```bash
 module spider | grep databricks
 contribs /databricks-odbc: contribs/databricks-odbc/4.2.0
-```bash
+```
 
 2\. Then configure the Databricks credentials:
 
