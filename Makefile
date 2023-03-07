@@ -9,6 +9,9 @@ install:
 configure:
 	. $(DIR)/scripts/configure.sh $(installdir)
 
+uninstall:
+	git checkout . && git clean -fd
+
 clean:
 	@rm -rf ~/.env
 	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ~/.bashrc
