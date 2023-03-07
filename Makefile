@@ -3,7 +3,7 @@ check := true
 group := false
 installdir := /home/groups/$(if $(group), $(id -ng), $(shell pwd))
 
-install: setenv
+install:
 	. $(DIR)/scripts/install.sh $(check)
 
 configure:
