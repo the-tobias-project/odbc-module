@@ -7,7 +7,7 @@ configure:
 setenv:
 	. ${DIR}/scripts/setenv.sh
 
-install: 
+install: setenv
 	. ${DIR}/scripts/install.sh ${check}
 
 clean:
