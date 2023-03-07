@@ -35,11 +35,9 @@ fi
 tar xvf unixODBC-2.3.11.tar.gz
 cd unixODBC-2.3.11/
 ./configure && make
-echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs" >> ~/.env
-echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs" >> ~/.env
-cd ${THISPATH}/driver
 
 ## Install SimbaSpark
+cd ${THISPATH}/driver
 unzip SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 rpm2cpio simbaspark-2.6.29.1049-1.x86_64.rpm | cpio -idmv
 rm opt/simba/spark/lib/64/simba.sparkodbc.ini
@@ -47,14 +45,13 @@ rsync -av --ignore-existing opt/simba/ ${THISPATH}/software/user/open/databricks
 rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 
 
-## Fill in fields corresponding to installed files in .env
-envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${THISPATH}/odbc.ini"
-envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${THISPATH}/odbcinst.ini"
-envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini" > temporal.txt
-mv temporal.txt "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini"
-module use --append "${THISPATH}/software/modules/contribs"
+# Fill in some variables
+echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs" >> ~/.env
+echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs" >> ~/.env
+
 
 ## install custom R package required to connect with Databricks and dependencies in custom library, set .Renviron
+module use --append "${THISPATH}/software/modules/contribs"
 module load R/4.2.0
 module load unixodbc/2.3.9
 

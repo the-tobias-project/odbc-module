@@ -4,6 +4,9 @@ check := true
 configure:
 	. ${DIR}/scripts/configure.sh
 
+setenv:
+	. ${DIR}/scripts/setenv.sh
+
 install: 
 	. ${DIR}/scripts/install.sh ${check}
 
