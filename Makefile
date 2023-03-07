@@ -1,7 +1,7 @@
 DIR := ${CURDIR}
 check := true
 group := false
-installdir := /home/groups$(if $(group),/$(shell  id -ng),$(shell dirname $(shell pwd)))
+installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell dirname $(shell pwd)))
 
 install:
 	. $(DIR)/scripts/install.sh $(check)
