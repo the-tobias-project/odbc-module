@@ -10,7 +10,8 @@ set -e
 
 check=$1
 
-export THISPATH=${PWD}
+THISPATH=${PWD}
+R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 
 ## Needed to unload any R version in this step
 cd driver
