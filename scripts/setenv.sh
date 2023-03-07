@@ -2,10 +2,13 @@
 
 set -e
 
-export THISPATH=${PWD}
+export THISPATH=$1/odbc-module
 
-## Fill in fields corresponding to installed files in .env
-envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${THISPATH}/odbc.ini"
-envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${THISPATH}/odbcinst.ini"
-envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini" > temporal.txt
-mv temporal.txt "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini"
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${HOME}/.odbc.ini"
+envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
+
+echo "Done. This is the resulting configuration, check that it is correct:"
+echo -e "\n\n-- ~/.odbc.ini ---"
+cat "${HOME}/.odbc.ini"
+echo -e "\n\n-- ~/.odbcinst.ini ---"
+cat "${HOME}/.odbcinst.ini"
