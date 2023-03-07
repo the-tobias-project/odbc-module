@@ -27,5 +27,4 @@ EOF
 
 
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ~/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
-echo "Done"
-echo "Pease fill in the .env file at ${HOME}/.env with the Databricks variables before using this module"
+echo "Done. Please fill in the .env file at ${HOME}/.env with the Databricks variables and the run: make setenv group={true or false for this variable}"
