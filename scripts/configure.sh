@@ -25,8 +25,6 @@ SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
 EOF
 
-envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${HOME}/.odbc.ini"
-envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
 
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ~/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 echo "Done"

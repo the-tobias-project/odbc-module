@@ -9,6 +9,9 @@ install:
 configure:
 	. $(DIR)/scripts/configure.sh $(installdir)
 
+setenv:
+	. $(DIR)/scripts/setenv.sh $(installdir)
+
 uninstall:
 	git checkout . && git clean -fd
 
