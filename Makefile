@@ -6,6 +6,7 @@ verbose := true
 
 uninstall:
 	git reset --hard
+	git clean -fdx
 
 install: uninstall
 	. $(DIR)/scripts/install.sh $(check)
