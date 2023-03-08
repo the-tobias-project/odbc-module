@@ -5,7 +5,7 @@ installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell 
 verbose := true
 
 uninstall:
-	git checkout . && git clean -fd
+	git reset --hard
 
 install: uninstall
 	. $(DIR)/scripts/install.sh $(check)
