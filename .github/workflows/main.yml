@@ -34,8 +34,10 @@ jobs:
           cd odbc-module
           make install check=false
       - name: Configure
+        run: |
           make configure group=false
           source ~/.bashrc
           module spider | grep databricks
       - name: Setenv
+        run: |
           make setenv group=false
