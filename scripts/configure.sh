@@ -23,7 +23,7 @@ ODBCSYSINI=${HOME}
 MODULEPATH=${MODULEPATH}:${THISPATH}/software/modules/
 R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
 EOF
 
 

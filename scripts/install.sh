@@ -12,6 +12,7 @@ check=$1
 
 THISPATH=${PWD}
 R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
+mkdir -p ${R_LIBS_USER}
 
 ## Needed to unload any R version in this step
 cd driver
