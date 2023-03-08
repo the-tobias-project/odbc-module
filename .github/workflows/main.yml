@@ -1,0 +1,41 @@
+
+name: base
+
+on:
+  push:
+    branches: [ "main" ]
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+jobs:
+  build:
+    name: build
+    runs-on: centos:centos7.9.2009
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Prepare environment
+        run: | 
+          yum update -y && yum clean all
+          yum install gcc gcc-c++ kernel-devel
+          yum install -y environment-modules git
+          yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+          export R_VERSION=4.2.2
+          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
+          dnf install R-${R_VERSION}-1-1.x86_64.rpm
+          ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
+          ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
+          useradd -m sherlock
+      - name: Install the package
+        run: |
+          git clone https://github.com/the-tobias-project/odbc-module
+          cd odbc-module
+          make install check=false
+      - name: Configure
+          make configure group=false
+          source ~/.bashrc
+          module spider | grep databricks
+      - name: Setenv
+          make setenv group=false
