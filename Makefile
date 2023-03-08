@@ -19,7 +19,7 @@ setenv:
 clean:
 	@rm -rf ~/.env
 	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ~/.bashrc
-	@rm ${HOME}/.odbc.ini ${HOME}/.odbcinst.ini
+	@rm -f ${HOME}/.odbc.ini ${HOME}/.odbcinst.ini
 	if [ $(verbose) == "true" ]; do @echo -e "\nYou can now remove this directory and, if the module was installed at group level, the folder at: $(installdir)"; done
 
 .PHONY: configure install clean
