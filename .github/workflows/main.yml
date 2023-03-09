@@ -15,8 +15,14 @@ jobs:
     runs-on: ubuntu-20.04
 
     container:
+      name: centos7
       image: centos:7.9.2009
       options: --user root
+
+    inputs:
+      r_version:
+        description: "The version of R to use"
+        default: "4.2.0"
 
     steps:
       - name: Checkout repo
@@ -27,40 +33,30 @@ jobs:
           yum install -y gcc gcc-c++ kernel-devel dnf
           yum install -y epel-release 
           yum install -y Lmod git curl
-
-          export R_VERSION=4.2.0
-          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
-          dnf install -y R-${R_VERSION}-1-1.x86_64.rpm
-          ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
-          ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
-
+          export R_VERSION=${{ inputs.r_version }}
+          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${{ inputs.r_version }}-1-1.x86_64.rpm
+          dnf install -y R-${{ inputs.r_version }}-1-1.x86_64.rpm
+          ln -s /opt/R/${{ inputs.r_version }}/bin/R /usr/local/bin/R
+          ln -s /opt/R/${{ inputs.r_version }}/bin/Rscript /usr/local/bin/Rscript
           useradd -m sherlock
-      - name: Create Lua module for R 4.2.0
+      - name: Create Lua module for R version
         run: |
-          su - sherlock
           mkdir -p /home/sherlock/.local/share/modulefiles
-          echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-4.2.0.lua
-          echo "setenv('R_HOME', '/opt/R/4.2.0')" >> /home/sherlock/.local/share/modulefiles/R-4.2.0.lua
-          echo "prepend_path('PATH', '/opt/R/4.2.0/bin')" >> /home/sherlock/.local/share/modulefiles/R-4.2.0.lua
-          echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/4.2.0/lib64')" >> /home/sherlock/.local/share/modulefiles/R-4.2.0.lua
+          echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-${{ inputs.r_version }}.lua
+          echo "setenv('R_HOME', '/opt/R/${{ inputs.r_version }}')" >> /home/sherlock/.local/share/modulefiles/R-${{ inputs.r_version }}.lua
+          echo "prepend_path('PATH', '/opt/R/${{ inputs.r_version }}/bin')" >> /home/sherlock/.local/share/modulefiles/R-${{ inputs.r_version }}.lua
+          echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/${{ inputs.r_version }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R-${{ inputs.r_version }}.lua
+        shell: bash
       - name: Prepare the environment
         run: |
-          echo "export MODULEPATH=MODULEPATH:/home/sherlock/.local/share/modulefiles" >> /home/sherlock/.bashrc
-          echo "source  /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
+          echo "export MODULEPATH=\$MODULEPATH:/home/sherlock/.local/share/modulefiles" >> /home/sherlock/.bashrc
+          echo "source /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
       - name: Install the package
         run: |
-          su - sherlock
-          source /home/sherlock/.bashrc
-          git clone https://github.com/the-tobias-project/odbc-module
-          cd odbc-module
-          make install check=false
+          sudo -u sherlock -H sh -c "source /home/sherlock/.bashrc && git clone https://github.com/the-tobias-project/odbc-module && cd odbc-module && make install check=false"
       - name: Configure
         run: |
-          su - sherlock
-          make configure group=false
+          sudo -u sherlock -H sh -c "cd odbc-module && make configure group=false"
       - name: Setenv
         run: |
-          su - sherlock
-          make setenv group=false
-          source /home/sherlock/.bashrc
-          module spider | grep databricks
+          sudo -u sherlock -H sh -c "source /home/sherlock/.bashrc && module spider databricks | grep R/${{ inputs.r_version }}"
