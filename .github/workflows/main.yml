@@ -23,11 +23,11 @@ jobs:
         uses: actions/checkout@v3
       - name: Prepare environment
         run: |
-          yum update -y && yum clean all
+          yum update -y && yum makecache && yum clean all
           yum install -y gcc gcc-c++ kernel-devel dnf
-          yum install -y epel-release
+          yum install -y epel-release tcl lua
           yum install -y environment-modules git curl
-          
+
           export R_VERSION=4.2.2
           curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
           dnf install -y R-${R_VERSION}-1-1.x86_64.rpm
