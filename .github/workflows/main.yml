@@ -37,7 +37,7 @@ jobs:
           curl -LJO https://github.com/cea-hpc/modules/releases/download/v5.2.0/modules-5.2.0.tar.gz
           tar xfz modules-5.2.0.tar.gz
           cd modules-5.2.0 && \
-          ./configure --prefix=/usr/share/Modules \                                           
+          ./configure --with-tcl $(pkg-config --variable=libdir tcl) --prefix=/usr/share/Modules \                                           
               --modulefilesdir=/etc/modulefiles && \
           make && make install
           ln -s /usr/share/Modules/init/profile.sh /etc/profile.d/modules.sh   
