@@ -44,7 +44,6 @@ jobs:
           echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/4.2.2/lib64')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
       - name: Install the package
         run: |
-          source /usr/share/Modules/init/bash
           su - sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module
