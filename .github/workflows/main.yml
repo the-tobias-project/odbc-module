@@ -16,40 +16,40 @@ jobs:
 
     container:
       image: centos:7.9.2009
+      options: --user root
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Prepare environment
         run: |
-          yum install sudo
-          sudo yum update -y && sudo yum clean all
-          sudo yum install -y gcc gcc-c++ kernel-devel
-          sudo yum install -y environment-modules git
-          sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+          yum update -y && yum clean all
+          yum install -y gcc gcc-c++ kernel-devel
+          yum install -y environment-modules git
+          yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
           export R_VERSION=4.2.2
-          sudo curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
-          sudo dnf install -y R-${R_VERSION}-1-1.x86_64.rpm
-          sudo ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
-          sudo ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
-          sudo useradd -m sherlock
+          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
+          dnf install -y R-${R_VERSION}-1-1.x86_64.rpm
+          ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
+          ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
+          useradd -m sherlock
       - name: Create Lua module for R 4.2.2
         run: |
-          sudo -u sherlock mkdir -p /home/sherlock/.local/share/modulefiles
+          su -u sherlock mkdir -p /home/sherlock/.local/share/modulefiles
           echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
           echo "setenv('R_HOME', '/opt/R/4.2.2')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
           echo "prepend_path('PATH', '/opt/R/4.2.2/bin')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
           echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/4.2.2/lib64')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
       - name: Install the package
         run: |
-          sudo -u sherlock git clone https://github.com/the-tobias-project/odbc-module
+          su -u sherlock git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module
           sudo -u sherlock make install check=false
       - name: Configure
         run: |
-          sudo -u sherlock make configure group=false
+          su -u sherlock make configure group=false
       - name: Setenv
         run: |
-          sudo -u sherlock make setenv group=false
+          su -u sherlock make setenv group=false
           source /home/sherlock/.bashrc
           module spider | grep databricks
