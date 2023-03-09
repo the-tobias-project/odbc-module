@@ -46,7 +46,7 @@ jobs:
           su - sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module
-          sudo -u sherlock make install check=false
+          make install check=false
       - name: Configure
         run: |
           su - sherlock
