@@ -50,6 +50,7 @@ jobs:
       - name: Install the package
         run: |
           su - sherlock
+          source /home/sherlock/.bashrc
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module
           make install check=false
