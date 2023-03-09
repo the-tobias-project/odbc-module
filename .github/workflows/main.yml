@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: build
-    runs-on: centos:centos7.9.2009
+    runs-on: centos-7
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
