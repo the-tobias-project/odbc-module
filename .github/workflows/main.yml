@@ -25,7 +25,7 @@ jobs:
         run: |
           yum update -y && yum makecache && yum clean all
           yum install -y gcc gcc-c++ kernel-devel dnf
-          yum install -y epel-release tcl lua tcl-devel
+          yum install -y epel-release 
           yum install -y environment-modules git curl
 
           export R_VERSION=4.2.2
@@ -42,7 +42,6 @@ jobs:
           make && make install
           ln -s /usr/share/Modules/init/profile.sh /etc/profile.d/modules.sh   
           ln -s /usr/share/Modules/init/profile.csh /etc/profile.d/modules.csh
-          source /usr/share/Modules/init/bash
 
           useradd -m sherlock
       - name: Create Lua module for R 4.2.2
@@ -55,6 +54,7 @@ jobs:
           echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/4.2.2/lib64')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
       - name: Install the package
         run: |
+          source /usr/share/Modules/init/bash
           su - sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module
