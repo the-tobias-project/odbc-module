@@ -33,10 +33,7 @@ jobs:
           dnf install -y R-${R_VERSION}-1-1.x86_64.rpm
           ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
           ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
-
-          ln -s /opt/apps/lmod/lmod/init/profile        /etc/profile.d/z00_lmod.sh
-          ln -s /opt/apps/lmod/lmod/init/cshrc          /etc/profile.d/z00_lmod.csh
-          ln -s /opt/apps/lmod/lmod/init/profile.fish   /etc/fish/conf.d/z00_lmod.fish
+          
           useradd -m sherlock
       - name: Create Lua module for R 4.2.2
         run: |
