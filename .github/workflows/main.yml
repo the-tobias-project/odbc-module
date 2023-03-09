@@ -40,6 +40,8 @@ jobs:
           useradd -m sherlock
       - name: Create Lua module for R 4.2.2
         run: |
+          source  /etc/profile.d/z00_lmod.sh
+          source /etc/profile.d/z00_lmod.csh
           su - sherlock
           mkdir -p /home/sherlock/.local/share/modulefiles
           echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
