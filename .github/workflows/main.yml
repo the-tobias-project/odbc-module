@@ -24,7 +24,7 @@ jobs:
       - name: Prepare environment
         run: |
           yum update -y && yum clean all
-          yum install -y gcc gcc-c++ kernel-devel
+          yum install -y gcc gcc-c++ kernel-devel dnf
           yum install -y environment-modules git
           yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
           export R_VERSION=4.2.2
