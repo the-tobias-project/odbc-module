@@ -25,7 +25,7 @@ jobs:
         run: |
           yum update -y && yum makecache && yum clean all
           yum install -y gcc gcc-c++ kernel-devel dnf
-          yum install -y epel-release tcl lua
+          yum install -y epel-release tcl lua tcl-devel
           yum install -y environment-modules git curl
 
           export R_VERSION=4.2.2
@@ -37,7 +37,7 @@ jobs:
           curl -LJO https://github.com/cea-hpc/modules/releases/download/v5.2.0/modules-5.2.0.tar.gz
           tar xfz modules-5.2.0.tar.gz
           cd modules-5.2.0 && \
-          ./configure --with-tcl=/usr/lib64 --prefix=/usr/share/Modules \                                           
+          ./configure --with-tcl=$(rpm -ql tcl-devel | grep tclconfig.h) --prefix=/usr/share/Modules \                                           
               --modulefilesdir=/etc/modulefiles && \
           make && make install
           ln -s /usr/share/Modules/init/profile.sh /etc/profile.d/modules.sh   
