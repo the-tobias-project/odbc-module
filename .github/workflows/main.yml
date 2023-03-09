@@ -25,8 +25,8 @@ jobs:
         run: |
           yum update -y && yum clean all
           yum install -y gcc gcc-c++ kernel-devel dnf
+          yum install -y epel-release
           yum install -y environment-modules git
-          yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
           export R_VERSION=4.2.2
           curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
           dnf install -y R-${R_VERSION}-1-1.x86_64.rpm
