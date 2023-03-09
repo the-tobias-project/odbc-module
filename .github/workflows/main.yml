@@ -37,7 +37,6 @@ jobs:
           useradd -m sherlock
       - name: Create Lua module for R 4.2.2
         run: |
-          source  /etc/profile.d/z00_lmod.sh
           su - sherlock
           mkdir -p /home/sherlock/.local/share/modulefiles
           echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
@@ -47,6 +46,7 @@ jobs:
       - name: Install the package
         run: |
           su - sherlock
+          source  /etc/profile.d/z00_lmod.sh
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module
           make install check=false
