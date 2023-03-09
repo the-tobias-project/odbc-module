@@ -33,12 +33,11 @@ jobs:
           dnf install -y R-${R_VERSION}-1-1.x86_64.rpm
           ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
           ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
-          
+
           useradd -m sherlock
       - name: Create Lua module for R 4.2.2
         run: |
           source  /etc/profile.d/z00_lmod.sh
-          source /etc/profile.d/z00_lmod.csh
           su - sherlock
           mkdir -p /home/sherlock/.local/share/modulefiles
           echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
