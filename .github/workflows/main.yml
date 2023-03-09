@@ -1,4 +1,3 @@
-
 name: base
 
 on:
@@ -17,17 +16,25 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Prepare environment
-        run: | 
+        run: |
           yum update -y && yum clean all
           yum install gcc gcc-c++ kernel-devel
           yum install -y environment-modules git
           yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+          yum install -y lua-devel
           export R_VERSION=4.2.2
           curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
           dnf install R-${R_VERSION}-1-1.x86_64.rpm
           ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
           ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
           useradd -m sherlock
+          mkdir -p /usr/share/Modules/modulefiles/R
+          echo "#%Module" > /usr/share/Modules/modulefiles/R/4.2.2
+          echo "set root /opt/R/4.2.2" >> /usr/share/Modules/modulefiles/R/4.2.2
+          echo "prepend-path PATH \$root/bin" >> /usr/share/Modules/modulefiles/R/4.2.2
+          echo "prepend-path LD_LIBRARY_PATH \$root/lib64/R/lib" >> /usr/share/Modules/modulefiles/R/4.2.2
+          echo "prepend-path MANPATH \$root/share/man" >> /usr/share/Modules/modulefiles/R/4.2.2
+          echo "setenv R_HOME \$root/lib64/R" >> /usr/share/Modules/modulefiles/R/4.2.2
       - name: Install the package
         run: |
           git clone https://github.com/the-tobias-project/odbc-module
