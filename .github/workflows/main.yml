@@ -17,34 +17,33 @@ jobs:
         uses: actions/checkout@v3
       - name: Prepare environment
         run: |
-          yum update -y && yum clean all
-          yum install gcc gcc-c++ kernel-devel
-          yum install -y environment-modules git
-          yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
-          yum install -y lua-devel
+          sudo yum update -y && sudo yum clean all
+          sudo yum install -y gcc gcc-c++ kernel-devel
+          sudo yum install -y environment-modules git
+          sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
           export R_VERSION=4.2.2
-          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
-          dnf install R-${R_VERSION}-1-1.x86_64.rpm
-          ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
-          ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
-          useradd -m sherlock
-          mkdir -p /usr/share/Modules/modulefiles/R
-          echo "#%Module" > /usr/share/Modules/modulefiles/R/4.2.2
-          echo "set root /opt/R/4.2.2" >> /usr/share/Modules/modulefiles/R/4.2.2
-          echo "prepend-path PATH \$root/bin" >> /usr/share/Modules/modulefiles/R/4.2.2
-          echo "prepend-path LD_LIBRARY_PATH \$root/lib64/R/lib" >> /usr/share/Modules/modulefiles/R/4.2.2
-          echo "prepend-path MANPATH \$root/share/man" >> /usr/share/Modules/modulefiles/R/4.2.2
-          echo "setenv R_HOME \$root/lib64/R" >> /usr/share/Modules/modulefiles/R/4.2.2
+          sudo curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
+          sudo dnf install -y R-${R_VERSION}-1-1.x86_64.rpm
+          sudo ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
+          sudo ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
+          sudo useradd -m sherlock
+      - name: Create Lua module for R 4.2.2
+        run: |
+          sudo -u sherlock mkdir -p /home/sherlock/.local/share/modulefiles
+          echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
+          echo "setenv('R_HOME', '/opt/R/4.2.2')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
+          echo "prepend_path('PATH', '/opt/R/4.2.2/bin')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
+          echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/4.2.2/lib64')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
       - name: Install the package
         run: |
-          git clone https://github.com/the-tobias-project/odbc-module
+          sudo -u sherlock git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module
-          make install check=false
+          sudo -u sherlock make install check=false
       - name: Configure
         run: |
-          make configure group=false
-          source ~/.bashrc
-          module spider | grep databricks
+          sudo -u sherlock make configure group=false
       - name: Setenv
         run: |
-          make setenv group=false
+          sudo -u sherlock make setenv group=false
+          source /home/sherlock/.bashrc
+          module spider | grep databricks
