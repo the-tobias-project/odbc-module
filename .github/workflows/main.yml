@@ -43,10 +43,13 @@ jobs:
           echo "setenv('R_HOME', '/opt/R/4.2.0')" >> /home/sherlock/.local/share/modulefiles/R-4.2.0.lua
           echo "prepend_path('PATH', '/opt/R/4.2.0/bin')" >> /home/sherlock/.local/share/modulefiles/R-4.2.0.lua
           echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/4.2.0/lib64')" >> /home/sherlock/.local/share/modulefiles/R-4.2.0.lua
+      - name: Prepare the environment
+        run: |
+          echo "export MODULEPATH=MODULEPATH:/home/sherlock/.local/share/modulefiles" >> /home/sherlock/.bashrc
+          echo "source  /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
       - name: Install the package
         run: |
           su - sherlock
-          source  /etc/profile.d/z00_lmod.sh
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module
           make install check=false
