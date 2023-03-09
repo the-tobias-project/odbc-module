@@ -35,21 +35,25 @@ jobs:
           useradd -m sherlock
       - name: Create Lua module for R 4.2.2
         run: |
-          su -u sherlock mkdir -p /home/sherlock/.local/share/modulefiles
+          su - sherlock
+          mkdir -p /home/sherlock/.local/share/modulefiles
           echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
           echo "setenv('R_HOME', '/opt/R/4.2.2')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
           echo "prepend_path('PATH', '/opt/R/4.2.2/bin')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
           echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/4.2.2/lib64')" >> /home/sherlock/.local/share/modulefiles/R-4.2.2.lua
       - name: Install the package
         run: |
-          su -u sherlock git clone https://github.com/the-tobias-project/odbc-module
+          su - sherlock
+          git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module
           sudo -u sherlock make install check=false
       - name: Configure
         run: |
-          su -u sherlock make configure group=false
+          su - sherlock
+          make configure group=false
       - name: Setenv
         run: |
-          su -u sherlock make setenv group=false
+          su - sherlock
+          make setenv group=false
           source /home/sherlock/.bashrc
           module spider | grep databricks
