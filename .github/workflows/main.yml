@@ -8,6 +8,7 @@ on:
     tags:
       - v*
 
+
 jobs:
   build:
     name: build
@@ -15,14 +16,11 @@ jobs:
     runs-on: ubuntu-20.04
 
     container:
-      name: centos7
       image: centos:7.9.2009
       options: --user root
 
-    inputs:
-      r_version:
-        description: "The version of R to use"
-        default: "4.2.0"
+    env:
+      R_VERSION: "4.2.0"
 
     steps:
       - name: Checkout repo
@@ -33,19 +31,19 @@ jobs:
           yum install -y gcc gcc-c++ kernel-devel dnf
           yum install -y epel-release 
           yum install -y Lmod git curl
-          export R_VERSION=${{ inputs.r_version }}
-          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${{ inputs.r_version }}-1-1.x86_64.rpm
-          dnf install -y R-${{ inputs.r_version }}-1-1.x86_64.rpm
-          ln -s /opt/R/${{ inputs.r_version }}/bin/R /usr/local/bin/R
-          ln -s /opt/R/${{ inputs.r_version }}/bin/Rscript /usr/local/bin/Rscript
+          export R_VERSION=${{ env.r_version }}
+          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${{ env.r_version }}-1-1.x86_64.rpm
+          dnf install -y R-${{ env.r_version }}-1-1.x86_64.rpm
+          ln -s /opt/R/${{ env.r_version }}/bin/R /usr/local/bin/R
+          ln -s /opt/R/${{ env.r_version }}/bin/Rscript /usr/local/bin/Rscript
           useradd -m sherlock
       - name: Create Lua module for R version
         run: |
           mkdir -p /home/sherlock/.local/share/modulefiles
-          echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-${{ inputs.r_version }}.lua
-          echo "setenv('R_HOME', '/opt/R/${{ inputs.r_version }}')" >> /home/sherlock/.local/share/modulefiles/R-${{ inputs.r_version }}.lua
-          echo "prepend_path('PATH', '/opt/R/${{ inputs.r_version }}/bin')" >> /home/sherlock/.local/share/modulefiles/R-${{ inputs.r_version }}.lua
-          echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/${{ inputs.r_version }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R-${{ inputs.r_version }}.lua
+          echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-${{ env.r_version }}.lua
+          echo "setenv('R_HOME', '/opt/R/${{ env.r_version }}')" >> /home/sherlock/.local/share/modulefiles/R-${{ env.r_version }}.lua
+          echo "prepend_path('PATH', '/opt/R/${{ env.r_version }}/bin')" >> /home/sherlock/.local/share/modulefiles/R-${{ env.r_version }}.lua
+          echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/${{ env.r_version }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R-${{ env.r_version }}.lua
         shell: bash
       - name: Prepare the environment
         run: |
