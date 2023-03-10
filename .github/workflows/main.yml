@@ -31,7 +31,6 @@ jobs:
           yum install -y gcc gcc-c++ kernel-devel dnf
           yum install -y epel-release 
           yum install -y Lmod git curl
-          yum install -y sudo
           export R_VERSION=${{ env.R_VERSION }}
           curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${{ env.R_VERSION }}-1-1.x86_64.rpm
           dnf install -y R-${{ env.R_VERSION }}-1-1.x86_64.rpm
@@ -52,10 +51,10 @@ jobs:
           echo "source /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
       - name: Install the package
         run: |
-           
+          su sherlock -c "source /home/sherlock/.bashrc && git clone https://github.com/the-tobias-project/odbc-module && cd odbc-module && make install check=false"
       - name: Configure
         run: |
-          sudo -u sherlock -H sh -c "cd odbc-module && make configure group=false"
+          su sherlock -c "cd odbc-module && make configure group=false"
       - name: Setenv
         run: |
-          sudo -u sherlock -H sh -c "source /home/sherlock/.bashrc && module spider databricks | grep R/${{ inputs.R_VERSION }}"
+          su sherlock -c "source /home/sherlock/.bashrc && module spider databricks | grep R/${{ inputs.R_VERSION }}"
