@@ -35,6 +35,16 @@ jobs:
           yum install -y Lmod git curl wget
           yum install -y libgfortran5 readline readline-devel libicu-devel
           useradd -m sherlock
+      - name: Install libicu67 from source
+        run: |
+          wget https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz
+          tar -xzf icu4c-67_1-src.tgz
+          cd icu/source
+          ./configure --prefix=/usr/local --disable-debug --disable-samples
+          make
+          make install
+          echo "/usr/local/lib" > /etc/ld.so.conf.d/local.conf
+          ldconfig
       - name: Install Readline 8 from source
         run: |
           wget https://ftp.gnu.org/gnu/readline/readline-${{ env.READLINE_VERSION }}.tar.gz
