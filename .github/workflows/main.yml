@@ -37,10 +37,29 @@ jobs:
           ln -s /opt/R/${{ env.R_VERSION }}/bin/R /usr/local/bin/R
           ln -s /opt/R/${{ env.R_VERSION }}/bin/Rscript /usr/local/bin/Rscript
           useradd -m sherlock
+      - name: Download and install unixODBC
+        run: |
+          curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.9.tar.gz
+          tar xf unixODBC-2.3.9.tar.gz
+          cd unixODBC-2.3.9
+          ./configure --prefix=/usr --sysconfdir=/etc/unixODBC
+          make
+          make install
+          find doc -name "Makefile*" -delete
+          chmod 644 doc/{lst,ProgrammerManual/Tutorial}/*
+          install -v -m755 -d /usr/share/doc/unixODBC-2.3.9
+          cp -v -R doc/* /usr/share/doc/unixODBC-2.3.9
+      - name: Create unixODBC module
+        run: |
+          mkdir -p /home/sherlock/.local/share/modulefiles/unixodbc
+          echo "setenv('ODBC_HOME', '/usr')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
+          echo "prepend_path('PATH', '/usr/bin')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
+          echo "prepend_path('LD_LIBRARY_PATH', '/usr/lib64')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
+          echo "prepend_path('PKG_CONFIG_PATH', '/usr/lib64/pkgconfig')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
+          echo "setenv('ODBCSYSINI', '/etc/unixODBC')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
       - name: Create Lua module for R version
         run: |
           mkdir -p /home/sherlock/.local/share/modulefiles/R
-          echo "#%Module" > /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "setenv('R_HOME', '/opt/R/${{ env.R_VERSION }}')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "prepend_path('PATH', '/opt/R/${{ env.R_VERSION }}/bin')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/${{ env.R_VERSION }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
