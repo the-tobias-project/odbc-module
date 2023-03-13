@@ -35,16 +35,16 @@ jobs:
           yum install -y Lmod git curl wget
           yum install -y libgfortran5 readline readline-devel libicu-devel
           useradd -m sherlock
-      - name: Upgrade libstdc++ to version 8
+      - name: Upgrade libstdc++ to version 9
         run: |
-          yum install -y centos-release-scl
-          yum install -y devtoolset-8-libstdc++-devel
+          yum install -y devtoolset-9-gcc devtoolset-9-gcc-c++
+          scl enable devtoolset-9 bash
       - name: Install libicu67 from source
         run: |
+          export CXXFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0"
           wget https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz
           tar -xzf icu4c-67_1-src.tgz
           cd icu/source
-          sed -i 's/^#include <utext.h>/#include <cstddef>\n#include <utext.h>/' common/utext.cpp
           ./configure --prefix=/usr/local/icu67 --disable-debug --disable-samples
           make -j
           make install
