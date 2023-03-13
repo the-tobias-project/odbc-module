@@ -39,7 +39,6 @@ jobs:
         run: |
           yum install -y centos-release-scl
           yum install -y devtoolset-8-libstdc++-devel
-          ln -s /opt/rh/devtoolset-8/root/usr/lib64/libstdc++.so.6 /usr/lib64/libstdc++.so.6
       - name: Install libicu67 from source
         run: |
           wget https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz
