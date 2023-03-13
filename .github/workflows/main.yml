@@ -32,12 +32,11 @@ jobs:
           yum update -y && yum makecache && yum clean all
           yum install -y gcc gcc-c++ kernel-devel dnf
           yum install -y epel-release 
-          yum install -y Lmod git curl
+          yum install -y Lmod git curl wget
           yum install -y libgfortran5 readline readline-devel
           useradd -m sherlock
       - name: Install Readline 8 from source
         run: |
-          yum -y install wget
           wget https://ftp.gnu.org/gnu/readline/readline-${{ env.READLINE_VERSION }}.tar.gz
           tar -xzf readline-${{ env.READLINE_VERSION }}.tar.gz
           cd readline-${{ env.READLINE_VERSION }}
