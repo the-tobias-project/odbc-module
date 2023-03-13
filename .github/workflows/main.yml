@@ -45,9 +45,9 @@ jobs:
           tar -xzf icu4c-67_1-src.tgz
           cd icu/source
           ./configure --prefix=/usr/local --disable-debug --disable-samples
-          make
+          make -j4
           make install
-          echo "/usr/local/lib" > /etc/ld.so.conf.d/local.conf
+          echo "/usr/local/icu67/lib" > /etc/ld.so.conf.d/icu67.conf
           ldconfig
       - name: Install Readline 8 from source
         run: |
