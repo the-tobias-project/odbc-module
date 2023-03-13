@@ -51,6 +51,8 @@ jobs:
           echo "source /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
       - name: Test R module
         run: |
+          echo $MODULEPATH
+          module spider
           su - sherlock -c 'module load R/${{ env.R_VERSION }}'
       - name: Install the package
         run: |
