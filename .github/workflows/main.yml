@@ -52,14 +52,12 @@ jobs:
       - name: Test R module
         run: |
           su - sherlock -c 'cd ~ && exec bash'
-          source .bashrc
           echo $MODULEPATH
           module spider
           su - sherlock -c 'module load R/${{ env.R_VERSION }}'
       - name: Install the package
         run: |
           su - sherlock -c 'cd ~ && exec bash'
-          source .bashrc
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module && make install check=false
       - name: Configure
