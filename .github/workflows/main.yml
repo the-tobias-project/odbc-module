@@ -36,10 +36,13 @@ jobs:
           yum install -y Lmod git curl wget
           yum install -y libgfortran5 readline readline-devel  libicu libicu-devel 
           useradd -m sherlock
+          
       - name: Instal libicu67
         run: | 
-          yum -y install libicu-devel-50.2-4.el7_7.x86_64
-          yum -y install https://rpmfind.net/linux/centos-stream/9-stream/BaseOS/x86_64/os/Packages/libicu-67.1-9.el9.x86_64.rpm
+          yum info libicu
+          ln -s /path/to/libicu50.so /usr/lib64/libicuuc.so.67
+          ln -s /path/to/libicuio.so /usr/lib64/libicuio.so.67
+          ln -s /path/to/libicudata.so /usr/lib64/libicudata.so.67
       - name: Install Readline 8 from source
         run: |
           wget https://ftp.gnu.org/gnu/readline/readline-${{ env.READLINE_VERSION }}.tar.gz
