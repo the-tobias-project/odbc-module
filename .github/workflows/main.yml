@@ -37,6 +37,7 @@ jobs:
           useradd -m sherlock
       - name: Upgrade libstdc++ to version 9
         run: |
+          yum install -y centos-release-scl
           yum install -y devtoolset-9-gcc devtoolset-9-gcc-c++
           scl enable devtoolset-9 bash
       - name: Install libicu67 from source
