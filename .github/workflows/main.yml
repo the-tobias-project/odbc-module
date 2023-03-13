@@ -44,8 +44,8 @@ jobs:
           wget https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz
           tar -xzf icu4c-67_1-src.tgz
           cd icu/source
-          ./configure --prefix=/usr/local --disable-debug --disable-samples
-          make -j4
+          ./configure --prefix=/usr/local/icu67 --disable-debug --disable-samples
+          make -j
           make install
           echo "/usr/local/icu67/lib" > /etc/ld.so.conf.d/icu67.conf
           ldconfig
