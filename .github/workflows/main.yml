@@ -30,6 +30,7 @@ jobs:
       - name: Prepare environment
         run: |
           yum update -y && yum makecache && yum clean all
+          yum-config-manager --enable updates
           yum install -y gcc gcc-c++ kernel-devel dnf make cmake
           yum install -y epel-release 
           yum install -y Lmod git curl wget
@@ -37,6 +38,7 @@ jobs:
           useradd -m sherlock
       - name: Instal libicu67
         run: | 
+          yum -y install libicu-devel-50.2-4.el7_7.x86_64
           yum -y install https://rpmfind.net/linux/centos-stream/9-stream/BaseOS/x86_64/os/Packages/libicu-67.1-9.el9.x86_64.rpm
       - name: Install Readline 8 from source
         run: |
