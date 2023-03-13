@@ -47,8 +47,11 @@ jobs:
         shell: bash
       - name: Prepare the environment
         run: |
-          echo "export MODULEPATH=\$MODULEPATH:/home/sherlock/.local/share/modulefiles" >> /home/sherlock/.bashrc
+          echo "export MODULEPATH=/home/sherlock/.local/share/modulefiles:\$MODULEPATH" >> $HOME/.bashrc
           echo "source /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
+      - name: Test R module
+        run: |
+          su - sherlock -c 'module load R/${{ env.R_VERSION }}'
       - name: Install the package
         run: |
           su - sherlock -c 'cd ~ && exec bash'
