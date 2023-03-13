@@ -32,13 +32,6 @@ jobs:
           yum install -y epel-release 
           yum install -y Lmod git curl
           yum install -y libgfortran5 readline readline-devel
-      - name: Install R
-        run: | 
-          export R_VERSION=${{ env.R_VERSION }}
-          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${{ env.R_VERSION }}-1-1.x86_64.rpm
-          dnf install -y R-${{ env.R_VERSION }}-1-1.x86_64.rpm
-          ln -s /opt/R/${{ env.R_VERSION }}/bin/R /usr/local/bin/R
-          ln -s /opt/R/${{ env.R_VERSION }}/bin/Rscript /usr/local/bin/Rscript
           useradd -m sherlock
       - name: Install Readline 8 from source
         run: |
@@ -63,6 +56,13 @@ jobs:
           chmod 644 doc/{lst,ProgrammerManual/Tutorial}/*
           install -v -m755 -d /usr/share/doc/unixODBC-2.3.9
           cp -v -R doc/* /usr/share/doc/unixODBC-2.3.9
+      - name: Install R
+        run: | 
+          export R_VERSION=${{ env.R_VERSION }}
+          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${{ env.R_VERSION }}-1-1.x86_64.rpm
+          dnf install -y R-${{ env.R_VERSION }}-1-1.x86_64.rpm
+          ln -s /opt/R/${{ env.R_VERSION }}/bin/R /usr/local/bin/R
+          ln -s /opt/R/${{ env.R_VERSION }}/bin/Rscript /usr/local/bin/Rscript
       - name: Create unixODBC module
         run: |
           mkdir -p /home/sherlock/.local/share/modulefiles/unixodbc
