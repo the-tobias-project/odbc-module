@@ -38,13 +38,17 @@ jobs:
           ln -s /opt/R/${{ env.R_VERSION }}/bin/R /usr/local/bin/R
           ln -s /opt/R/${{ env.R_VERSION }}/bin/Rscript /usr/local/bin/Rscript
           useradd -m sherlock
-      - name: install readline 8 dependency for R
+      - name: Install Readline 8 from source
         run: |
+          yum -y install wget
           wget https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
           tar -xzf readline-8.2.tar.gz
           cd readline-8.2
-          ./configure --prefix=/usr/local && make && make install
-          ls -l /usr/local/lib/libreadline*
+          ./configure --prefix=/usr/local
+          make
+          make install
+          echo "/usr/local/lib" >> /etc/ld.so.conf.d/local.conf
+          ldconfig
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.9.tar.gz
