@@ -39,8 +39,8 @@ jobs:
           useradd -m sherlock
       - name: Create Lua module for R version
         run: |
-          mkdir -p /home/sherlock/.local/share/modulefiles
-          echo "#%Module" > /home/sherlock/.local/share/modulefiles/R-${{ env.R_VERSION }}.lua
+          mkdir -p /home/sherlock/.local/share/modulefiles/R
+          echo "#%Module" > /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "setenv('R_HOME', '/opt/R/${{ env.R_VERSION }}')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "prepend_path('PATH', '/opt/R/${{ env.R_VERSION }}/bin')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/${{ env.R_VERSION }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
