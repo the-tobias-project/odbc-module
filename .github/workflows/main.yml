@@ -57,7 +57,6 @@ jobs:
           source /home/sherlock/.bashrc
           echo $MODULEPATH
           module spider
-          module load R
       - name: Install the package
         run: |
           su - sherlock 
