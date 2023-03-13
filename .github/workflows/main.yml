@@ -73,7 +73,7 @@ jobs:
           wget https://cran.r-project.org/src/base/R-4/R-${{ env.R_VERSION }}.tar.gz
           tar xvf R-${{ env.R_VERSION }}.tar.gz
           cd R-${{ env.R_VERSION }}
-          ./configure --prefix=/share/apps/R-{{ env.R_VERSION }} --enable-R-shlib
+          ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib
           make
           make install
           dnf install -y R-${{ env.R_VERSION }}-1-1.x86_64.rpm
