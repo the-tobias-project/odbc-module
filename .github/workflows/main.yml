@@ -30,11 +30,11 @@ jobs:
       - name: Prepare environment
         run: |
           yum update -y && yum makecache && yum clean all
-          yum install -y gcc gcc-c++ kernel-devel dnf make cmake gcc-gfortran zlib-devel bzip2-devel
+          yum install -y gcc gcc-c++ kernel-devel dnf make cmake 
           yum install -y epel-release 
           yum install -y Lmod git curl wget
-          yum install -y libgfortran5 readline readline-devel  libicu libicu-devel 
-          
+          yum install -y libgfortran5 readline readline-devel  libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel
+          yum install R-devel
           useradd -m sherlock
         
       - name: Install Readline 8 from source
