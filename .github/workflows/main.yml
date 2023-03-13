@@ -111,6 +111,7 @@ jobs:
           su - sherlock 
           source /home/sherlock/.bashrc
           git clone https://github.com/the-tobias-project/odbc-module
+          export R=/usr/local/bin/R
           cd odbc-module && make install check=false
       - name: Configure
         run: |
