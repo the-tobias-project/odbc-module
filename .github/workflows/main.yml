@@ -32,9 +32,6 @@ jobs:
           yum update -y && yum makecache && yum clean all
           yum install -y gcc gcc-c++ kernel-devel dnf make cmake
           yum install -y epel-release 
-          subscription-manager repos --enable "rhel-*-optional-rpms"
-          yum install yum-utils
-          yum-config-manager --enable "rhel-*-optional-rpms"
           yum install -y Lmod git curl wget
           yum install -y libgfortran5 readline readline-devel  libicu libicu-devel 
           
