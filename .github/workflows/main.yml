@@ -52,22 +52,25 @@ jobs:
           echo "source /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
       - name: Test R module
         run: |
-          su - sherlock -c 'cd ~ && exec bash'
+          su - sherlock 
+          source /home/sherlock/.bashrc
           echo $MODULEPATH
           module spider
-          su - sherlock -c 'module load R/${{ env.R_VERSION }}'
+          module load R/${{ env.R_VERSION }}
       - name: Install the package
         run: |
-          su - sherlock -c 'cd ~ && exec bash'
+          su - sherlock 
+          source /home/sherlock/.bashrc
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module && make install check=false
       - name: Configure
         run: |
-          su - sherlock -c 'cd ~ && exec bash'
+          su - sherlock 
+          source /home/sherlock/.bashrc
           cd odbc-module && make configure group=false
       - name: Setenv
         run: |
-          su - sherlock -c 'cd ~ && exec bash'
-          source .bashrc
+          su - sherlock
+          source /home/sherlock/.bashrc
           make setenv group=false
           module spider databricks | grep R/${{ inputs.R_VERSION }}
