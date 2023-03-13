@@ -47,8 +47,9 @@ jobs:
         shell: bash
       - name: Prepare the environment
         run: |
-          echo "export MODULEPATH=/home/sherlock/.local/share/modulefiles:\$MODULEPATH" >> $HOME/.bashrc
-          echo "module use --append /home/sherlock/.local/share/modulefiles/"  >> $HOME/.bashrc
+          su - sherlock 
+          echo "export MODULEPATH=/home/sherlock/.local/share/modulefiles:\$MODULEPATH" >> /home/sherlock/.bashrc
+          echo "module use --append /home/sherlock/.local/share/modulefiles/"  >> /home/sherlock/.bashrc
           echo "source /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
       - name: Test R module
         run: |
