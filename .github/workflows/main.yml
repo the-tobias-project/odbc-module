@@ -21,6 +21,8 @@ jobs:
 
     env:
       R_VERSION: "4.2.0"
+      READLINE_VERSION: "8.2"
+      UNIXODBC_VERSION: "2.3.9"
 
     steps:
       - name: Checkout repo
@@ -36,9 +38,9 @@ jobs:
       - name: Install Readline 8 from source
         run: |
           yum -y install wget
-          wget https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
-          tar -xzf readline-8.2.tar.gz
-          cd readline-8.2
+          wget https://ftp.gnu.org/gnu/readline/readline-${{ env.READLINE_VERSION }}.tar.gz
+          tar -xzf readline-${{ env.READLINE_VERSION }}.tar.gz
+          cd readline-${{ env.READLINE_VERSION }}
           ./configure --prefix=/usr/local
           make
           make install
@@ -46,16 +48,16 @@ jobs:
           ldconfig
       - name: Download and install unixODBC
         run: |
-          curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.9.tar.gz
-          tar xf unixODBC-2.3.9.tar.gz
-          cd unixODBC-2.3.9
+          curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
+          tar xf unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
+          cd unixODBC-${{ env.UNIXODBC_VERSION }}
           ./configure --prefix=/usr --sysconfdir=/etc/unixODBC
           make
           make install
           find doc -name "Makefile*" -delete
           chmod 644 doc/{lst,ProgrammerManual/Tutorial}/*
-          install -v -m755 -d /usr/share/doc/unixODBC-2.3.9
-          cp -v -R doc/* /usr/share/doc/unixODBC-2.3.9
+          install -v -m755 -d /usr/share/doc/unixODBC-${{ env.UNIXODBC_VERSION }}
+          cp -v -R doc/* /usr/share/doc/unixODBC-${{ env.UNIXODBC_VERSION }}
       - name: Install R
         run: | 
           export R_VERSION=${{ env.R_VERSION }}
@@ -66,11 +68,11 @@ jobs:
       - name: Create unixODBC module
         run: |
           mkdir -p /home/sherlock/.local/share/modulefiles/unixodbc
-          echo "setenv('ODBC_HOME', '/usr')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
-          echo "prepend_path('PATH', '/usr/bin')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
-          echo "prepend_path('LD_LIBRARY_PATH', '/usr/lib64')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
-          echo "prepend_path('PKG_CONFIG_PATH', '/usr/lib64/pkgconfig')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
-          echo "setenv('ODBCSYSINI', '/etc/unixODBC')" >> /home/sherlock/.local/share/modulefiles/unixodbc/2.3.9.lua
+          echo "setenv('ODBC_HOME', '/usr')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
+          echo "prepend_path('PATH', '/usr/bin')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
+          echo "prepend_path('LD_LIBRARY_PATH', '/usr/lib64')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
+          echo "prepend_path('PKG_CONFIG_PATH', '/usr/lib64/pkgconfig')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
+          echo "setenv('ODBCSYSINI', '/etc/unixODBC')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
       - name: Create Lua module for R version
         run: |
           mkdir -p /home/sherlock/.local/share/modulefiles/R
