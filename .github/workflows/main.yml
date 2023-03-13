@@ -76,7 +76,6 @@ jobs:
           ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib --without-x
           make
           make install
-          dnf install -y R-${{ env.R_VERSION }}-1-1.x86_64.rpm
           ln -s /opt/R/${{ env.R_VERSION }}/bin/R /usr/local/bin/R
           ln -s /opt/R/${{ env.R_VERSION }}/bin/Rscript /usr/local/bin/Rscript
       - name: Create unixODBC module
