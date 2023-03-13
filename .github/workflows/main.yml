@@ -42,7 +42,7 @@ jobs:
           wget https://ftp.gnu.org/gnu/readline/readline-${{ env.READLINE_VERSION }}.tar.gz
           tar -xzf readline-${{ env.READLINE_VERSION }}.tar.gz
           cd readline-${{ env.READLINE_VERSION }}
-          ./configure --prefix=/usr/local
+          ./configure --prefix=/usr/local 
           make
           make install
           echo "/usr/local/lib" >> /etc/ld.so.conf.d/local.conf
@@ -73,7 +73,7 @@ jobs:
           wget https://cran.r-project.org/src/base/R-4/R-${{ env.R_VERSION }}.tar.gz
           tar xvf R-${{ env.R_VERSION }}.tar.gz
           cd R-${{ env.R_VERSION }}
-          ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib
+          ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib --without-x
           make
           make install
           dnf install -y R-${{ env.R_VERSION }}-1-1.x86_64.rpm
