@@ -30,19 +30,16 @@ jobs:
       - name: Prepare environment
         run: |
           yum update -y && yum makecache && yum clean all
-          yum-config-manager --enable updates
           yum install -y gcc gcc-c++ kernel-devel dnf make cmake
           yum install -y epel-release 
+          subscription-manager repos --enable "rhel-*-optional-rpms"
+          yum install yum-utils
+          yum-config-manager --enable "rhel-*-optional-rpms"
           yum install -y Lmod git curl wget
           yum install -y libgfortran5 readline readline-devel  libicu libicu-devel 
-          useradd -m sherlock
           
-      - name: Instal libicu67
-        run: | 
-          yum info libicu
-          ln -s /path/to/libicu50.so /usr/lib64/libicuuc.so.67
-          ln -s /path/to/libicuio.so /usr/lib64/libicuio.so.67
-          ln -s /path/to/libicudata.so /usr/lib64/libicudata.so.67
+          useradd -m sherlock
+        
       - name: Install Readline 8 from source
         run: |
           wget https://ftp.gnu.org/gnu/readline/readline-${{ env.READLINE_VERSION }}.tar.gz
@@ -67,8 +64,21 @@ jobs:
           cp -v -R doc/* /usr/share/doc/unixODBC-${{ env.UNIXODBC_VERSION }}
       - name: Install R
         run: | 
+          wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/centos-release-scl-rh-2-3.el7.centos.noarch.rpm
+          wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/centos-release-scl-2-3.el7.centos.noarch.rpm
+          rpm -ivh centos-release-scl-rh-2-3.el7.centos.noarch.rpm
+          rpm -ivh centos-release-scl-2-3.el7.centos.noarch.rpm
+          yum install centos-release-scl
+          yum install devtoolset-7
+          scl enable devtoolset-7 bash
           export R_VERSION=${{ env.R_VERSION }}
-          curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${{ env.R_VERSION }}-1-1.x86_64.rpm
+          
+          wget https://cran.r-project.org/src/base/R-4/R-${{ env.R_VERSION }}.tar.gz
+          tar xvf R-${{ env.R_VERSION }}.tar.gz
+          cd R-${{ env.R_VERSION }}.tar.gz
+          ./configure --prefix=/share/apps/R-{{ env.R_VERSION }} --enable-R-shlib
+          make
+          make install
           dnf install -y R-${{ env.R_VERSION }}-1-1.x86_64.rpm
           ln -s /opt/R/${{ env.R_VERSION }}/bin/R /usr/local/bin/R
           ln -s /opt/R/${{ env.R_VERSION }}/bin/Rscript /usr/local/bin/Rscript
