@@ -28,16 +28,18 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Prepare environment
+      - name: Prepare general environment
         run: |
           yum update -y && yum makecache && yum clean all
           yum install -y gcc gcc-c++ kernel-devel dnf make cmake 
           yum install -y epel-release 
           yum install -y Lmod git curl wget
-          yum install -y libgfortran5 readline readline-devel  libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
+          useradd -m sherlock
+      - name: Prepare specific R environment
+        run: |
+          yum install -y libgfortran5 readline readline-devel libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel
-          useradd -m sherlock
       - name: Update devtoolset 
         run: | 
           yum -y install centos-release-scl
@@ -107,21 +109,25 @@ jobs:
           gcc -v
           g++ -v
           mkdir -p ~/.R/
+          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}/enable
           echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
           echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
           git clone https://github.com/the-tobias-project/odbc-module
-          cd odbc-module && make install check=false
+          cd /home/sherlock/odbc-module 
+          make install check=false
       - name: Configure
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          cd /home/sherlock/odbc-module && make configure group=false
+          cd /home/sherlock/odbc-module
+          make configure group=false
         if: always()
       - name: Setenv
         run: |
           su - sherlock
           source /home/sherlock/.bashrc
-          cd /home/sherlock/odbc-module && make setenv group=false
+          cd /home/sherlock/odbc-module
+          make setenv group=false
           module spider databricks | grep R/${{ inputs.R_VERSION }}
         if: always()
       - name: Create tarball of artifacts
