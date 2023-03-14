@@ -102,10 +102,9 @@ jobs:
           su - sherlock 
           source /home/sherlock/.bashrc
           source /opt/rh/devtoolset-10/enable
-          export R_LIBS_USER = ~/test
+          mkdir /home/sherlock/test
+          export R_LIBS_USER=/home/sherlock/test
           R --vanilla <<EOF
-          dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive=TRUE)
-          .libPaths(Sys.getenv("R_LIBS_USER"))  
           install.packages(c('odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
           EOF
       - name: Install the package
