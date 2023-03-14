@@ -97,13 +97,12 @@ jobs:
           module spider
           module load R/${{ env.R_VERSION }}
           R -e "print('hello')"
-      - name: Update gcc check R installing packages
+      - name: Update devtoolset
         run: | 
-          yum install -y devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}-gcc-c++
-          gcc -v
-          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}/enable
-          gcc -v
-          echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}/enable" >> /home/sherlock/.bashrc
+          yum -y install centos-release-scl
+          yum -y install devtoolset-${{ env.DEVTOOLSET_VERSION }}
+          scl enable devtoolset-${{ env.DEVTOOLSET_VERSION }} bash
+          echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc        
         if: always()
       - name: Install the package
         run: |
