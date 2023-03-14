@@ -120,7 +120,6 @@ jobs:
           su - sherlock 
           echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc   
           source /home/sherlock/.bashrc
-          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           gcc -v
           g++ -v
           mkdir -p ~/.R/
@@ -131,7 +130,9 @@ jobs:
           cd odbc-module 
           export HOME=/home/sherlock
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
-          make install check=false
+          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
+          bash ./scripts/install.sh check=false
+          #make install check=false
       - name: Configure
         run: |
           su - sherlock 
