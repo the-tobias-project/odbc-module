@@ -91,14 +91,6 @@ jobs:
           module spider
           module load R/4.2.0
           R -e "print('hello')"
-      - name: Configure the g++ environment
-        run: |
-          su - sherlock 
-          mkdir -p /home/sherlock/.R
-          echo "CC = /opt/rh/devtoolset-10/root/usr/bin/gcc" > /home/sherlock/.R/Makevars
-          echo "CXX = /opt/rh/devtoolset-10/root/usr/bin/g++" >> /home/sherlock/.R/Makevars
-          echo "CXX11 = /opt/rh/devtoolset-10/root/usr/bin/g++" >> /home/sherlock/.R/Makevars
-          echo "R_MAKEVARS_USER = ~/.R/Makevars" > /home/sherlock/.Renviron
       - name: Install the package
         run: |
           su - sherlock 
