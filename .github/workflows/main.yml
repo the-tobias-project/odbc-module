@@ -23,6 +23,7 @@ jobs:
       UNIXODBC_VERSION: "2.3.9"
       DEVTOOLSET_VERSION: "10-10.1-0.el7.x86_64"
       DEVTOOLSET_MAJOR_VERSION: "10"
+      REPOSITORY: "the-tobias-project/odbc-module"
 
     steps:
       - name: Checkout repo
@@ -131,3 +132,11 @@ jobs:
         with:
           name: odbc-centos7-R_${{ env.R_VERSION }}-devtoolset_${{ env.DEVTOOLSET_VERSION }}-unixodbc_${{ env.UNIXODBC_VERSION }}.tar.gz
           path: base.tar.gz
+      - name: Publish artifact to release page
+        uses: actions/upload-release-asset@v1
+        with:
+          asset_path: base.tar.gz 
+          asset_name: odbc-centos7-R_${{ env.R_VERSION }}-devtoolset_${{ env.DEVTOOLSET_VERSION }}-unixodbc_${{ env.UNIXODBC_VERSION }}.tar.gz 
+          asset_content_type: application/gzip 
+          tag_name: ${{ github.ref }} 
+          repository: ${{ env.REPOSITORY }}
