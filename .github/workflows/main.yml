@@ -96,7 +96,7 @@ jobs:
           gcc -v
           source /opt/rh/devtoolset-10/enable
           gcc -v
-          echo "source /opt/rh/devtoolset-2/enable" >> /home/sherlock/.bashrc
+          echo "source /opt/rh/devtoolset-10/enable" >> /home/sherlock/.bashrc
       - name: Install the package
         run: |
           su - sherlock 
