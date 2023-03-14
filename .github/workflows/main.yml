@@ -103,6 +103,7 @@ jobs:
           su - sherlock 
           mkdir -p /home/sherlock/.R
           echo "CC = /opt/rh/devtoolset-10/root/usr/bin/gcc" > /home/sherlock/.R/Makevars
+          echo "CXX = /opt/rh/devtoolset-10/root/usr/bin/g++" >> /home/sherlock/.R/Makevars
           echo "CXX11 = /opt/rh/devtoolset-10/root/usr/bin/g++" >> /home/sherlock/.R/Makevars
           echo "R_MAKEVARS_USER = ~/.R/Makevars" > /home/sherlock/.Renviron
       - name: Install the package
@@ -110,7 +111,6 @@ jobs:
           su - sherlock 
           source /home/sherlock/.bashrc
           git clone https://github.com/the-tobias-project/odbc-module
-          export R=/usr/local/bin/R
           cd odbc-module && make install check=false
       - name: Configure
         run: |
