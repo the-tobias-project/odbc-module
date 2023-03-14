@@ -101,11 +101,15 @@ jobs:
         run: | 
           su - sherlock 
           source /home/sherlock/.bashrc
-          source /opt/rh/devtoolset-10/enable
+          
           mkdir /home/sherlock/test
           export R_LIBS_USER=/home/sherlock/test
           module load R/4.2.0
           module load unixodbc/2.3.9
+          source /opt/rh/devtoolset-10/enable
+          gcc -v
+          echo "CC=gcc-10.2.0" > ~/.R/Makevars
+          echo "CXX=g++-10.2.0" >> ~/.R/Makevars
           R --vanilla <<EOF
           install.packages(c('odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
           EOF
