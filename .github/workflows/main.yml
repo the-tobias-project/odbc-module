@@ -125,12 +125,12 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          cd odbc-module && make configure group=false
+          cd /home/sherlock/odbc-module && make configure group=false
         if: always()
       - name: Setenv
         run: |
           su - sherlock
           source /home/sherlock/.bashrc
-          make setenv group=false
+          cd /home/sherlock/odbc-module && make setenv group=false
           module spider databricks | grep R/${{ inputs.R_VERSION }}
         if: always()
