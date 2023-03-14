@@ -47,7 +47,7 @@ jobs:
           scl enable devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }} bash
       - name: Download and install unixODBC
         run: |
-          curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
+          curl -O http://mirror.centos.org/centos/7/sclo/x86_64/rh/Packages/d/devtoolset-10-build-10.1-0.el7.x86_64.rpm
           tar xf unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
           cd unixODBC-${{ env.UNIXODBC_VERSION }}
           ./configure --prefix=/usr --sysconfdir=/etc/unixODBC
