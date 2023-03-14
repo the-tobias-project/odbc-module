@@ -37,14 +37,6 @@ jobs:
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel
           useradd -m sherlock
-      - name: Update devtoolset
-        run: | 
-          yum -y install centos-release-scl
-          yum -y install devtoolset-10
-          yum install -y devtoolset-10-gcc-c++
-          gcc -v
-          source /opt/rh/devtoolset-10/enable
-          gcc -v
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
@@ -92,11 +84,18 @@ jobs:
           module spider
           module load R/4.2.0
           R -e "print('hello')"
+      - name: Update devtoolset
+        run: | 
+          yum -y install centos-release-scl
+          yum -y install devtoolset-10
+          yum install -y devtoolset-10-gcc-c++
+          gcc -v
+          source /opt/rh/devtoolset-10/enable
+          gcc -v
       - name: Install the package
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          source /opt/rh/devtoolset-10/enable
           gcc --version
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module && make install check=false
