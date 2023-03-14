@@ -110,7 +110,7 @@ jobs:
           cd /home/sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
-          git checkout ${{ github.ref }}
+          git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
           make install check=false
       - name: Configure
         run: |
