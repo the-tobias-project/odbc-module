@@ -101,7 +101,6 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          source /opt/rh/devtoolset-10/enable
           gcc -v
           g++ -v
           mkdir -p ~/.R/
