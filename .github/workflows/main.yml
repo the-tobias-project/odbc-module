@@ -33,20 +33,11 @@ jobs:
           yum install -y gcc gcc-c++ kernel-devel dnf make cmake 
           yum install -y epel-release 
           yum install -y Lmod git curl wget
-          yum install -y libgfortran5 readline readline-devel  libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel libcurl-devel xz-devel pcre2-devel
+          yum install -y libgfortran5 readline readline-devel  libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
+                         libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
+                         kernel-headers kernel-devel readline-devel
           #yum install -y R-devel
           useradd -m sherlock
-        
-      - name: Install Readline 8 from source
-        run: |
-          wget https://ftp.gnu.org/gnu/readline/readline-${{ env.READLINE_VERSION }}.tar.gz
-          tar -xzf readline-${{ env.READLINE_VERSION }}.tar.gz
-          cd readline-${{ env.READLINE_VERSION }}
-          ./configure --prefix=/usr/local 
-          make
-          make install
-          echo "/usr/local/lib" >> /etc/ld.so.conf.d/local.conf
-          ldconfig
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
