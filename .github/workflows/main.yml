@@ -43,13 +43,11 @@ jobs:
           yum install -y libgfortran5 readline readline-devel libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel
-      - name: Update gcc check R installing packages
+      - name: Update devtoolset
         run: | 
-          yum install -y devtoolset-${{ env.DEVTOOLSET_VERSION }}-gcc-c++
-          gcc -v
-          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
-          gcc -v
-          echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc
+          yum -y install centos-release-scl
+          yum -y install devtoolset-${{ env.DEVTOOLSET_VERSION }}
+          scl enable devtoolset-${{ env.DEVTOOLSET_VERSION }} bash
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
@@ -96,17 +94,12 @@ jobs:
           echo $MODULEPATH
           module spider
           module load R/${{ env.R_VERSION }}
-          R -e "print('hello')"
-      - name: Update devtoolset
-        run: | 
-          yum -y install centos-release-scl
-          yum -y install devtoolset-${{ env.DEVTOOLSET_VERSION }}
-          scl enable devtoolset-${{ env.DEVTOOLSET_VERSION }} bash
-          echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc        
+          R -e "print('hello')"   
         if: always()
       - name: Install the package
         run: |
           su - sherlock 
+          echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc   
           source /home/sherlock/.bashrc
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           gcc -v
