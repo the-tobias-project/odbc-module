@@ -22,7 +22,7 @@ jobs:
       R_VERSION: "4.2.0"
       UNIXODBC_VERSION: "2.3.9"
       DEVTOOLSET_VERSION: "10-10.1-0.el7.x86_64"
-      DEVTOOLSET_MAJOR_VERSION: ${{ env.DEVTOOLSET_VERSION | cut -d '-' -f 1 }}
+      DEVTOOLSET_MAJOR_VERSION: ${{ env.DEVTOOLSET_VERSION.split('-')[0] }}
 
     steps:
       - name: Checkout repo
