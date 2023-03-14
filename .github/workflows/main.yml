@@ -22,7 +22,7 @@ jobs:
     env:
       R_VERSION: "4.2.0"
       READLINE_VERSION: "8.2"
-      UNIXODBC_VERSION: "2.3.9"
+      UNIXODBC_VERSION: "2.3.11"
 
     steps:
       - name: Checkout repo
@@ -36,7 +36,13 @@ jobs:
           yum install -y libgfortran5 readline readline-devel  libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel
+          #yum install -y R
           useradd -m sherlock
+      - name: Update devtoolset
+        run: | 
+          yum -y install centos-release-scl
+          yum -y install devtoolset-10
+          scl enable devtoolset-10 bash
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
@@ -84,10 +90,8 @@ jobs:
           module spider
           module load R/4.2.0
           R -e "print('hello')"
-      - name: Update devtoolset
+      - name: Update gcc
         run: | 
-          yum -y install centos-release-scl
-          yum -y install devtoolset-10
           yum install -y devtoolset-10-gcc-c++
           gcc -v
           source /opt/rh/devtoolset-10/enable
@@ -96,7 +100,6 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          gcc --version
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module && make install check=false
       - name: Configure
