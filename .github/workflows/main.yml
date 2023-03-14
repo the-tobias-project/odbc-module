@@ -75,9 +75,8 @@ jobs:
           cd R-${{ env.R_VERSION }}
           ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib --without-x
           make
-          make install
-          ln -s /opt/R/${{ env.R_VERSION }}/bin/R /usr/local/bin/R
-          ln -s /opt/R/${{ env.R_VERSION }}/bin/Rscript /usr/local/bin/Rscript
+          ln -s /share/apps/R-${{ env.R_VERSION }}/bin/R /usr/local/bin/R
+          ln -s /share/apps/R-${{ env.R_VERSION }}/bin/Rscript /usr/local/bin/Rscript
       - name: Create unixODBC module
         run: |
           mkdir -p /home/sherlock/.local/share/modulefiles/unixodbc
@@ -89,9 +88,9 @@ jobs:
       - name: Create Lua module for R version
         run: |
           mkdir -p /home/sherlock/.local/share/modulefiles/R 
-          echo "setenv('R_HOME', '/opt/R/${{ env.R_VERSION }}')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
-          echo "prepend_path('PATH', '/opt/R/${{ env.R_VERSION }}/bin')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
-          echo "prepend_path('LD_LIBRARY_PATH', '/opt/R/${{ env.R_VERSION }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
+          echo "setenv('R_HOME', '/share/apps/R-${{ env.R_VERSION }}')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
+          echo "prepend_path('PATH', '/share/apps/R-${{ env.R_VERSION }}/bin')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
+          echo "prepend_path('LD_LIBRARY_PATH', '/share/apps/R-${{ env.R_VERSION }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "setenv('R', '/usr/local/bin/R')"  >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
         shell: bash
       - name: Prepare the environment
