@@ -32,13 +32,21 @@ jobs:
           yum update -y && yum makecache && yum clean all
           yum install -y gcc gcc-c++ kernel-devel dnf make cmake 
           yum install -y epel-release 
-          yum groupinstall -y "Development Tools"
           yum install -y Lmod git curl wget
           yum install -y libgfortran5 readline readline-devel  libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
-                         kernel-headers kernel-devel readline-devel
+                         kernel-headers kernel-devel readline-devel unixODBC-devel
           #yum install -y R
           useradd -m sherlock
+      - name: Update devtoolset
+        run: | 
+          wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/centos-release-scl-rh-2-3.el7.centos.noarch.rpm
+          wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/centos-release-scl-2-3.el7.centos.noarch.rpm
+          rpm -ivh centos-release-scl-rh-2-3.el7.centos.noarch.rpm
+          rpm -ivh centos-release-scl-2-3.el7.centos.noarch.rpm
+          yum -y install centos-release-scl
+          yum -y install devtoolset-7
+          scl enable devtoolset-7 bash
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
