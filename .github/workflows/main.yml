@@ -73,10 +73,8 @@ jobs:
           wget https://cran.r-project.org/src/base/R-4/R-${{ env.R_VERSION }}.tar.gz
           tar xvf R-${{ env.R_VERSION }}.tar.gz
           cd R-${{ env.R_VERSION }}
-          ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib --without-x
-          make
-          ln -s /share/apps/R-${{ env.R_VERSION }}/bin/R /usr/local/bin/R
-          ln -s /share/apps/R-${{ env.R_VERSION }}/bin/Rscript /usr/local/bin/Rscript
+          ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib --with-x=no
+          make && make install
       - name: Create unixODBC module
         run: |
           mkdir -p /home/sherlock/.local/share/modulefiles/unixodbc
