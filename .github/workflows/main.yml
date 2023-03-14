@@ -25,8 +25,7 @@ jobs:
     env:
       R_VERSION: "4.2.0"
       UNIXODBC_VERSION: "2.3.9"
-      DEVTOOLSET_VERSION: "10-10.1-0.el7.x86_64"
-      DEVTOOLSET_MAJOR_VERSION: "10"
+      DEVTOOLSET_VERSION: "10"
       REPOSITORY: "the-tobias-project/odbc-module"
 
     steps:
@@ -44,13 +43,13 @@ jobs:
           yum install -y libgfortran5 readline readline-devel libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel
-      - name: Update devtoolset 
+      - name: Update gcc check R installing packages
         run: | 
-          yum -y install centos-release-scl
-          wget http://mirror.centos.org/centos/7/sclo/x86_64/rh/Packages/d/devtoolset-${{ env.DEVTOOLSET_VERSION }}.rpm 
-          yum -y install devtoolset-10-10.1-0.el7.x86_64.rpm
-          yum -y install devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}
-          scl enable devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }} bash
+          yum install -y devtoolset-${{ env.DEVTOOLSET_VERSION }}-gcc-c++
+          gcc -v
+          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
+          gcc -v
+          echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
@@ -110,12 +109,12 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
+          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           gcc -v
           g++ -v
           mkdir -p ~/.R/
-          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}/enable
-          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
-          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
+          echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > ~/.R/Makevars
+          echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
           cd /home/sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
