@@ -110,6 +110,7 @@ jobs:
           cd /home/sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
+          git checkout ${{ github.ref }}
           make install check=false
       - name: Configure
         run: |
@@ -129,11 +130,6 @@ jobs:
       - name: Create tarball of artifacts
         run: tar -czvf base.tar.gz /home/sherlock/odbc-module
         working-directory: /home/sherlock
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: odbc-centos7-R_${{ env.R_VERSION }}-devtoolset_${{ env.DEVTOOLSET_VERSION }}-unixodbc_${{ env.UNIXODBC_VERSION }}.tar.gz
-          path: base.tar.gz
         if: ${{ github.event_name == 'pull_request' }}
       - name: Publish artifact to release page
         uses: actions/upload-release-asset@v1
