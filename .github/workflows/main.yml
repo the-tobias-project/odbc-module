@@ -21,7 +21,8 @@ jobs:
     env:
       R_VERSION: "4.2.0"
       UNIXODBC_VERSION: "2.3.9"
-      DEVTOOLSET_VERSION: "10"
+      DEVTOOLSET_VERSION: "10-10.1-0.el7.x86_64"
+      DEVTOOLSET_MAJOR_VERSION: ${{ env.DEVTOOLSET_VERSION | cut -d '-' -f 1 }}
 
     steps:
       - name: Checkout repo
@@ -39,8 +40,10 @@ jobs:
       - name: Update devtoolset
         run: | 
           yum -y install centos-release-scl
-          yum -y install devtoolset-${{ env.DEVTOOLSET_VERSION }}
-          scl enable devtoolset-${{ env.DEVTOOLSET_VERSION }} bash
+          wget http://mirror.centos.org/centos/7/sclo/x86_64/rh/Packages/d/${{ env.DEVTOOLSET_VERSION }}.rpm
+          yum -y install devtoolset-10-10.1-0.el7.x86_64.rpm
+          yum -y install devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}
+          scl enable devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }} bash
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
@@ -90,11 +93,11 @@ jobs:
           R -e "print('hello')"
       - name: Update gcc check R installing packages
         run: | 
-          yum install -y devtoolset-${{ env.DEVTOOLSET_VERSION }}-gcc-c++
+          yum install -y devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}-gcc-c++
           gcc -v
-          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
+          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}/enable
           gcc -v
-          echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc
+          echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}/enable" >> /home/sherlock/.bashrc
         if: always()
       - name: Install the package
         run: |
