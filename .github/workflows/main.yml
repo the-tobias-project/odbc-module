@@ -8,7 +8,6 @@ on:
     tags:
       - v*
 
-
 jobs:
   build:
     name: build
@@ -121,3 +120,11 @@ jobs:
           cd /home/sherlock/odbc-module && make setenv group=false
           module spider databricks | grep R/${{ inputs.R_VERSION }}
         if: always()
+      - name: Create tarball of artifacts
+        run: tar -czvf base.tar.gz /home/sherlock/odbc-module
+        working-directory: /home/sherlock
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: odbc-centos7-R_${{ env.R_VERSION }}-devtoolset_${{ env.DEVTOOLSET_VERSION }}-unixodbc_${{ env.UNIXODBC_VERSION }}.tar.gz
+          path: base.tar.gz
