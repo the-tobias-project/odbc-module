@@ -22,7 +22,7 @@ jobs:
     env:
       R_VERSION: "4.2.0"
       READLINE_VERSION: "8.2"
-      UNIXODBC_VERSION: "2.3.11"
+      UNIXODBC_VERSION: "2.3.9"
 
     steps:
       - name: Checkout repo
@@ -40,13 +40,11 @@ jobs:
           useradd -m sherlock
       - name: Update devtoolset
         run: | 
-          wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/centos-release-scl-rh-2-3.el7.centos.noarch.rpm
-          wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/centos-release-scl-2-3.el7.centos.noarch.rpm
-          rpm -ivh centos-release-scl-rh-2-3.el7.centos.noarch.rpm
-          rpm -ivh centos-release-scl-2-3.el7.centos.noarch.rpm
           yum -y install centos-release-scl
           yum -y install devtoolset-10
-          scl enable devtoolset-10 bash
+          gcc -v
+          source scl_source enable devtoolset-10
+          gcc -v
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
