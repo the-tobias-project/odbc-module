@@ -115,6 +115,7 @@ jobs:
           R --vanilla <<EOF
           install.packages(c('odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"), type="source")
           EOF
+        if: always()
       - name: testing 2
         run: | 
           su - sherlock 
@@ -134,6 +135,7 @@ jobs:
           install.packages("devtoools", repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
           devtools::install_version('odbc', '1.2.2', repos="https://cran.rstudio.com/", lib=Sys.getenv("R_LIBS_USER"))
           EOF
+        if: always()
       - name: Install the package
         run: |
           su - sherlock 
