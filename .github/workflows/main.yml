@@ -36,7 +36,6 @@ jobs:
           yum install -y libgfortran5 readline readline-devel  libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel
-          #yum install -y R
           useradd -m sherlock
       - name: Update devtoolset
         run: | 
@@ -108,6 +107,7 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
+          source scl_source enable devtoolset-10
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module && make install check=false
       - name: Configure
