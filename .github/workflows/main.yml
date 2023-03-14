@@ -97,7 +97,7 @@ jobs:
           gcc -v
           echo "source /opt/rh/devtoolset-10/enable" >> /home/sherlock/.bashrc
 
-      - name: testing
+      - name: testing 1
         run: | 
           su - sherlock 
           source /home/sherlock/.bashrc
@@ -114,6 +114,25 @@ jobs:
           echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
           R --vanilla <<EOF
           install.packages(c('odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"), type="source")
+          EOF
+      - name: testing 2
+        run: | 
+          su - sherlock 
+          source /home/sherlock/.bashrc
+          
+          mkdir /home/sherlock/test
+          export R_LIBS_USER=/home/sherlock/test
+          module load R/4.2.0
+          module load unixodbc/2.3.9
+          source /opt/rh/devtoolset-10/enable
+          gcc -v
+          g++ -v
+          mkdir -p ~/.R/
+          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
+          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
+          R --vanilla <<EOF
+          install.packages("devtoools", repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
+          devtools::install_version('odbc', '1.2.2', repos="https://cran.rstudio.com/", lib=Sys.getenv("R_LIBS_USER"))
           EOF
       - name: Install the package
         run: |
