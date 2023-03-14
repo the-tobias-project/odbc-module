@@ -57,7 +57,7 @@ jobs:
           wget https://cran.r-project.org/src/base/R-4/R-${{ env.R_VERSION }}.tar.gz
           tar xvf R-${{ env.R_VERSION }}.tar.gz
           cd R-${{ env.R_VERSION }}
-          ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib --with-x=no
+          ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib --without-x
           make && make install
       - name: Create unixODBC module
         run: |
