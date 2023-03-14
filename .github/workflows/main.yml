@@ -113,7 +113,7 @@ jobs:
           echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
           echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
           R --vanilla <<EOF
-          install.packages(c('odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
+          install.packages(c('odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"), type="source")
           EOF
       - name: Install the package
         run: |
