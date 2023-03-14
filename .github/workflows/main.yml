@@ -22,7 +22,7 @@ jobs:
     env:
       R_VERSION: "4.2.0"
       READLINE_VERSION: "8.2"
-      UNIXODBC_VERSION: "2.3.11"
+      UNIXODBC_VERSION: "2.3.9"
 
     steps:
       - name: Checkout repo
