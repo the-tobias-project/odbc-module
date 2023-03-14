@@ -37,7 +37,7 @@ jobs:
           yum install -y libgfortran5 readline readline-devel  libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel
-          #yum install -y R-devel
+          #yum install -y R
           useradd -m sherlock
       - name: Download and install unixODBC
         run: |
@@ -57,7 +57,7 @@ jobs:
           wget https://cran.r-project.org/src/base/R-4/R-${{ env.R_VERSION }}.tar.gz
           tar xvf R-${{ env.R_VERSION }}.tar.gz
           cd R-${{ env.R_VERSION }}
-          ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --enable-R-shlib --with-cairo --with-x
+          ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --with-recommended-packages=no --without-x --with-cairo --with-libpng --with-libtiff --with-jpeglib --enable-R-shlib
           make && make install
       - name: Create unixODBC module
         run: |
