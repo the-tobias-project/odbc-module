@@ -38,16 +38,16 @@ jobs:
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel
           useradd -m sherlock
-      - name: Update devtoolset
+      - name: Update devtoolset 
         run: | 
           yum -y install centos-release-scl
-          wget http://mirror.centos.org/centos/7/sclo/x86_64/rh/Packages/d/${{ env.DEVTOOLSET_VERSION }}.rpm
+          wget http://mirror.centos.org/centos/7/sclo/x86_64/rh/Packages/d/devtoolset-${{ env.DEVTOOLSET_VERSION }}.rpm 
           yum -y install devtoolset-10-10.1-0.el7.x86_64.rpm
           yum -y install devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}
           scl enable devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }} bash
       - name: Download and install unixODBC
         run: |
-          curl -O http://mirror.centos.org/centos/7/sclo/x86_64/rh/Packages/d/devtoolset-10-build-10.1-0.el7.x86_64.rpm
+          curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
           tar xf unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
           cd unixODBC-${{ env.UNIXODBC_VERSION }}
           ./configure --prefix=/usr --sysconfdir=/etc/unixODBC
