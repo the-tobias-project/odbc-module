@@ -21,7 +21,6 @@ jobs:
 
     env:
       R_VERSION: "4.2.0"
-      READLINE_VERSION: "8.2"
       UNIXODBC_VERSION: "2.3.9"
 
     steps:
@@ -90,13 +89,25 @@ jobs:
           module spider
           module load R/4.2.0
           R -e "print('hello')"
-      - name: Update gcc
+      - name: Update gcc check R installing packages
         run: | 
           yum install -y devtoolset-10-gcc-c++
           gcc -v
           source /opt/rh/devtoolset-10/enable
           gcc -v
           echo "source /opt/rh/devtoolset-10/enable" >> /home/sherlock/.bashrc
+
+      - name: testing
+        run: | 
+          su - sherlock 
+          source /home/sherlock/.bashrc
+          source /opt/rh/devtoolset-10/enable
+          export R_LIBS_USER = ~/test
+          R --vanilla <<EOF
+          dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive=TRUE)
+          .libPaths(Sys.getenv("R_LIBS_USER"))  
+          install.packages(c('odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
+          EOF
       - name: Install the package
         run: |
           su - sherlock 
