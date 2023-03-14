@@ -45,8 +45,8 @@ jobs:
           rpm -ivh centos-release-scl-rh-2-3.el7.centos.noarch.rpm
           rpm -ivh centos-release-scl-2-3.el7.centos.noarch.rpm
           yum -y install centos-release-scl
-          yum -y install devtoolset-7
-          scl enable devtoolset-7 bash
+          yum -y install devtoolset-10
+          scl enable devtoolset-10 bash
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
@@ -59,6 +59,7 @@ jobs:
           chmod 644 doc/{lst,ProgrammerManual/Tutorial}/*
           install -v -m755 -d /usr/share/doc/unixODBC-${{ env.UNIXODBC_VERSION }}
           cp -v -R doc/* /usr/share/doc/unixODBC-${{ env.UNIXODBC_VERSION }}
+          odbcinst --version
       - name: Install R 
         run: | 
           export R_VERSION=${{ env.R_VERSION }}
