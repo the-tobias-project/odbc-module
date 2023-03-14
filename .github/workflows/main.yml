@@ -2,7 +2,11 @@ name: base
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - devel
+  pull_request:
+    branches:
+      - main
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -112,8 +116,9 @@ jobs:
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_MAJOR_VERSION }}/enable
           echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
           echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
+          cd /home/sherlock
           git clone https://github.com/the-tobias-project/odbc-module
-          cd /home/sherlock/odbc-module 
+          cd odbc-module 
           make install check=false
       - name: Configure
         run: |
@@ -138,6 +143,7 @@ jobs:
         with:
           name: odbc-centos7-R_${{ env.R_VERSION }}-devtoolset_${{ env.DEVTOOLSET_VERSION }}-unixodbc_${{ env.UNIXODBC_VERSION }}.tar.gz
           path: base.tar.gz
+        if: ${{ github.event_name == 'pull_request' }}
       - name: Publish artifact to release page
         uses: actions/upload-release-asset@v1
         with:
@@ -146,3 +152,4 @@ jobs:
           asset_content_type: application/gzip 
           tag_name: ${{ github.ref }} 
           repository: ${{ env.REPOSITORY }}
+        if: ${{ github.event_name == 'pull_request' }}
