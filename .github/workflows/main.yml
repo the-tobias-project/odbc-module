@@ -109,8 +109,8 @@ jobs:
           source /opt/rh/devtoolset-10/enable
           gcc -v
           g++ -v
-          echo "CC=gcc-10.2.0" > ~/.R/Makevars
-          echo "CXX=g++-10.2.0" >> ~/.R/Makevars
+          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
+          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
           R --vanilla <<EOF
           install.packages(c('odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
           EOF
