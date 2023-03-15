@@ -3,14 +3,21 @@ check := true
 group := false
 installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell dirname $(shell pwd)))
 verbose := true
+run_command := $(preinstall)
+
+
+pre:
+    ifneq ($(run_command),)
+        $(run_command)
+    endif
 
 uninstall:
 	git reset --hard
 	git clean -fdx
 
-install: uninstall
-	. $(DIR)/scripts/install_R_dependencies.sh $(DIR)
+install: uninstall pre
 	. $(DIR)/scripts/install_drivers.sh $(check) $(DIR)
+	. $(DIR)/scripts/install_R_dependencies.sh $(DIR)
 
 configure:
 	. $(DIR)/scripts/configure.sh $(installdir)

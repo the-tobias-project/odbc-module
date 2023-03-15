@@ -110,8 +110,7 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
-          make install check=false
+          make install check=false preinstall="source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable"
       - name: Install drivers
         working-directory: /home/sherlock/odbc-module
         run: |
