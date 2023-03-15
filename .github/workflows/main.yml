@@ -128,16 +128,16 @@ jobs:
       - name: Install R modules
         run: |
           su - sherlock    
-          source /home/sherlock/.bashrc
-          cd /home/sherlock
           mkdir -p ~/.R/
           echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > ~/.R/Makevars
           echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
           export HOME=/home/sherlock
+          cd /home/sherlock/odbc-module
           bash $PWD/scripts/install_R_modules.sh
       - name: Install drivers
         run: |
           su - sherlock 
+          cd /home/sherlock/odbc-module
           bash $PWD/scripts/install_packages.sh check=false
       - name: Configure
         run: |
