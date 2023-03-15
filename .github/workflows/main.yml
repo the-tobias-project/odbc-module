@@ -106,8 +106,7 @@ jobs:
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
       - name: Install R modules
         run: |
-
-           su - sherlock 
+          su - sherlock 
           source /home/sherlock/.bashrc
           
           mkdir /home/sherlock/test
