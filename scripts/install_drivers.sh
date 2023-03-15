@@ -15,6 +15,7 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/Dri
 
 ## Needed to unload any R version in this step
 mkdir driver
+cd driver
 
 wget https://www.unixodbc.org/unixODBC-2.3.11.tar.gz
 wget https://www.unixodbc.org/unixODBC-2.3.11.tar.gz.md5
@@ -41,7 +42,7 @@ cd unixODBC-2.3.11/
 ./configure && make
 
 ## Install SimbaSpark
-cd ${THISPATH}/driver
+cd ../driver
 unzip SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 rpm2cpio simbaspark-2.6.29.1049-1.x86_64.rpm | cpio -idmv
 rm opt/simba/spark/lib/64/simba.sparkodbc.ini
