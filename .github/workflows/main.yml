@@ -100,6 +100,7 @@ jobs:
       - name: Download repository
         run: | 
           su - sherlock 
+          cd  /home/sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
