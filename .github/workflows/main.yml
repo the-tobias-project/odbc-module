@@ -107,30 +107,21 @@ jobs:
       - name: Install R modules
         run: |
 
-          su - sherlock 
+           su - sherlock 
           source /home/sherlock/.bashrc
-          source /opt/rh/devtoolset-10/enable
-          mkdir -p  /home/sherlock/.R/
-          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" >  /home/sherlock/.R/Makevars
-          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >>  /home/sherlock/.R/Makevars
           
-          THISPATH=${PWD}
-          R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
-
-          mkdir -p ${R_LIBS_USER}
           mkdir /home/sherlock/test
-
+          export R_LIBS_USER=/home/sherlock/test
           module load R/4.2.0
           module load unixodbc/2.3.9
-
+          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           gcc -v
           g++ -v
-
+          mkdir -p ~/.R/
+          echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > ~/.R/Makevars
+          echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
           R --vanilla <<EOF
-          libsdir <- Sys.getenv("R_LIBS_USER")
-          dir.create(libsdir, showWarnings = FALSE, recursive=TRUE) 
-          install.packages('odbc', repos='http://cran.us.r-project.org', lib=libsdir, dependencies = TRUE)
-          install.packages(c('DBI', 'dotenv'), repos='http://cran.us.r-project.org', lib=libsdir,  dependencies = TRUE)
+          install.packages(c('odbc', 'DBI', 'dotenv'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
           EOF
 
           git clone https://github.com/the-tobias-project/loaddatabricks
