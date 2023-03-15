@@ -81,7 +81,7 @@ jobs:
           echo "setenv('R_HOME', '/share/apps/R-${{ env.R_VERSION }}')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "prepend_path('PATH', '/share/apps/R-${{ env.R_VERSION }}/bin')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "prepend_path('LD_LIBRARY_PATH', '/share/apps/R-${{ env.R_VERSION }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
-          echo "setenv('R', '/usr/local/bin/R')"  >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
+          echo "setenv('R', '/share/apps/R-${{ env.R_VERSION }}/bin/R')"  >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
         shell: bash
       - name: Prepare the environment
         run: |
@@ -115,6 +115,7 @@ jobs:
           echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > /home/sherlock/.R/Makevars
           echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> /home/sherlock/.R/Makevars
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
+          export R_USER=/home/sherlock
           make install check=false repos="https://packagemanager.rstudio.com/cran/__linux__/centos7/latest"
       - name: Install drivers
         working-directory: /home/sherlock/odbc-module
