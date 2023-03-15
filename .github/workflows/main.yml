@@ -107,6 +107,7 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
+          cd /home/sherlock
           
           THISPATH=${PWD}
           PARENT_DIR=$(dirname "$(readlink -f "$0")")
