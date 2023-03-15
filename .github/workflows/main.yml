@@ -42,7 +42,7 @@ jobs:
         run: |
           yum install -y libgfortran5 readline readline-devel libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
-                         kernel-headers kernel-devel readline-devel unixODBC-devel
+                         kernel-headers kernel-devel readline-devel unixODBC-devel openssl-devel
       - name: Update devtoolset
         run: | 
           yum -y install centos-release-scl
@@ -109,12 +109,11 @@ jobs:
           su - sherlock 
           source /home/sherlock/.bashrc
           source /opt/rh/devtoolset-10/enable
-          mkdir -p ~/.R/
-          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
-          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
+          mkdir -p  /home/sherlock/.R/
+          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" >  /home/sherlock/.R/Makevars
+          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >>  /home/sherlock/.R/Makevars
           
           THISPATH=${PWD}
-          PARENT_DIR=$(dirname "$(readlink -f "$0")")
           R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 
           mkdir -p ${R_LIBS_USER}
@@ -131,7 +130,7 @@ jobs:
           libsdir <- Sys.getenv("R_LIBS_USER")
           dir.create(libsdir, showWarnings = FALSE, recursive=TRUE) 
           install.packages('odbc', repos='http://cran.us.r-project.org', lib=libsdir, type="source", dependencies = TRUE)
-          install.packages(c('DBI', 'dotenv'), repos='http://cran.us.r-project.org', lib=libsdir)
+          install.packages(c('DBI', 'dotenv'), repos='http://cran.us.r-project.org', lib=libsdir,  dependencies = TRUE)
           EOF
 
           git clone https://github.com/the-tobias-project/loaddatabricks
