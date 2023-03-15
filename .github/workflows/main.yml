@@ -46,6 +46,8 @@ jobs:
                          kernel-headers kernel-devel readline-devel unixODBC-devel 
       - name: Update devtoolset
         run: | 
+          yum -y install centos-release-scl
+          yum -y install devtoolset-${{ env.DEVTOOLSET_VERSION }}
           yum install -y devtoolset-${{ env.DEVTOOLSET_VERSION }}-gcc-c++
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc
