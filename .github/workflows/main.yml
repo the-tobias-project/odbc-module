@@ -122,14 +122,14 @@ jobs:
           source /home/sherlock/.bashrc
           gcc -v
           g++ -v
-          mkdir -p ~/.R/
           cd /home/sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
           export HOME=/home/sherlock
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
-          echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > ~/.R/Makevars
-          echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
+          mkdir -p /home/sherlock/.R/
+          echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > /home/sherlock/.R/Makevars
+          echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> /home/sherlock/.R/Makevars
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable && ./scripts/install.sh "$@"
           #make install check=false
       - name: Configure
