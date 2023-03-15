@@ -107,29 +107,9 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          cd /home/sherlock
-          
-          THISPATH=${PWD}
-          PARENT_DIR=$(dirname "$(readlink -f "$0")")
-          R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
-
-          mkdir -p ${R_LIBS_USER}
-          module load R/4.2.0
-          module load unixodbc/2.3.9
+          cd /home/sherlock/odbc-module
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
-          gcc -v
-          g++ -v
-          mkdir -p ~/.R/
-          echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > ~/.R/Makevars
-          echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
-          R --vanilla <<EOF
-          install.packages(c('odbc', 'DBI', 'dotenv'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"))
-          EOF
-
-          git clone https://github.com/the-tobias-project/loaddatabricks
-          R CMD build loaddatabricks 
-          R CMD INSTALL -l ${R_LIBS_USER} loaddatabricks*.tar.gz
-          rm -rf loaddatabricks*
+          make install check=false
       - name: Install drivers
         run: |
           su - sherlock 
