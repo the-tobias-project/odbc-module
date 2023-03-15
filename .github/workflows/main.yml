@@ -133,12 +133,12 @@ jobs:
           echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
           export HOME=/home/sherlock
           cd /home/sherlock/odbc-module
-          bash $PWD/scripts/install_R_modules.sh
+          bash $PWD/scripts/install_R_dependencies.sh
       - name: Install drivers
         run: |
           su - sherlock 
           cd /home/sherlock/odbc-module
-          bash $PWD/scripts/install_packages.sh check=false
+          bash $PWD/scripts/install_drivers.sh check=false
       - name: Configure
         run: |
           su - sherlock 
