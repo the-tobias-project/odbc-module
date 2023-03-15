@@ -14,7 +14,11 @@ check=$2
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs # this line could be unnecesary here
 
 ## Needed to unload any R version in this step
-cd driver
+mkdir driver
+
+wget https://www.unixodbc.org/unixODBC-2.3.11.tar.gz
+wget https://www.unixodbc.org/unixODBC-2.3.11.tar.gz.md5
+wget https://databricks-bi-artifacts.s3.us-east-2.amazonaws.com/simbaspark-drivers/odbc/2.6.29/SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 
 ## Run code checks
 
