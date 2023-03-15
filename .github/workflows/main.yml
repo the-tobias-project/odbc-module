@@ -115,23 +115,26 @@ jobs:
           install.packages(c('odbc'), repos='http://cran.us.r-project.org', lib=Sys.getenv("R_LIBS_USER"), type="source")
           EOF
         if: always()
-      - name: Install the package
+      - name: Install R modules
         run: |
           su - sherlock 
           echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc   
           source /home/sherlock/.bashrc
-          gcc -v
-          g++ -v
           cd /home/sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
           export HOME=/home/sherlock
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
-          mkdir -p /home/sherlock/.R/
-          echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > /home/sherlock/.R/Makevars
-          echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> /home/sherlock/.R/Makevars
-          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable && bash $PWD/scripts/install.sh
-          #make install check=false
+          mkdir -p ~/.R/
+          echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > ~/.R/Makevars
+          echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
+          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
+          bash $PWD/scripts/install_R_modules.sh
+      - name: Install drivers
+        run: |
+          su - sherlock 
+          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
+          bash $PWD/scripts/install_packages.sh check=false
       - name: Configure
         run: |
           su - sherlock 
