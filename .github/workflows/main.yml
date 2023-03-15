@@ -105,13 +105,15 @@ jobs:
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
       - name: Install R modules
         run: |
-          su - sherlock    
-          source /home/sherlock/.bashrc 
+
+          su - sherlock 
+          source /home/sherlock/.bashrc
+          source /opt/rh/devtoolset-10/enable
+          gcc -v
+          g++ -v
           mkdir -p ~/.R/
-          echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > ~/.R/Makevars
-          echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
-          export HOME=/home/sherlock
-          
+          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
+          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
 
           THISPATH=${PWD}
           R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
