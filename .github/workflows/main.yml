@@ -86,6 +86,7 @@ jobs:
       - name: Prepare the environment
         run: |
           su - sherlock 
+          whoami 
           echo "export MODULEPATH=/home/sherlock/.local/share/modulefiles:\$MODULEPATH" >> /home/sherlock/.bashrc
           echo "module use --append /home/sherlock/.local/share/modulefiles/"  >> /home/sherlock/.bashrc
           echo "source /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
