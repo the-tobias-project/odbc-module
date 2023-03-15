@@ -125,7 +125,7 @@ jobs:
           gcc -v
           g++ -v
 
-
+          export TZ="America/New_York"
           R --vanilla <<EOF
           libsdir <- Sys.getenv("R_LIBS_USER")
           dir.create(libsdir, showWarnings = FALSE, recursive=TRUE) 
