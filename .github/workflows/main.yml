@@ -66,7 +66,7 @@ jobs:
           cd R-${{ env.R_VERSION }}
           ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --with-recommended-packages=no --without-x --with-cairo --with-libpng --with-libtiff --with-jpeglib --enable-R-shlib
           make && make install
-          echo "TZ=$( cat /etc/timezone )" >> /etc/R/Renviron.site
+          echo "TZ=America/Los_Angeles" >> /etc/R/Renviron.site
       - name: Create unixODBC module
         run: |
           mkdir -p /home/sherlock/.local/share/modulefiles/unixodbc
@@ -127,7 +127,6 @@ jobs:
           R CMD build loaddatabricks 
           R CMD INSTALL -l ${R_LIBS_USER} loaddatabricks*.tar.gz
           rm -rf loaddatabricks*
-
       - name: Install drivers
         run: |
           su - sherlock 
