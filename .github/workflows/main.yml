@@ -111,11 +111,11 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          mkdir -p /home/sherlock/.R/
-          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > /home/sherlock/.R/Makevars
-          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> /home/sherlock/.R/Makevars
+          mkdir -p ~/.R/
+          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
+          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
-          export R_USER=/home/sherlock
+          export R_USER=$USER
           make install check=false
       - name: Install drivers
         working-directory: /home/sherlock/odbc-module
