@@ -130,8 +130,7 @@ jobs:
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
           echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > ~/.R/Makevars
           echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
-          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
-          bash ./scripts/install.sh check=false
+          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable && ./scripts/install.sh "$@"
           #make install check=false
       - name: Configure
         run: |
