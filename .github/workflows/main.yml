@@ -109,8 +109,13 @@ jobs:
           su - sherlock 
           source /home/sherlock/.bashrc
           
+          THISPATH=${PWD}
+          PARENT_DIR=$(dirname "$(readlink -f "$0")")
+          R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
+
+          mkdir -p ${R_LIBS_USER}
           mkdir /home/sherlock/test
-          export R_LIBS_USER=/home/sherlock/test
+
           module load R/4.2.0
           module load unixodbc/2.3.9
           source /opt/rh/devtoolset-10/enable
