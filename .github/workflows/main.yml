@@ -132,7 +132,7 @@ jobs:
           echo "CC=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/gcc" > ~/.R/Makevars
           echo "CXX=/opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/root/bin/g++" >> ~/.R/Makevars
           export HOME=/home/sherlock
-          bash $PWD/scripts/install_R_dependencies.sh
+          source $PWD/scripts/install_R_dependencies.sh
       - name: Install drivers
         run: |
           su - sherlock 
