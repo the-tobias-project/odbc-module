@@ -129,15 +129,18 @@ jobs:
       - name: Install drivers
         run: |
           su - sherlock 
+          source /home/sherlock/.bashrc
           bash $PWD/scripts/install_drivers.sh check=false
       - name: Configure
         run: |
           su - sherlock 
+          source /home/sherlock/.bashrc
           make configure group=false
         if: always()
       - name: Setenv
         run: |
           su - sherlock
+          source /home/sherlock/.bashrc
           make setenv group=false
           module spider databricks | grep R/${{ inputs.R_VERSION }}
         if: always()
