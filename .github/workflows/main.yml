@@ -27,6 +27,7 @@ jobs:
       UNIXODBC_VERSION: "2.3.9"
       DEVTOOLSET_VERSION: "10"
       REPOSITORY: "the-tobias-project/odbc-module"
+    
 
     steps:
       - name: Checkout repo
@@ -98,31 +99,34 @@ jobs:
           R -e "print('hello')"   
         if: always()
       - name: Download repository
+        working-directory: /home/sherlock
         run: | 
           su - sherlock 
-          cd  /home/sherlock
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
       - name: Install R modules
+        working-directory: /home/sherlock/odbc-module
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          cd /home/sherlock/odbc-module
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           make install check=false
       - name: Install drivers
+        working-directory: /home/sherlock/odbc-module
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
           bash $PWD/scripts/install_drivers.sh check=false
       - name: Configure
+        working-directory: /home/sherlock/odbc-module
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
           make configure group=false
         if: always()
       - name: Setenv
+        working-directory: /home/sherlock/odbc-module
         run: |
           su - sherlock
           source /home/sherlock/.bashrc
