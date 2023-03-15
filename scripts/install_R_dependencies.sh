@@ -3,7 +3,6 @@
 set -e
 
 THISPATH=$1
-export PACKAGE_MANAGER=$2
 export R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 
 mkdir -p ${R_LIBS_USER}

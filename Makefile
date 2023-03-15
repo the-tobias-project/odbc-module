@@ -3,7 +3,6 @@ check := true
 group := false
 installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell dirname $(shell pwd)))
 verbose := true
-repository := $(if $(repos), $(repos), "https://cloud.r-project.org/")
 
 uninstall:
 	git reset --hard
@@ -11,7 +10,7 @@ uninstall:
 
 install: uninstall
 	. $(DIR)/scripts/install_drivers.sh $(DIR) $(check) 
-	. $(DIR)/scripts/install_R_dependencies.sh $(DIR) $(repository)
+	. $(DIR)/scripts/install_R_dependencies.sh $(DIR) 
 
 configure:
 	. $(DIR)/scripts/configure.sh $(installdir)

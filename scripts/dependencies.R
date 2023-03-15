@@ -1,4 +1,6 @@
 libsdir <- Sys.getenv("R_LIBS_USER")
-package_manager <- Sys.getenv("PACKAGE_MANAGER")
+install.packages("remotes")
+remotes::install_github("Enchufa2/rspm")
+rspm::enable()
 dir.create(libsdir, showWarnings = FALSE, recursive=TRUE) 
-install.packages(c('DBI', 'odbc', 'dotenv'), repos=package_manager, lib=libsdir)
+install.packages(c('DBI', 'odbc', 'dotenv'), lib=libsdir)
