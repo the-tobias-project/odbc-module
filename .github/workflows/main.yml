@@ -115,7 +115,7 @@ jobs:
           echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > /home/sherlock/.R/Makevars
           echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> /home/sherlock/.R/Makevars
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
-          make install check=false
+          make install check=false repos="https://packagemanager.rstudio.com/cran/__linux__/centos7/latest"
       - name: Install drivers
         working-directory: /home/sherlock/odbc-module
         run: |
