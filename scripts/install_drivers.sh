@@ -42,7 +42,7 @@ cd unixODBC-2.3.11/
 ./configure && make
 
 ## Install SimbaSpark
-cd ../driver
+cd ..
 unzip SimbaSparkODBC-2.6.29.1049-LinuxRPM-64bit.zip
 rpm2cpio simbaspark-2.6.29.1049-1.x86_64.rpm | cpio -idmv
 rm opt/simba/spark/lib/64/simba.sparkodbc.ini
