@@ -1,5 +1,5 @@
 libsdir <- Sys.getenv("R_LIBS_USER")
+package_manager <- Sys.getenv("PACKAGE_MANAGER")
 dir.create(libsdir, showWarnings = FALSE, recursive=TRUE) 
 install.packages("devtools")
-package_manager <- "https://packagemanager.rstudio.com/cran/__linux__/centos7/latest"
 devtools::install(c('DBI', 'odbc', 'dotenv'), repos=package_manager, lib=libsdir)
