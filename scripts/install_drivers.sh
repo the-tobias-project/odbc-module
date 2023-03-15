@@ -9,8 +9,8 @@ set -e
 # ----------------------------------------------------------------------------------------------
 
 check=$1
+THISPATH=$2
 
-THISPATH=${PWD}
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs # this line could be unnecesary here
 
 ## Needed to unload any R version in this step

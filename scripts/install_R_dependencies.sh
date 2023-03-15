@@ -2,7 +2,7 @@
 
 set -e
 
-THISPATH=${PWD}
+THISPATH=$1
 PARENT_DIR=$(dirname "$(readlink -f "$0")")
 R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 
@@ -12,7 +12,7 @@ module unload R
 module load R/4.2.0
 module load unixodbc/2.3.9
 
-Rscript ${PARENT_DIR}/dependencies.R
+Rscript ${THISPATH}/scripts/dependencies.R
 
 git clone https://github.com/the-tobias-project/loaddatabricks
 R CMD build loaddatabricks 

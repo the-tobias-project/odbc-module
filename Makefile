@@ -9,8 +9,8 @@ uninstall:
 	git clean -fdx
 
 install: uninstall
-	. $(DIR)/scripts/install_R_dependencies.sh 
-	. $(DIR)/scripts/install_drivers.sh $(check)
+	. $(DIR)/scripts/install_R_dependencies.sh $(DIR)
+	. $(DIR)/scripts/install_drivers.sh $(check) $(DIR)
 
 configure:
 	. $(DIR)/scripts/configure.sh $(installdir)
