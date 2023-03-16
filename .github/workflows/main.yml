@@ -133,7 +133,9 @@ jobs:
           su - sherlock
           source /home/sherlock/.bashrc
           make setenv group=false
-          module spider | grep databricks && exit 0
+          module spider
+          module load databricks-odbc/${{ env.R_VERSION }}
+          R - "library(loaddatabricks)"
         if: always()
       - name: Create tarball of artifacts
         run: tar -czvf base.tar.gz /home/sherlock/odbc-module
