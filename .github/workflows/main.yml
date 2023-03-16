@@ -135,19 +135,14 @@ jobs:
           make setenv group=false
       - name: Docker set environment secrets
         working-directory: /home/sherlock/odbc-module
-        env:
-          __DATABRICKS_HOSTNAME: ${{ secrets.DATABRICKS_HOSTNAME }}
-          __DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-          __DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}    
-          __TEST_SECRET: ${{ secrets.TEST_SECRET }}"
         run: |
           su - sherlock
           source /home/sherlock/.bashrc
           # overload
-          export DATABRICKS_HOSTNAME=${__DATABRICKS_HOSTNAME}
-          export DATABRICKS_TOKEN=${__DATABRICKS_TOKEN}
-          export DATABRICKS_HTTP_PATH=${__DATABRICKS_HTTP_PATH}    
-          echo "Test secret is: ${__TEST_SECRET}"
+          export DATABRICKS_HOSTNAME=${{ secrets.DATABRICKS_HOSTNAME }}
+          export DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }}
+          export DATABRICKS_HTTP_PATH=${{ secrets.DATABRICKS_HTTP_PATH }}   
+          echo "Test secret is: ${{ secrets.TEST_SECRET }}"
           module spider
           module load databricks-odbc//${{ env.R_VERSION }}
           R -e "library(loaddatabricks); con <- connect_cluster("~/.env"); library(DBI); dbListTables(con)"
