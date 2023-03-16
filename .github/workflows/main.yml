@@ -164,7 +164,7 @@ jobs:
           echo "Test secret is: ${{ env.__TEST_SECRET }}"
           module spider
           module load databricks-odbc/${{ env.R_VERSION }}
-          R -e "library(loaddatabricks); con <- connect_cluster("~/.env"); library(DBI); dbListTables(con)"
+          R -e "library(loaddatabricks); con <- connect_cluster(\"~/.env\"); library(DBI); dbListTables(con)"
       - name: Create tarball of artifacts
         run: tar -czvf /home/sherlock/base.tar.gz /home/sherlock/odbc-module
         working-directory: /home/sherlock
