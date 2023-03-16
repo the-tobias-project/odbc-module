@@ -17,18 +17,21 @@ jobs:
     name: build
     runs-on: ubuntu-20.04
     environment: odbc
-
-    container:
-      image: centos:7.9.2009
-      options: --user root
-
     env:
       R_VERSION: "4.2.0"
       UNIXODBC_VERSION: "2.3.9"
       DEVTOOLSET_VERSION: "10"
       REPOSITORY: "the-tobias-project/odbc-module"
       HOME: /home/sherlock
-    
+
+    container:
+      image: centos:7.9.2009
+      options: --user root
+      env: 
+        __DATABRICKS_HOSTNAME: ${{ secrets.DATABRICKS_HOSTNAME }}
+        __DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        __DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}   
+        __TEST_SECRET: ${{ secrets.TEST_SECRET }}  
 
     steps:
       - name: Checkout repo
@@ -139,10 +142,10 @@ jobs:
           su - sherlock
           source /home/sherlock/.bashrc
           # overload
-          export DATABRICKS_HOSTNAME=${{ secrets.DATABRICKS_HOSTNAME }}
-          export DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }}
-          export DATABRICKS_HTTP_PATH=${{ secrets.DATABRICKS_HTTP_PATH }}   
-          echo "Test secret is: ${{ secrets.TEST_SECRET }}"
+          export DATABRICKS_HOSTNAME=${{ env.__DATABRICKS_HOSTNAME }}
+          export DATABRICKS_TOKEN=${{ env.__DATABRICKS_TOKEN }}
+          export DATABRICKS_HTTP_PATH=${{ env.__DATABRICKS_HTTP_PATH }}   
+          echo "Test secret is: ${{ env.__TEST_SECRET }}"
           module spider
           module load databricks-odbc/${{ env.R_VERSION }}
           R -e "library(loaddatabricks); con <- connect_cluster("~/.env"); library(DBI); dbListTables(con)"
