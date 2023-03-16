@@ -1,4 +1,5 @@
 odbc_1.3.4
 rlang_1.1.0
+Rcpp_1.0.10
 DBI_1.1.3
 dotenv_1.0.3
