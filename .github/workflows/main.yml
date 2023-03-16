@@ -114,10 +114,10 @@ jobs:
           su - sherlock 
           source /home/sherlock/.bashrc
           mkdir -p ~/.R/
-          # lines below not needed because we are using package binaries for R, but kept as reference
-          #echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
-          #echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
-          #source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
+          # ---- Commented lines below not needed because we are using package binaries for R, but kept as reference ---- #
+          ## echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
+          ## echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
+          ## source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           export R_USER=$USER
           make install check=false
       - name: Configure
@@ -153,6 +153,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
       - name: Publish artifact to release page
         uses: actions/upload-release-asset@v1
+        working-directory: /home/sherlock
         with:
           asset_path: base.tar.gz 
           asset_name: odbc-centos7-R_${{ env.R_VERSION }}-devtoolset_${{ env.DEVTOOLSET_VERSION }}-unixodbc_${{ env.UNIXODBC_VERSION }}.tar.gz 
