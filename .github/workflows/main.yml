@@ -134,7 +134,7 @@ jobs:
           source /home/sherlock/.bashrc
           export HOME=/home/sherlock/
           make setenv group=false
-          module spider databricks | grep R/${{ inputs.R_VERSION }}
+          module spider | grep databricks/${{ inputs.R_VERSION }}
         if: always()
       - name: Create tarball of artifacts
         run: tar -czvf base.tar.gz /home/sherlock/odbc-module
