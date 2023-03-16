@@ -13,10 +13,10 @@ install: uninstall
 	. $(DIR)/scripts/install_R_dependencies.sh $(DIR) 
 
 configure:
-	. $(DIR)/scripts/configure.sh $(installdir)
+	. $(DIR)/scripts/configure.sh $(DIR)
 
 setenv:
-	. $(DIR)/scripts/setenv.sh $(installdir)
+	. $(DIR)/scripts/setenv.sh $(DIR)
 
 clean:
 	@rm -f ${HOME}/.env
