@@ -27,6 +27,6 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverMana
 EOF
 
 
-echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ~/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
+echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 echo "Done. Please fill in the .env file at ${HOME}/.env with the Databricks variables"
 
