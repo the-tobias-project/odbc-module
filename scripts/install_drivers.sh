@@ -14,8 +14,8 @@ check=$2
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs # this line could be unnecesary here
 
 ## Needed to unload any R version in this step
-mkdir driver
-cd driver
+mkdir ${THISPATH}/driver
+cd ${THISPATH}/driver
 
 wget https://www.unixodbc.org/unixODBC-2.3.11.tar.gz
 wget https://www.unixodbc.org/unixODBC-2.3.11.tar.gz.md5
