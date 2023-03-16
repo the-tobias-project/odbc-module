@@ -3,8 +3,9 @@
 set -e
 
 THISPATH=$1
-REPO=https://packagemanager.rstudio.com/cran/__linux__/centos7/latest/src/contrib
+DISTRO=centos7
 R_VERSION=4.2
+REPO=https://packagemanager.rstudio.com/cran/__linux__/${DISTRO}/latest/src/contrib
 
 export R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
 mkdir -p ${R_LIBS_USER}
