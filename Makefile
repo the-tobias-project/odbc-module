@@ -1,4 +1,4 @@
-installdir := $(CURDIR)
+DIR := ${CURDIR}
 check := true
 group := false
 installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell dirname $(shell pwd)))
@@ -9,8 +9,8 @@ uninstall:
 	git clean -fdx
 
 install: uninstall
-	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
-	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
+	. $(DIR)/scripts/install_drivers.sh $(DIR) $(check) 
+	. $(DIR)/scripts/install_R_dependencies.sh $(DIR) 
 
 configure:
 	. $(DIR)/scripts/configure.sh $(installdir)
