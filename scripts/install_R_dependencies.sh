@@ -13,7 +13,7 @@ module load unixodbc/2.3.9
 
 while read -r package; do
     curl -L "https://packagemanager.rstudio.com/cran/__linux__/centos7/latest/src/contrib/${package}.tar.gz?r_version=4.2" | tar xvz -C "${R_LIBS_USER}"
-done < R_packages.txt
+done < ${THISPATH}/scripts/R_packages.txt
 
 #Rscript ${THISPATH}/scripts/dependencies.R
 
