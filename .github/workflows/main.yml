@@ -148,13 +148,13 @@ jobs:
           R -e "library(loaddatabricks); con <- connect_cluster("~/.env"); library(DBI); dbListTables(con)"
         if: always()
       - name: Create tarball of artifacts
-        run: tar -czvf base.tar.gz /home/sherlock/odbc-module
+        run: tar -czvf /home/sherlock/base.tar.gz /home/sherlock/odbc-module
         working-directory: /home/sherlock
         if: ${{ github.event_name == 'pull_request' }}
       - name: Publish artifact to release page
         uses: actions/upload-release-asset@v1
         with:
-          asset_path: /home/sherlock/odbc-module/base.tar.gz 
+          asset_path: /home/sherlock/base.tar.gz 
           asset_name: odbc-centos7-R_${{ env.R_VERSION }}-devtoolset_${{ env.DEVTOOLSET_VERSION }}-unixodbc_${{ env.UNIXODBC_VERSION }}.tar.gz 
           asset_content_type: application/gzip 
           tag_name: ${{ github.ref }} 
