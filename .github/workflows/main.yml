@@ -131,6 +131,7 @@ jobs:
         run: |
           su - sherlock
           source /home/sherlock/.bashrc
+          export HOME=/home/sherlock/
           make setenv group=false
           module spider databricks | grep R/${{ inputs.R_VERSION }}
         if: always()
