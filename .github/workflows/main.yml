@@ -107,7 +107,7 @@ jobs:
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
-      - name: Install R modules
+      - name: Install the module
         working-directory: /home/sherlock/odbc-module
         run: |
           su - sherlock 
@@ -118,12 +118,6 @@ jobs:
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           export R_USER=$USER
           make install check=false
-      - name: Install drivers
-        working-directory: /home/sherlock/odbc-module
-        run: |
-          su - sherlock 
-          source /home/sherlock/.bashrc
-          bash $PWD/scripts/install_drivers.sh check=false
       - name: Configure
         working-directory: /home/sherlock/odbc-module
         run: |
