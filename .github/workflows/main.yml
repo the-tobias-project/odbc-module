@@ -50,11 +50,11 @@ jobs:
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel 
           yum install -y java-1.8.0-openjdk-devel
-      - name: Install spark
+      - name: Install Spark
         run: |
-          wget https://downloads.apache.org/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz
-          tar xzf spark-3.2.1-bin-hadoop3.2.tgz
-          sudo mv spark-3.2.1-bin-hadoop3.2 /usr/local/spark
+          wget https://archive.apache.org/dist/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2-scala2.13.tgz
+          tar -xzf spark-3.2.1-bin-hadoop3.2-scala2.13.tgz
+          mv spark-3.2.1-bin-hadoop3.2-scala2.13 /usr/local/spark
       - name: Update devtoolset
         run: | 
           yum -y install centos-release-scl
