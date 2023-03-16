@@ -44,17 +44,14 @@ jobs:
           yum install -y epel-release 
           yum install -y Lmod git curl wget
           useradd -m sherlock
+
       - name: Prepare specific R environment
         run: |
           yum install -y libgfortran5 readline readline-devel libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel 
           yum install -y java-1.8.0-openjdk-devel
-      - name: Install Spark
-        run: |
-          wget https://archive.apache.org/dist/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2-scala2.13.tgz
-          tar -xzf spark-3.2.1-bin-hadoop3.2-scala2.13.tgz
-          mv spark-3.2.1-bin-hadoop3.2-scala2.13 /usr/local/spark
+
       - name: Update devtoolset
         run: | 
           yum -y install centos-release-scl
@@ -62,6 +59,7 @@ jobs:
           yum install -y devtoolset-${{ env.DEVTOOLSET_VERSION }}-gcc-c++
           source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           echo "source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable" >> /home/sherlock/.bashrc
+
       - name: Download and install unixODBC
         run: |
           curl -O ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-${{ env.UNIXODBC_VERSION }}.tar.gz
@@ -71,6 +69,7 @@ jobs:
           make
           make install
           odbcinst --version
+
       - name: Install R 
         run: | 
           export R_VERSION=${{ env.R_VERSION }}
@@ -79,30 +78,40 @@ jobs:
           cd R-${{ env.R_VERSION }}
           ./configure --prefix=/share/apps/R-${{ env.R_VERSION }} --with-recommended-packages=no --without-x --with-cairo --with-libpng --with-libtiff --with-jpeglib --enable-R-shlib
           make && make install
-      - name: Create unixODBC module
+
+      - name: Install Spark
         run: |
+          wget https://archive.apache.org/dist/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2-scala2.13.tgz
+          tar -xzf spark-3.2.1-bin-hadoop3.2-scala2.13.tgz
+          mv spark-3.2.1-bin-hadoop3.2-scala2.13 /usr/local/spark
+
+      - name: Create modules for the installed software
+        run: |
+
+          ### unixodbc module
           mkdir -p /home/sherlock/.local/share/modulefiles/unixodbc
           echo "setenv('ODBC_HOME', '/usr')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
           echo "prepend_path('PATH', '/usr/bin')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
           echo "prepend_path('LD_LIBRARY_PATH', '/usr/lib64')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
           echo "prepend_path('PKG_CONFIG_PATH', '/usr/lib64/pkgconfig')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
           echo "setenv('ODBCSYSINI', '/etc/unixODBC')" >> /home/sherlock/.local/share/modulefiles/unixodbc/${{ env.UNIXODBC_VERSION }}.lua
-      - name: Create Lua module for R version
-        run: |
+
+          ### R module
           mkdir -p /home/sherlock/.local/share/modulefiles/R 
           echo "setenv('R_HOME', '/share/apps/R-${{ env.R_VERSION }}')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "prepend_path('PATH', '/share/apps/R-${{ env.R_VERSION }}/bin')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "prepend_path('LD_LIBRARY_PATH', '/share/apps/R-${{ env.R_VERSION }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "setenv('R', '/share/apps/R-${{ env.R_VERSION }}/bin/R')"  >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
-      - name: Create Spark module
-        run: |
+
+          ### Spark module
           mkdir -p /home/sherlock/.local/share/modulefiles/spark
           echo "setenv('SPARK_HOME', '/usr/local/spark')" >> /home/sherlock/.local/share/modulefiles/spark/${{ env.SPARK_VERSION }}.lua
           echo "prepend_path('PATH', '/usr/local/spark/bin')" >> /home/sherlock/.local/share/modulefiles/spark/${{ env.SPARK_VERSION }}.lua
-      - name: Create Mock system module
-        run: |
+
+          ### Mock system module (required on Sherlock)
           mkdir -p /home/sherlock/.local/share/modulefiles/system
           echo "" >> /home/sherlock/.local/share/modulefiles/system.lua
+
       - name: Prepare the environment
         run: |
           su - sherlock 
@@ -110,6 +119,7 @@ jobs:
           echo "export MODULEPATH=/home/sherlock/.local/share/modulefiles:\$MODULEPATH" >> /home/sherlock/.bashrc
           echo "module use --append /home/sherlock/.local/share/modulefiles/"  >> /home/sherlock/.bashrc
           echo "source /etc/profile.d/z00_lmod.sh" >> /home/sherlock/.bashrc
+
       - name: Test R module
         run: |
           su - sherlock 
@@ -119,6 +129,7 @@ jobs:
           module load R/${{ env.R_VERSION }}
           R -e "print('hello')"   
         if: always()
+
       - name: Download repository
         working-directory: /home/sherlock
         run: | 
@@ -126,6 +137,7 @@ jobs:
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
           git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
+
       - name: Install the module
         working-directory: /home/sherlock/odbc-module
         run: |
@@ -138,6 +150,7 @@ jobs:
           ## source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           export R_USER=$USER
           make install check=false
+
       - name: Configure
         working-directory: /home/sherlock/odbc-module
         run: |
@@ -145,6 +158,7 @@ jobs:
           source /home/sherlock/.bashrc
           make configure group=false
         if: always()
+
       - name: Set environment
         working-directory: /home/sherlock/odbc-module
         run: |
@@ -152,6 +166,7 @@ jobs:
           source /home/sherlock/.bashrc
           make setenv group=false
         if: always()
+
       - name: Docker set environment secrets
         working-directory: /home/sherlock/odbc-module
         run: |
@@ -165,10 +180,12 @@ jobs:
           module spider
           module load databricks-odbc/${{ env.R_VERSION }}
           R -e "library(loaddatabricks); con <- connect_cluster(\"~/.env\"); library(DBI); dbListTables(con)"
+
       - name: Create tarball of artifacts
         run: tar -czvf /home/sherlock/base.tar.gz /home/sherlock/odbc-module
         working-directory: /home/sherlock
         if: ${{ github.event_name == 'pull_request' }}
+
       - name: Publish artifact to release page
         uses: actions/upload-release-asset@v1
         with:
