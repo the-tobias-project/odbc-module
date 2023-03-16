@@ -126,7 +126,6 @@ jobs:
           su - sherlock 
           source /home/sherlock/.bashrc
           make configure group=false
-          "echo this is the environment:" && cat /home/sherlock/.env
         if: always()
       - name: Setenv
         working-directory: /home/sherlock/odbc-module
@@ -134,7 +133,7 @@ jobs:
           su - sherlock
           source /home/sherlock/.bashrc
           make setenv group=false
-          module spider | grep databricks
+          module spider | grep databricks && exit 0
         if: always()
       - name: Create tarball of artifacts
         run: tar -czvf base.tar.gz /home/sherlock/odbc-module
