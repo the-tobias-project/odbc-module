@@ -153,9 +153,8 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
       - name: Publish artifact to release page
         uses: actions/upload-release-asset@v1
-        working-directory: /home/sherlock
         with:
-          asset_path: base.tar.gz 
+          asset_path: /home/sherlock/odbc-module/base.tar.gz 
           asset_name: odbc-centos7-R_${{ env.R_VERSION }}-devtoolset_${{ env.DEVTOOLSET_VERSION }}-unixodbc_${{ env.UNIXODBC_VERSION }}.tar.gz 
           asset_content_type: application/gzip 
           tag_name: ${{ github.ref }} 
