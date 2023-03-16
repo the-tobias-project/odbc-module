@@ -127,13 +127,13 @@ jobs:
           source /home/sherlock/.bashrc
           make configure group=false
         if: always()
-      - name: Test Setenv
+      - name: Set environment
         working-directory: /home/sherlock/odbc-module
         run: |
           su - sherlock
           source /home/sherlock/.bashrc
           make setenv group=false
-      - name: Actual Setenv
+      - name: Docker set environment secrets
         working-directory: /home/sherlock/odbc-module
         run: |
           su - sherlock
