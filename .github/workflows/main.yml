@@ -113,9 +113,10 @@ jobs:
           su - sherlock 
           source /home/sherlock/.bashrc
           mkdir -p ~/.R/
-          echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
-          echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
-          source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
+          # lines below not needed because we are using package binaries for R, but kept as reference
+          #echo "CC=/opt/rh/devtoolset-10/root/bin/gcc" > ~/.R/Makevars
+          #echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
+          #source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           export R_USER=$USER
           make install check=false
       - name: Configure
