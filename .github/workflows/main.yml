@@ -20,6 +20,7 @@ jobs:
     env:
       R_VERSION: "4.2.0"
       UNIXODBC_VERSION: "2.3.9"
+      SPARK_VERSION: "3.2.1"
       DEVTOOLSET_VERSION: "10"
       REPOSITORY: "the-tobias-project/odbc-module"
       HOME: /home/sherlock
@@ -48,6 +49,12 @@ jobs:
           yum install -y libgfortran5 readline readline-devel libicu libicu-devel gcc-gfortran zlib-devel bzip2-devel \
                          libcurl-devel xz-devel pcre2-devel ncurses-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel \
                          kernel-headers kernel-devel readline-devel unixODBC-devel 
+          yum install -y java-1.8.0-openjdk-devel
+      - name: Install spark
+        run: |
+          wget https://downloads.apache.org/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz
+          tar xzf spark-3.2.1-bin-hadoop3.2.tgz
+          sudo mv spark-3.2.1-bin-hadoop3.2 /usr/local/spark
       - name: Update devtoolset
         run: | 
           yum -y install centos-release-scl
@@ -87,7 +94,15 @@ jobs:
           echo "prepend_path('PATH', '/share/apps/R-${{ env.R_VERSION }}/bin')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "prepend_path('LD_LIBRARY_PATH', '/share/apps/R-${{ env.R_VERSION }}/lib64')" >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
           echo "setenv('R', '/share/apps/R-${{ env.R_VERSION }}/bin/R')"  >> /home/sherlock/.local/share/modulefiles/R/${{ env.R_VERSION }}.lua
-        shell: bash
+      - name: Create Spark module
+        run: |
+          mkdir -p /home/sherlock/.local/share/modulefiles/spark
+          echo "setenv('SPARK_HOME', '/usr/local/spark')" >> /home/sherlock/.local/share/modulefiles/spark/${{ env.SPARK_VERSION }}.lua
+          echo "prepend_path('PATH', '/usr/local/spark/bin')" >> /home/sherlock/.local/share/modulefiles/spark/${{ env.SPARK_VERSION }}.lua
+      - name: Create Mock system module
+        run: |
+          mkdir -p /home/sherlock/.local/share/modulefiles/system
+          echo "" >> /home/sherlock/.local/share/modulefiles/system.lua
       - name: Prepare the environment
         run: |
           su - sherlock 
