@@ -144,7 +144,7 @@ jobs:
           export DATABRICKS_HTTP_PATH=${{ secrets.DATABRICKS_HTTP_PATH }}   
           echo "Test secret is: ${{ secrets.TEST_SECRET }}"
           module spider
-          module load databricks-odbc//${{ env.R_VERSION }}
+          module load databricks-odbc/${{ env.R_VERSION }}
           R -e "library(loaddatabricks); con <- connect_cluster("~/.env"); library(DBI); dbListTables(con)"
         if: always()
       - name: Create tarball of artifacts
