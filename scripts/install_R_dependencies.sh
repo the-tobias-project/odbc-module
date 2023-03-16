@@ -16,7 +16,7 @@ module load unixodbc/2.3.9
 
 while read -r package; do
     curl -L "${REPO}/${package}.tar.gz?r_version=${R_VERSION}" | tar xvz -C "${R_LIBS_USER}"
-done < ${THISPATH}/scripts/R_packages.txt
+done < ${THISPATH}/scripts/R_requirements.txt
 
 #Rscript ${THISPATH}/scripts/dependencies.R
 
