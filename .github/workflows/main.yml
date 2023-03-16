@@ -27,6 +27,7 @@ jobs:
       UNIXODBC_VERSION: "2.3.9"
       DEVTOOLSET_VERSION: "10"
       REPOSITORY: "the-tobias-project/odbc-module"
+      HOME: /home/sherlock
     
 
     steps:
@@ -124,7 +125,6 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          export HOME=/home/sherlock/
           make configure group=false
         if: always()
       - name: Setenv
@@ -132,7 +132,6 @@ jobs:
         run: |
           su - sherlock
           source /home/sherlock/.bashrc
-          export HOME=/home/sherlock/
           make setenv group=false
           module spider | grep databricks/${{ inputs.R_VERSION }}
         if: always()
