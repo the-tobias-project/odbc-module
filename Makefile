@@ -24,5 +24,9 @@ clean:
 	@rm -f ${HOME}/.odbc.ini ${HOME}/.odbcinst.ini
     @[ $(verbose) == true ] && echo -e "\nYou can now remove this directory and, if the module was installed at group level, the folder at: $(installdir)"
 
+authorize:
+    . $(DIR)/scripts/authorize.sh
+	. $(DIR)/scripts/setenv.sh $(DIR)
+
 
 .PHONY: configure install clean
