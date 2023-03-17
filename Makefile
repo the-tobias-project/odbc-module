@@ -21,6 +21,9 @@ setenv:
 #get_token:
 #    . $(DIR)/scripts/authorize.sh
 
+#install_az:
+#    . $(DIR)/scripts/install_azure_cli.sh $(DIR)
+
 #authorize: get_token setenv
 
 clean:
