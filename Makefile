@@ -22,7 +22,7 @@ clean:
 	@rm -f ${HOME}/.env
 	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ${HOME}/.bashrc
 	@rm -f ${HOME}/.odbc.ini ${HOME}/.odbcinst.ini
-    @[ $(verbose) == true ] && echo -e "\nYou can now remove this directory and, if the module was installed at group level, the folder at: $(installdir)"
+    @[ $(verbose) == true ] && echo -e "\nYou can now remove this directory and, if the module was installed at group level, the folder at: $(DIR)"
 
 authorize:
     . $(DIR)/scripts/authorize.sh
