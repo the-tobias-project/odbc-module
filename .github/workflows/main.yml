@@ -24,15 +24,15 @@ jobs:
       DEVTOOLSET_VERSION: "10"
       REPOSITORY: "the-tobias-project/odbc-module"
       HOME: /home/sherlock
+      __DATABRICKS_HOSTNAME: ${{ secrets.DATABRICKS_HOSTNAME }}
+      __DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      __DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}   
+      __TEST_SECRET: ${{ secrets.TEST_SECRET }}  
+
 
     container:
       image: centos:7.9.2009
       options: --user root
-      env: 
-        __DATABRICKS_HOSTNAME: ${{ secrets.DATABRICKS_HOSTNAME }}
-        __DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-        __DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}   
-        __TEST_SECRET: ${{ secrets.TEST_SECRET }}  
 
     steps:
       - name: Checkout repo
@@ -173,10 +173,10 @@ jobs:
           su - sherlock
           source /home/sherlock/.bashrc
           # overload
-          export DATABRICKS_HOSTNAME=${__DATABRICKS_HOSTNAME}
-          export DATABRICKS_TOKEN=${_DATABRICKS_TOKEN}
-          export DATABRICKS_HTTP_PATH=${__DATABRICKS_HTTP_PATH}
-          echo "Test secret is: ${__TEST_SECRET}"
+          export DATABRICKS_HOSTNAME=${{ env.__DATABRICKS_HOSTNAME }}
+          export DATABRICKS_TOKEN=${{ env.__DATABRICKS_TOKEN }}
+          export DATABRICKS_HTTP_PATH=${{ env.{__DATABRICKS_HTTP_PATH }}
+          echo "Test secret is: ${{ env.__TEST_SECRET }}"
       - name: Test odbc
         working-directory: /home/sherlock/odbc-module
         run: |
