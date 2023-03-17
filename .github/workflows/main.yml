@@ -170,8 +170,8 @@ jobs:
         working-directory: /home/sherlock/odbc-module
         run: |
           su - sherlock
-          module load databricks-odbc/${{ env.R_VERSION }}
           source /home/sherlock/.bashrc
+          module load databricks-odbc/${{ env.R_VERSION }}
           # overload
           export DATABRICKS_HOSTNAME=${{ env.__DATABRICKS_HOSTNAME }}
           export DATABRICKS_TOKEN=${{ env.__DATABRICKS_TOKEN }}
