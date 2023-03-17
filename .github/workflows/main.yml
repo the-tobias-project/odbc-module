@@ -175,7 +175,7 @@ jobs:
           # overload
           export DATABRICKS_HOSTNAME=${{ env.__DATABRICKS_HOSTNAME }}
           export DATABRICKS_TOKEN=${{ env.__DATABRICKS_TOKEN }}
-          export DATABRICKS_HTTP_PATH=${{ env.{__DATABRICKS_HTTP_PATH }}
+          export DATABRICKS_HTTP_PATH=${{ env.__DATABRICKS_HTTP_PATH }}
           echo "Test secret is: ${{ env.__TEST_SECRET }}"
       - name: Test odbc
         working-directory: /home/sherlock/odbc-module
