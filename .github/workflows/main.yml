@@ -166,22 +166,16 @@ jobs:
           source /home/sherlock/.bashrc
           make setenv group=false
         if: always()
-
-      - name: Docker set environment secrets
+      - name: Test odbc
         working-directory: /home/sherlock/odbc-module
         run: |
           su - sherlock
+          module load databricks-odbc/${{ env.R_VERSION }}
           source /home/sherlock/.bashrc
           # overload
           export DATABRICKS_HOSTNAME=${{ env.__DATABRICKS_HOSTNAME }}
           export DATABRICKS_TOKEN=${{ env.__DATABRICKS_TOKEN }}
           export DATABRICKS_HTTP_PATH=${{ env.__DATABRICKS_HTTP_PATH }}
-          echo "Test secret is: ${{ env.__TEST_SECRET }}"
-      - name: Test odbc
-        working-directory: /home/sherlock/odbc-module
-        run: |
-          module spider
-          module load databricks-odbc/${{ env.R_VERSION }}
           R -e "library(loaddatabricks); con <- connect_cluster(\"/home/sherlock/.env\"); library(DBI); dbListTables(con)"
 
       - name: Create tarball of artifacts
