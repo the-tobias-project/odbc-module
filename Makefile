@@ -18,13 +18,13 @@ configure:
 setenv:
 	. $(DIR)/scripts/setenv.sh $(DIR)
 
-#get_token:
-#    . $(DIR)/scripts/authorize.sh
+gettoken:
+	. $(DIR)/scripts/authorize.sh
+	
+getaz:
+	. $(DIR)/scripts/install_azure_cli.sh $(DIR)
 
-#install_az:
-#    . $(DIR)/scripts/install_azure_cli.sh $(DIR)
-
-#authorize: get_token setenv
+authorize: gettoken setenv
 
 clean:
 	@rm -f ${HOME}/.env
