@@ -1,7 +1,2 @@
 odbc_1.3.4
-rlang_1.1.0
-Rcpp_1.0.10
-bit64_4.0.5
-DBI_1.1.3
 dotenv_1.0.3
-bit_4.0.5
