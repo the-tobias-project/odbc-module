@@ -22,7 +22,7 @@ gettoken:
 	. $(DIR)/scripts/authorize.sh
 	
 getaz:
-	. $(DIR)/scripts/install_azure_cli.sh $(DIR)
+	curl -L https://aka.ms/InstallAzureCli | bash -s -- -y
 
 authorize: gettoken setenv
 
