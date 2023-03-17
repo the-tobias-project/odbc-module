@@ -18,10 +18,10 @@ configure:
 setenv:
 	. $(DIR)/scripts/setenv.sh $(DIR)
 
-get_token:
-    . $(DIR)/scripts/authorize.sh
+#get_token:
+#    . $(DIR)/scripts/authorize.sh
 
-authorize: get_token setenv
+#authorize: get_token setenv
 
 clean:
 	@rm -f ${HOME}/.env
