@@ -19,4 +19,12 @@ databricks configure --aad-token --host $dbhost
 
 DATABRICKS_PAT=$(jq .token_value -r <<< `databricks tokens create --lifetime-seconds 600 --comment "Personal Access Token"`)
 
-sed -i "s/DATABRICKS_TOKEN=.*/DATABRICKS_TOKEN=${DATABRICKS_PAT}/" ${HOME}/.env
+sed -i "s/PWD=.*/PWD=${DATABRICKS_PAT}/" ${HOME}/.odbc.ini
+
+echo -e "\n\n-----------------------------------------------------------------------"
+echo -e "Done. This is the resulting configuration, check that it is correct:"
+echo -e "\n\n-- ~/.odbc.ini ---"
+cat "${HOME}/.odbc.ini"
+echo -e "\n\n-- ~/.odbcinst.ini ---"
+cat "${HOME}/.odbcinst.ini"
+echo -e "\n-----------------------------------------------------------------------\n\n"

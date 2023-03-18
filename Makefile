@@ -18,15 +18,13 @@ configure:
 setenv:
 	. $(DIR)/scripts/setenv.sh $(DIR)
 
-gettoken:
+authorize:
 	. $(DIR)/scripts/authorize.sh
 	
 getaz:
 	module load python/3.6.1 && \
 	pip install databricks-cli && \
 	curl -L https://aka.ms/InstallAzureCli | bash -s -- -y
-
-authorize: gettoken setenv
 
 clean:
 	@rm -f ${HOME}/.env
