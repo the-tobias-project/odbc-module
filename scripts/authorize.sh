@@ -11,9 +11,9 @@ az login --use-device-code --allow-no-subscriptions
 # Retrieve the AAD token from Azure
 export DATABRICKS_AAD_TOKEN=$(jq .accessToken -r <<< `az account get-access-token --resource 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d`)
 
-host=https://$(grep "Host=" ~/.odbc.ini | cut -d "=" -f 2 | awk '{print $1}')
+dbhost=https://$(grep "Host=" ~/.odbc.ini | cut -d "=" -f 2 | awk '{print $1}')
 
-echo "Authorizing: $host"
+echo "Authorizing: $dbhost"
 
 databricks configure --aad-token --host $dbhost
 
