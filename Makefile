@@ -26,6 +26,8 @@ getaz:
 	pip install databricks-cli && \
 	curl -L https://aka.ms/InstallAzureCli | bash -s -- -y
 
+full_install: getaz install authorize
+
 clean:
 	@rm -f ${HOME}/.env
 	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ${HOME}/.bashrc
