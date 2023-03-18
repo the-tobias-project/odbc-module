@@ -19,4 +19,4 @@ databricks configure --aad-token --host $dbhost
 
 DATABRICKS_PAT=$(jq .token_value -r <<< `databricks tokens create --lifetime-seconds 600 --comment "Personal Access Token"`)
 
-sed -i "s/DATABRICKS_TOKEN=.*/DATABRICKS_TOKEN=${DATABRICKS_PAT}/" ${HOME}/.bashrc
+sed -i "s/DATABRICKS_TOKEN=.*/DATABRICKS_TOKEN=${DATABRICKS_PAT}/" ${HOME}/.env
