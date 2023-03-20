@@ -1,7 +1,7 @@
 DIR := ${CURDIR}
 check := true
 group := false
-installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell dirname $(shell pwd)))
+installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell pwd))
 verbose := true
 
 uninstall:
