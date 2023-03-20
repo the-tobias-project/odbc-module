@@ -16,10 +16,10 @@ while true; do
 
     cat > "${HOME}/.env" <<EOF  
     #[DATABRICKS SETTINGS]
-    Host=${databricks_hostname}
-    PWD=
-    HTTPPath=${databricks_path}
-    Port=${databricks_port}
+    DATABRICKS_HOSTNAME=${databricks_hostname}
+    DATABRICKS_TOKEN=
+    DATABRICKS_HTTP_PATH=${databricks_path}
+    DATABRICKS_PORT=${databricks_port}
 
 EOF
 
@@ -33,6 +33,11 @@ EOF
     SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
     LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
 EOF
+    echo -e "\n\nThe following lines will be aded to ${HOME}/.bashrc:"
+    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
+    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
+
+    export $(grep -v '^#' ${HOME}/.env | xargs)
     . ${THISPATH}/scripts/setenv.sh ${THISPATH}
 
     echo -e "\n\n-----------------------------------------------------------------------"
@@ -54,7 +59,5 @@ EOF
         * ) echo "Please answer yes or no.";;
     esac
      
-    echo -e "\n\nThe following lines will be aded to ${HOME}/.bashrc:"
-    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
-    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
+
 done
