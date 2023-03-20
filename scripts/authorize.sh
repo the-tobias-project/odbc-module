@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
+# Written by Douglas Spencer for Stanford University
+
 set -e
 
-# Written by Douglas Spencer for Stanford University
+echo -e "Authorizing...\n"
+
 
 which az >/dev/null || echo Azure CLI not found. Please go to https://learn.microsoft.com/en-us/cli/azure/install-azure-cli and install the appropriate version
 
@@ -24,16 +27,4 @@ sed -i "s/PWD=.*/PWD=${DATABRICKS_PAT}/" "${HOME}/.odbc.ini"
 
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 
-echo -e "\n\n-----------------------------------------------------------------------"
-echo -e "Done. This is the resulting configuration at ${HOME}/.env, check that it is correct:"
-cat "${HOME}/.env"
-echo -e "\n\nThe following lines were aded to ${HOME}/.bashrc:"
-echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
-echo -e "\n-----------------------------------------------------------------------\n\n"
-echo -e "\n\n-----------------------------------------------------------------------"
-echo -e "Done. This is the resulting configuration, check that it is correct:"
-echo -e "\n\n-- ~/.odbc.ini ---"
-cat "${HOME}/.odbc.ini"
-echo -e "\n\n-- ~/.odbcinst.ini ---"
-cat "${HOME}/.odbcinst.ini"
-echo -e "\n-----------------------------------------------------------------------\n\n"
+echo "Success!"
