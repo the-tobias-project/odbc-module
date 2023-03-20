@@ -1,4 +1,4 @@
-	DIR := ${CURDIR}
+DIR := ${CURDIR}
 check := true
 group := false
 installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell dirname $(shell pwd)))
@@ -8,15 +8,15 @@ uninstall:
 	git reset --hard
 	git clean -fdx
 
-install_packages: uninstall
-	. $(DIR)/scripts/install_drivers.sh $(DIR) $(check) 
-	. $(DIR)/scripts/install_R_dependencies.sh $(DIR) 
+install: uninstall
+	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
+	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
 
 configure:
-	. $(DIR)/scripts/configure.sh $(DIR)
+	. $(DIR)/scripts/configure.sh $(installdir)
 
 setenv:
-	. $(DIR)/scripts/setenv.sh $(DIR)
+	. $(DIR)/scripts/setenv.sh $(installdir)
 
 authorize:
 	. $(DIR)/scripts/authorize.sh
@@ -26,7 +26,7 @@ getaz:
 	pip install databricks-cli && \
 	curl -L https://aka.ms/InstallAzureCli | bash -s -- -y
 
-full_install: install_packages getaz configure
+full_install: install getaz configure
 
 full_authorize: setenv authorize
 
