@@ -52,7 +52,7 @@ EOF
     cat "${HOME}/.odbcinst.ini"
     echo -e "\n-----------------------------------------------------------------------\n\n"
 
-    read -p "Is your configuration correct? " yn
+    read -p "Is your configuration correct? (y/n) " yn
     case $yn in
         [Yy]* ) echo "Success!"; break;;
         [Nn]* ) continue;;
