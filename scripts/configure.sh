@@ -16,10 +16,10 @@ while true; do
 
     cat > "${HOME}/.env" <<EOF  
     #[DATABRICKS SETTINGS]
-    DATABRICKS_HOSTNAME=${databricks_hostname}
-    DATABRICKS_TOKEN=
-    DATABRICKS_HTTP_PATH=${databricks_path}
-    DATABRICKS_PORT=${databricks_port}
+    Host=${databricks_hostname}
+    PWD=
+    HTTPPath=${databricks_path}
+    Port=${databricks_port}
 
 EOF
 
@@ -53,7 +53,7 @@ EOF
         [Nn]* ) continue;;
         * ) echo "Please answer yes or no.";;
     esac
-    
+     
     echo -e "\n\nThe following lines will be aded to ${HOME}/.bashrc:"
     echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
     echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
