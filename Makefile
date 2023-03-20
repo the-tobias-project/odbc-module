@@ -9,6 +9,7 @@ uninstall:
 	git clean -fdx
 
 partial_install: uninstall
+	echo "Installing at ${installdir}"
 	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
 	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
 
