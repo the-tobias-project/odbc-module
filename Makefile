@@ -8,11 +8,11 @@ uninstall:
 	git reset --hard
 	git clean -fdx
 
-install: uninstall
+partial_install: uninstall
 	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
 	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
 
-configure:
+partial_configure:
 	. $(DIR)/scripts/configure.sh $(installdir)
 
 setenv:
@@ -26,9 +26,9 @@ getaz:
 	pip install databricks-cli && \
 	curl -L https://aka.ms/InstallAzureCli | bash -s -- -y
 
-full_install: install getaz 
+install: partial_install getaz 
 
-full_authorize: setenv authorize
+configure: setenv authorize
 
 clean:
 	@rm -f ${HOME}/.env
