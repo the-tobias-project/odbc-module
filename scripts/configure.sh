@@ -34,9 +34,7 @@ EOF
     LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
 EOF
 
-
     echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
-
 
     echo -e "\n\n-----------------------------------------------------------------------"
     echo -e "Done. This is the resulting configuration at ${HOME}/.env, check that it is correct:"
