@@ -6,34 +6,56 @@ set -e
 
 export THISPATH=$1
 
-cat > "${HOME}/.env" <<EOF  
-#[DATABRICKS SETTINGS]
-DATABRICKS_HOSTNAME=
-DATABRICKS_TOKEN=
-DATABRICKS_HTTP_PATH=
-DATABRICKS_PORT=443
+while true; do
+
+    echo "CONFIGURATION : ---------------------------------------------"
+    read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname
+    read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path
+    read -p "Databricks port (default: 443, press enter to use default): " databricks_port
+    databricks_port=${databricks_port:-443}
+
+    cat > "${HOME}/.env" <<EOF  
+    #[DATABRICKS SETTINGS]
+    DATABRICKS_HOSTNAME=${databricks_hostname}
+    DATABRICKS_TOKEN=
+    DATABRICKS_HTTP_PATH=${databricks_path}
+    DATABRICKS_PORT=${databricks_port}
 
 EOF
 
-cat >> "${HOME}/.env" <<EOF  
-#[ENVIRONMENTAL VARIABLES] # do not modify
-MODULE_FOLDER=${THISPATH}
-ODBCINI=${HOME}/.odbc.ini
-ODBCSYSINI=${HOME}
-MODULEPATH=${MODULEPATH}:${THISPATH}/software/modules/contribs
-R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
-SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
-LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
+    cat >> "${HOME}/.env" <<EOF  
+    #[ENVIRONMENTAL VARIABLES] # do not modify
+    MODULE_FOLDER=${THISPATH}
+    ODBCINI=${HOME}/.odbc.ini
+    ODBCSYSINI=${HOME}
+    MODULEPATH=${MODULEPATH}:${THISPATH}/software/modules/contribs
+    R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
+    SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
+    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
 EOF
 
 
-echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
+    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 
-echo -e "\n\n-----------------------------------------------------------------------"
-echo -e "Done. This is the resulting configuration at ${HOME}/.env, check that it is correct:"
-cat "${HOME}/.env"
-echo -e "\n\nThe following lines were aded to ${HOME}/.bashrc:"
-echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
-echo -e "\n-----------------------------------------------------------------------\n\n"
-echo "Please fill in the .env file at ${HOME}/.env with the Databricks variables"
 
+    echo -e "\n\n-----------------------------------------------------------------------"
+    echo -e "Done. This is the resulting configuration at ${HOME}/.env, check that it is correct:"
+    cat "${HOME}/.env"
+    echo -e "\n\nThe following lines were aded to ${HOME}/.bashrc:"
+    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
+    echo -e "\n-----------------------------------------------------------------------\n\n"
+    echo -e "\n\n-----------------------------------------------------------------------"
+    echo -e "This is the resulting configuration of the driver, check that it is correct:"
+    echo -e "\n\n-- ~/.odbc.ini ---"
+    cat "${HOME}/.odbc.ini"
+    echo -e "\n\n-- ~/.odbcinst.ini ---"
+    cat "${HOME}/.odbcinst.ini"
+    echo -e "\n-----------------------------------------------------------------------\n\n"
+
+    read -p "Is your configuration correct? " yn
+    case $yn in
+        [Yy]* ) echo "Success!"; break;;
+        [Nn]* ) continue;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done

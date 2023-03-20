@@ -26,7 +26,7 @@ getaz:
 	pip install databricks-cli && \
 	curl -L https://aka.ms/InstallAzureCli | bash -s -- -y
 
-full_install: install getaz configure
+full_install: install getaz 
 
 full_authorize: setenv authorize
 
