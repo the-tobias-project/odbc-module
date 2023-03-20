@@ -33,14 +33,11 @@ EOF
     SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
     LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
 EOF
-
-    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
+    . ${THISPATH}/scripts/setenv.sh ${THISPATH}
 
     echo -e "\n\n-----------------------------------------------------------------------"
     echo -e "Done. This is the resulting configuration at ${HOME}/.env, check that it is correct:"
     cat "${HOME}/.env"
-    echo -e "\n\nThe following lines were aded to ${HOME}/.bashrc:"
-    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
     echo -e "\n-----------------------------------------------------------------------\n\n"
     echo -e "\n\n-----------------------------------------------------------------------"
     echo -e "This is the resulting configuration of the driver, check that it is correct:"
@@ -56,4 +53,8 @@ EOF
         [Nn]* ) continue;;
         * ) echo "Please answer yes or no.";;
     esac
+    
+    echo -e "\n\nThe following lines will be aded to ${HOME}/.bashrc:"
+    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
+    echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 done
