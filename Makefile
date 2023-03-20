@@ -29,7 +29,7 @@ getaz:
 
 install: partial_install getaz 
 
-configure: setenv authorize
+configure: partial_configure setenv authorize
 
 clean:
 	@rm -f ${HOME}/.env
