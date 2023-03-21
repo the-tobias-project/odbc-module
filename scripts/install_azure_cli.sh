@@ -3,5 +3,5 @@
 
 set -eo pipefail
 
-module --ignore_cache load python/3
+module load python/3.6.1
 curl -L https://aka.ms/InstallAzureCli | bash
