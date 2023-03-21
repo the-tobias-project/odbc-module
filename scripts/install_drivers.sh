@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 # ----------------------------------------------------------------------------------------------
 # This script will generate the module creating the content for the following two main folders:

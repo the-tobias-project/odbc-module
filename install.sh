@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 # Define colors
 YELLOW='\033[1;33m'
@@ -12,7 +12,7 @@ while true; do
     echo -e "${YELLOW}1) Personal${NC}"
     echo -e "${YELLOW}2) Group${NC}"
 
-    read option
+    read option </dev/tty
     set +e
     case $option in
         1)
