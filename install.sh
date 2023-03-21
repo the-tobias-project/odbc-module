@@ -49,11 +49,56 @@ git clone https://github.com/the-tobias-project/odbc-module
 cd odbc-module
 git checkout devel
 
+
 if [ "$install" == "true" ]; then
-    make install check=false group="${group}"
+    printf "%sInstall libraries and databricks-cli? (y/n):%s " "${YELLOW}" "${NC}" 
+    read -r installlib </dev/tty
+    case "$installlib" in
+        [yY]*)
+            make install check=false group="${group}"
+            make get_databricks
+            ;;
+        [nN]*)
+             :
+            ;;
+        *)
+            echo "Invalid input."
+            ;;
+        esac
+
+    printf "%sInstall azure-cli? (y/n):%s " "${YELLOW}" "${NC}"  
+    read -r installlib </dev/tty
+    case "$installlib" in
+        [yY]*)
+            make get_azure
+            ;;
+        [nN]*)
+             :
+            ;;
+        *)
+            echo "Invalid input."
+            ;;
+        esac
 fi
 
-if [ "$configure" == "true" ]; then
+
+if [ "$install" == "true" ] && [ "$configure" == "true" ];then
+    printf "%sConfigure? (y/n):%s "  "${YELLOW}" "${NC}"  
+    read -r config </dev/tty
+    case "$config" in
+        [yY]*)
+            make configure group="${group}"
+            ;;
+        [nN]*)
+             :
+            ;;
+        *)
+            echo "Invalid input."
+            ;;
+        esac
+fi
+
+if [ "$install" == "false" ] && [ "$configure" == "true" ];then
     make configure group="${group}"
 fi
 

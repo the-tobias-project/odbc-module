@@ -5,7 +5,7 @@ installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell 
 verbose := true
 stdin := true
 
-partial_install: clean reset
+install: clean reset
 	@echo "Installing at ${installdir}"
 	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
 	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
@@ -18,11 +18,12 @@ setenv:
 
 authorize:
 	. $(DIR)/scripts/authorize.sh
-	
-getaz:
-	. $(DIR)/scripts/install_cli.sh 
 
-install: partial_install getaz 
+get_databricks:
+	. $(DIR)/scripts/install_databricks_cli.sh 
+	
+get_azure:
+	. $(DIR)/scripts/install_azure_cli.sh 
 
 configure: partial_configure authorize
 
