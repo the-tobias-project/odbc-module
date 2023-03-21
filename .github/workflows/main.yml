@@ -149,7 +149,7 @@ jobs:
           ## echo "CXX=/opt/rh/devtoolset-10/root/bin/g++" >> ~/.R/Makevars
           ## source /opt/rh/devtoolset-${{ env.DEVTOOLSET_VERSION }}/enable
           export R_USER=$USER
-          make partial_install check=false
+          make install check=false
 
       - name: Configure
         working-directory: /home/sherlock/odbc-module

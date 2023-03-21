@@ -69,7 +69,7 @@ if [ "${stdin}" = "true" ]; then
         envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
         printconfig
 
-        read -p "Is your configuration correct? (y/n)" yn </dev/tty
+        read -p "Does your configuration look correct? (y/n) " yn </dev/tty
         case $yn in
             [Yy]* ) echo "Success!"; exit 0;;
             [Nn]* ) continue;;
