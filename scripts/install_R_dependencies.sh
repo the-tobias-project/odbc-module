@@ -26,4 +26,4 @@ R CMD build loaddatabricks
 R CMD INSTALL -l ${R_LIBS_USER} loaddatabricks*.tar.gz
 rm -rf loaddatabricks*
 
-echo "${YELLOW}R modules succesfully installed!${NC}"
+echo "R modules succesfully installed!"

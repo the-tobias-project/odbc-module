@@ -55,4 +55,4 @@ rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini" > temporal.txt
 mv temporal.txt "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini"
 
-echo "${YELLOW}Databricks modules succesfully installed!${NC}"
+echo "Databricks modules succesfully installed!"

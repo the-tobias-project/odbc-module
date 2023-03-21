@@ -30,4 +30,4 @@ sed -i "s/PWD=.*/PWD=${DATABRICKS_PAT}/" "${HOME}/.odbc.ini"
 
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 
-echo -e "${YELLOW}Succesfully authorized!${NC}"
+echo "Succesfully authorized!"
