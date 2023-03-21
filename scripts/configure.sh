@@ -42,7 +42,7 @@ function printconfig() {
     echo -e "\n\n-----------------------------------------------------------------------"
     echo -e "This is the resulting configuration of the driver, check that it is correct:"
     echo -e "${YELLOW}\n\n-- ~/.odbc.ini ---${NC}"
-    cat "${YELLOW}${HOME}/.odbc.ini${NC}"
+    cat "${HOME}/.odbc.ini"
     echo -e "\n-----------------------------------------------------------------------\n\n"
 }
 
