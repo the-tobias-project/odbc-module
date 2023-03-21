@@ -6,11 +6,6 @@ YELLOW='\033[1;33m'
 NC='\033[0m' 
 option=""
 
-download () {
-    git clone https://github.com/the-tobias-project/odbc-module
-    cd odbc-module
-    git checkout devel
-}
 
 while true; do
     echo -e "\nSelect an  option:"
