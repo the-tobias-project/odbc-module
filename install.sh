@@ -45,8 +45,12 @@ while true; do
     set -e
 done
 
-git clone https://github.com/the-tobias-project/odbc-module
-cd odbc-module
+if [ "${BASH_SOURCE[0]}" == "/dev/fd/63" ]; then
+  # Script is being run remotely via curl
+  git clone https://github.com/the-tobias-project/odbc-module
+  cd odbc-module
+fi
+
 git checkout devel
 
 
