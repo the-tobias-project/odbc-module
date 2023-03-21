@@ -15,23 +15,23 @@ function printfcol () {
 while true; do
     echo -e "\nSelect an  option:"
     printfcol "${PURPLE}" "-------------------------\n"
-    printfcol "${YELLOW}" "1 <- Install in personal folder"
-    printfcol "${YELLOW}" "2 <- Install in group folder"
-    printfcol "${YELLOW}" "3 <- Configure your personal folder after a group install"
-    printfcol "${YELLOW}" "4 <- Continue a previous installation"
+    printfcol "${YELLOW}" "1 <- Install in personal folder\n"
+    printfcol "${YELLOW}" "2 <- Install in group folder\n"
+    printfcol "${YELLOW}" "3 <- Configure your personal folder after a group install\n"
+    printfcol "${YELLOW}" "4 <- Continue a previous installation\n"
     printfcol "${PURPLE}" "Your option: "
 
     read -r option </dev/tty
     
     case $option in
         1)
-            printfcol "${YELLOW}" "\n\nInstalling and configuring in your personal folder..."
+            printfcol "${YELLOW}" "\n\nInstalling and configuring in your personal folder...\n"
             group=false
             basepath="${HOME}"
             break
             ;;
         2)
-            printfcol "${YELLOW}" "\n\nInstalling in group folder..."
+            printfcol "${YELLOW}" "\n\nInstalling in group folder...\n"
             group=true
             groupfol="/home/groups/$(id -ng)"
             echo "Switching to $groupfol"
@@ -39,17 +39,17 @@ while true; do
             break
             ;;
         3) 
-            printfcol "${YELLOW}" "\n\nConfiguring your personal folder for a group installation..."
+            printfcol "${YELLOW}" "\n\nConfiguring your personal folder for a group installation...\n"
             group=true
             basepath="${HOME}"
             break
             ;;
         4)
-            printfcol "${YELLOW}" "\n\nContinue with previous installation..."
+            printfcol "${YELLOW}" "\n\nContinue with previous installation...\n"
             break
             ;;
         *)
-            printfcol "${YELLOW}" "\n\nInvalid option. Please select 1, 2, 3 or 4."
+            printfcol "${YELLOW}" "\n\nInvalid option. Please select 1, 2, 3 or 4.\n"
             ;;
     esac
 done
