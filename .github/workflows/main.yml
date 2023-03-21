@@ -159,13 +159,6 @@ jobs:
           make partial_configure group=false stdin=false
         if: always()
 
-      - name: Set environment
-        working-directory: /home/sherlock/odbc-module
-        run: |
-          su - sherlock
-          source /home/sherlock/.bashrc
-          make setenv group=false
-        if: always()
       - name: Test odbc
         working-directory: /home/sherlock/odbc-module
         run: |

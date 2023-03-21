@@ -40,7 +40,7 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverMana
 EOF
 
 echo -e "\n\nThe following lines will be aded to ${HOME}/.bashrc:"
-echo -e "{\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
+echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 }
 
@@ -58,18 +58,16 @@ if [ "${stdin}" = "true" ]; then
         read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname </dev/tty
         read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path </dev/tty
         read -p "Databricks port (default: 443, press enter to use default): " databricks_port </dev/tty
+        echo -e "${YELLOW}------------------------------------------------------------------${NC}"
         databricks_port=${databricks_port:-443}
 
         setfiles "${THISPATH}" "${databricks_hostname}" "${databricks_path}" "${databricks_port}"
 
         export $(grep -v '^#' ${HOME}/.env | xargs)
-        
+
         envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${HOME}/.odbc.ini"
         envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
-
         printconfig
-
-
 
         read -p "Is your configuration correct? (y/n)" yn </dev/tty
         case $yn in
@@ -80,4 +78,4 @@ if [ "${stdin}" = "true" ]; then
     done
 fi
 
-[ "${stdin}" = "false" ] && setfiles && echo 0
+[ "${stdin}" = "false" ] && setfiles && printconfig && echo 0
