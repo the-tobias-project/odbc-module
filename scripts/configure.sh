@@ -33,9 +33,8 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverMana
 EOF
 
 echo -e "\n\nThe following lines will be aded to ${HOME}/.bashrc:"
-echo -e "{\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
-echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
-
+echo -e "{\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs);module use --append ${THISPATH}/software/modules/contribs\n#<<<<ODBC CONFIGURATION" 
+echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs);module use --append ${THISPATH}/software/modules/contribs\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 }
 
 function printconfig() {
