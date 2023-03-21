@@ -26,4 +26,7 @@ R CMD build loaddatabricks
 R CMD INSTALL -l ${R_LIBS_USER} loaddatabricks*.tar.gz
 rm -rf loaddatabricks*
 
+module unload R/4.2.0
+module unload unixodbc/2.3.9
+
 echo "R modules succesfully installed!"
