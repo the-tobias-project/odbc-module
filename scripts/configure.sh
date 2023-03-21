@@ -49,7 +49,7 @@ if [ "${stdin}" = "true" ]; then
         export $(grep -v '^#' ${HOME}/.env | xargs)
         . ${THISPATH}/scripts/setenv.sh ${THISPATH}
 
-        read -p "Is your configuration correct? (y/n) " yn
+        read -p "Is your configuration correct? (y/n) " yn </dev/tty
         case $yn in
             [Yy]* ) echo "Success!"; break;;
             [Nn]* ) continue;;
