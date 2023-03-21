@@ -44,7 +44,7 @@ while true; do
             break
             ;;
         *)
-            echo -e "\n\n${YELLOW}Invalid option. Please select 1, 2 or 3.${NC}"
+            echo -e "\n\n${YELLOW}Invalid option. Please select 1, 2, 3 or 4.${NC}"
             ;;
     esac
 done
