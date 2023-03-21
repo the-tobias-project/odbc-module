@@ -62,7 +62,7 @@ fi
 
 if [ "$option" == "4" ]; then
     default=${HOME}/odbc-module
-    printf "provide the directory where the odbc-module library is present (default: ${default})"
+    printf "\n--> Provide the path where the odbc-module library is present (default: ${default}): "
     read -r folder </dev/tty
     folder=${folder:-$default}
     cd "$folder"
@@ -70,7 +70,7 @@ fi
 
 if [ "$option" == "1" ] || [ "$option" == "2" ];then 
     while true; do
-        printf "Download repo? (y/n): " 
+        printf "\n--> Download repo? (y/n): " 
         read -r repo </dev/tty
         case "$repo" in
             [yY]*)
@@ -93,7 +93,7 @@ git checkout devel
 
 if [ "$option" != "3" ];then 
     while true; do
-        printf "Install libraries and databricks-cli? (y/n): " 
+        printf "\n--> Install libraries and databricks-cli? (y/n): " 
         read -r installlib </dev/tty
         case "$installlib" in
             [yY]*)
@@ -116,7 +116,7 @@ fi
 
 if [ "$option" != "2" ];then 
     while true; do
-        printf "Configure? (y/n): "   
+        printf "\n--> Configure? (y/n): "   
         read -r config </dev/tty
         case "$config" in
             [yY]*)
