@@ -9,6 +9,8 @@ NC='\033[0m'
 
 echo -e "Authorizing...\n"
 
+module load python/3.6.1
+
 which az >/dev/null || echo Azure CLI not found. Please go to https://learn.microsoft.com/en-us/cli/azure/install-azure-cli and install the appropriate version
 
 az login --use-device-code --allow-no-subscriptions >/dev/null

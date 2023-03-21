@@ -17,13 +17,10 @@ setenv:
 	. $(DIR)/scripts/setenv.sh $(installdir)
 
 authorize:
-	@module load python/3.6.1
 	. $(DIR)/scripts/authorize.sh
 	
 getaz:
-	@module load python/3.6.1
-	@pip install databricks-cli
-	@curl -L https://aka.ms/InstallAzureCli | bash 
+	. $(DIR)/scripts/install_cli.sh 
 
 install: partial_install getaz 
 
