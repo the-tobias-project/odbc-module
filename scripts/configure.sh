@@ -33,8 +33,8 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverMana
 EOF
 
 echo -e "\n\nThe following lines will be aded to ${HOME}/.bashrc:"
-echo -e "{YELLOW\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION${NC}" 
-echo -e "{YELLOW\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION${NC}" >> "${HOME}/.bashrc"
+echo -e "{\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
+echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 
 }
 
@@ -49,10 +49,10 @@ function printconfig() {
 
 if [ "${stdin}" = "true" ]; then
     while true; do
-        echo "CONFIGURATION : ---------------------------------------------"
-        read -p "${YELLOW}Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): ${NC}" databricks_hostname </dev/tty
-        read -p "${YELLOW}Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): ${NC}" databricks_path </dev/tty
-        read -p "${YELLOW}Databricks port (default: 443, press enter to use default): ${NC}" databricks_port </dev/tty
+        echo "${YELLOW}CONFIGURATION : ---------------------------------------------${NC}"
+        read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname </dev/tty
+        read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path </dev/tty
+        read -p "Databricks port (default: 443, press enter to use default): ${NC}" databricks_port </dev/tty
         databricks_port=${databricks_port:-443}
 
         setfiles
