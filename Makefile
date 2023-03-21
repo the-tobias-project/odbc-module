@@ -1,20 +1,19 @@
 DIR := ${CURDIR}
 check := true
 group := false
-installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell pwd))
 verbose := true
 stdin := true
 
 install: clean reset
-	@echo "Installing at ${installdir}"
-	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
-	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
+	@echo "Installing at $(DIR)"
+	. $(DIR)/scripts/install_drivers.sh $(DIR) $(check) 
+	. $(DIR)/scripts/install_R_dependencies.sh $(DIR) 
 
 partial_configure:
-	. $(DIR)/scripts/configure.sh $(installdir) $(stdin)
+	. $(DIR)/scripts/configure.sh $(DIR) $(stdin)
 
 setenv:
-	. $(DIR)/scripts/setenv.sh $(installdir)
+	. $(DIR)/scripts/setenv.sh $(DIR)
 
 authorize:
 	. $(DIR)/scripts/authorize.sh
