@@ -21,7 +21,7 @@ setenv:
 	. $(DIR)/scripts/setenv.sh $(installdir)
 
 authorize:
-	module load python/3.6.1
+	module load python/3.6.1 && \
 	. $(DIR)/scripts/authorize.sh
 	
 getaz:
