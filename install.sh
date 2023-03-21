@@ -22,7 +22,7 @@ while true; do
         1)
             echo -e "\n\n${YELLOW}Installing and configuring in your personal folder...${NC}"
             group=false
-            cd "${HOME}"
+            basepath="${HOME}"
             break
             ;;
         2)
@@ -30,13 +30,13 @@ while true; do
             group=true
             groupfol="/home/groups/$(id -ng)"
             echo "Switching to $groupfol"
-            cd "$groupfol"
+            basepath="$groupfol"
             break
             ;;
         3) 
             echo -e "\n\n${YELLOW}Configuring your personal folder for a group installation...${NC}"
             group=true
-            cd "${HOME}"
+            basepath="${HOME}"
             break
             ;;
         4)
@@ -52,7 +52,7 @@ done
 
 if [ "$option" == "3" ];then 
     git clone https://github.com/the-tobias-project/odbc-module
-    cd odbc-module
+    cd  odbc-module
     git checkout devel
     make configure group="${group}"
     echo "Module successfully configured. To use this module type: module load databricks-odbc/4.2.0"
@@ -61,7 +61,7 @@ fi
 
 
 if [ "$option" == "4" ]; then
-    default=${HOME}/odbc-module
+    default="${HOME}/odbc-module"
     printf "\n--> Provide the path where the odbc-module library is present (default: ${default}): "
     read -r folder </dev/tty
     folder=${folder:-$default}
@@ -97,6 +97,7 @@ if [ "$option" != "3" ];then
         read -r installlib </dev/tty
         case "$installlib" in
             [yY]*)
+                cd "${basepath}/odbc-module"
                 make install check=false group="${group}"
                 make get_databricks
                 echo "Libraries successfully installed."
@@ -120,6 +121,7 @@ if [ "$option" != "2" ];then
         read -r config </dev/tty
         case "$config" in
             [yY]*)
+                cd "${basepath}/odbc-module"
                 make configure group="${group}"
                 echo "Module successfully configured. To use this module type: module load databricks-odbc/4.2.0"
                 break
