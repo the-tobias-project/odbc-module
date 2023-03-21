@@ -153,7 +153,9 @@ if [ "$option" != "2" ];then
             [yY]*)
                 cd "${basepath}/odbc-module"
                 make configure group="${group}"
-                echo "Module successfully configured. To use this module type: module load databricks-odbc/4.2.0"
+                printfcol "${YELLOW}" "\nAuthorizing..." 
+                make authorize
+                echo "Module successfully configured. To use this module reload your bash profile typing the command: . ~/.bashrc, and then load the module with: module load databricks-odbc/4.2.0"
                 break
                 ;;
             [nN]*)

@@ -10,7 +10,7 @@ install: clean reset
 	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
 	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
 
-partial_configure:
+configure:
 	. $(DIR)/scripts/configure.sh $(installdir) $(stdin)
 
 setenv:
@@ -24,8 +24,6 @@ get_databricks:
 	
 get_azure:
 	. $(DIR)/scripts/install_azure_cli.sh 
-
-configure: partial_configure authorize
 
 clean:
 	@rm -f ${HOME}/.env

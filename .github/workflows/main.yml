@@ -156,7 +156,7 @@ jobs:
         run: |
           su - sherlock 
           source /home/sherlock/.bashrc
-          make partial_configure group=false stdin=false
+          make configure group=false stdin=false
         if: always()
 
       - name: Test odbc
