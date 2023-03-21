@@ -2,7 +2,7 @@
 
 # Written by Douglas Spencer for Stanford University
 
-set -e
+set -euo pipefail
 
 echo -e "Authorizing...\n"
 
