@@ -42,4 +42,4 @@ reset:
 uninstall: clean reset
 	@echo "You can remove now this folder" 
 
-.PHONY: configure install clean````````````````````````````````````````````````````````````````````````````````````````````````````````
+.PHONY: configure install clean uninstall

@@ -9,7 +9,6 @@ NC='\033[0m'
 
 echo -e "Authorizing...\n"
 
-
 which az >/dev/null || echo Azure CLI not found. Please go to https://learn.microsoft.com/en-us/cli/azure/install-azure-cli and install the appropriate version
 
 az login --use-device-code --allow-no-subscriptions >/dev/null
@@ -27,7 +26,5 @@ DATABRICKS_PAT=$(jq .token_value -r <<< `databricks tokens create --lifetime-sec
 
 sed -i "s/PWD=.*/PWD=${DATABRICKS_PAT}/" "${HOME}/.odbc.ini"
 
-
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
-
 echo "Succesfully authorized!"
