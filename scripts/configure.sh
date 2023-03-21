@@ -69,4 +69,4 @@ if [ "${stdin}" = "true" ]; then
     done
 fi
 
-[ "${stdin}" = "false" ] && printconfig && echo 0
+[ "${stdin}" = "false" ] && setfiles && printconfig && echo 0
