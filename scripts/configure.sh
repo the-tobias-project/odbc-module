@@ -52,7 +52,7 @@ function printconfig() {
     echo -e "\n-----------------------------------------------------------------------\n\n"
 }
 
-if [ "${stdin}" = "true" ]; then
+if [ "$stdin" == "true" ]; then
     while true; do
         echo -e "\n\n${YELLOW}CONFIGURATION : ---------------------------------------------${NC}"
         read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname </dev/tty
@@ -78,4 +78,4 @@ if [ "${stdin}" = "true" ]; then
     done
 fi
 
-[ "${stdin}" = "false" ] && setfiles && printconfig && echo 0
+[ "$stdin" == "false" ] && setfiles && printconfig && echo 0
