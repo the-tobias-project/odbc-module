@@ -1,19 +1,20 @@
 DIR := ${CURDIR}
 check := true
 group := false
+installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng)/odbc-module,$(shell pwd))
 verbose := true
 stdin := true
 
 install: clean reset
-	@echo "Installing at $(DIR)"
-	. $(DIR)/scripts/install_drivers.sh $(DIR) $(check) 
-	. $(DIR)/scripts/install_R_dependencies.sh $(DIR) 
+	@echo "Installing at ${installdir}"
+	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
+	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
 
 partial_configure:
-	. $(DIR)/scripts/configure.sh $(DIR) $(stdin)
+	. $(DIR)/scripts/configure.sh $(installdir) $(stdin)
 
 setenv:
-	. $(DIR)/scripts/setenv.sh $(DIR)
+	. $(DIR)/scripts/setenv.sh $(installdir)
 
 authorize:
 	. $(DIR)/scripts/authorize.sh
