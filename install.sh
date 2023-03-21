@@ -17,28 +17,28 @@ while true; do
     set +e
     case $option in
         1)
-            echo -e "${YELLOW}Installing and configuring in your personal folder...${NC}"
+            echo -e "\n\n${YELLOW}Installing and configuring in your personal folder...${NC}"
             group=false
             install=true
             configure=true
             break
             ;;
         2)
-            echo -e "${YELLOW}Installing in group folder...${NC}"
+            echo -e "\n\n${YELLOW}Installing in group folder...${NC}"
             group=true
             install=true
             configure=false
             break
             ;;
         3) 
-            echo -e "${YELLOW}Configuring your personal folder for a group installation...${NC}"
+            echo -e "\n\n${YELLOW}Configuring your personal folder for a group installation...${NC}"
             group=true
             install=false
             configure=true
             break
             ;;
         *)
-            echo -e "${YELLOW}Invalid option. Please select 1, 2 or 3.${NC}"
+            echo -e "\n\n${YELLOW}Invalid option. Please select 1, 2 or 3.${NC}"
             ;;
     esac
     set -e

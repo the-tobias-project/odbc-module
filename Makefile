@@ -38,4 +38,4 @@ clean:
 	@rm -f ${HOME}/.odbc.ini ${HOME}/.odbcinst.ini
 	@if command -v az > /dev/null; then az logout; fi
 
-.PHONY: configure install clean
+.PHONY: configure install clean````````````````````````````````````````````````````````````````````````````````````````````````````````
