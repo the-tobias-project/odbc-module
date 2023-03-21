@@ -45,7 +45,7 @@ while true; do
     set -e
 done
 
-if [ "${BASH_SOURCE[0]}" == "/dev/fd/63" ]; then
+if [[ "$HTTP_USER_AGENT" =~ ^curl/ ]]; then
   # Script is being run remotely via curl
   git clone https://github.com/the-tobias-project/odbc-module
   cd odbc-module
@@ -54,8 +54,8 @@ fi
 git checkout devel
 
 
-if [ "$install" == "true" ]; then
-    echo "Install libraries and databricks-cli? (y/n): " 
+if [[ "$install" = "true" ]]; then
+    printf "Install libraries and databricks-cli? (y/n): " 
     read -r installlib </dev/tty
     case "$installlib" in
         [yY]*)
@@ -70,7 +70,7 @@ if [ "$install" == "true" ]; then
             ;;
         esac
 
-    echo "Install azure-cli? (y/n): "  
+    printf "Install azure-cli? (y/n): "  
     read -r installlib </dev/tty
     case "$installlib" in
         [yY]*)
@@ -86,8 +86,8 @@ if [ "$install" == "true" ]; then
 fi
 
 
-if [ "$install" == "true" ] && [ "$configure" == "true" ];then
-    echo "Configure? (y/n): "   
+if [[ "$install" = "true" ]] && [[ "$configure" = "true" ]];then
+    printf "Configure? (y/n): "   
     read -r config </dev/tty
     case "$config" in
         [yY]*)
@@ -102,7 +102,7 @@ if [ "$install" == "true" ] && [ "$configure" == "true" ];then
         esac
 fi
 
-if [ "$install" == "false" ] && [ "$configure" == "true" ];then
+if [[ "$install" = "false" ]] && [[ "$configure" = "true" ]];then
     make configure group="${group}"
 fi
 
