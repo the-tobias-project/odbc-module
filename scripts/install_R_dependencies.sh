@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e pipefail
+set -e
 
 YELLOW='\033[1;33m'
 NC='\033[0m' 
