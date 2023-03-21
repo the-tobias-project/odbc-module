@@ -29,7 +29,7 @@ while [ "$group" == "false" ]; do
             configure=true
             ;;
         *)
-            echo "Invalid option. Please select 1 or 2."
+            echo "Invalid option. Please select 1, 2 or 3."
             ;;
     esac
 done
