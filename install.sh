@@ -7,7 +7,6 @@ NC='\033[0m'
 option=""
 
 while true; do
-
     echo -e "\nSelect an  option:"
     echo -e "--------------------------\n"
     echo -e "${YELLOW}1 <- Install in personal folder${NC}"
@@ -22,25 +21,19 @@ while true; do
         1)
             echo -e "\n\n${YELLOW}Installing and configuring in your personal folder...${NC}"
             group=false
-            install=true
-            configure=true
-            cd ${HOME}
+            cd "${HOME}"
             break
             ;;
         2)
             echo -e "\n\n${YELLOW}Installing in group folder...${NC}"
             group=true
-            install=true
-            configure=false
-            cd /home/groups/$(id -ng)
+            cd "/home/groups/$(id -ng)"
             break
             ;;
         3) 
             echo -e "\n\n${YELLOW}Configuring your personal folder for a group installation...${NC}"
             group=true
-            install=false
-            configure=true
-            cd ${HOME}
+            cd "${HOME}"
             break
             ;;
         4)
@@ -63,8 +56,8 @@ fi
 
 if [ "$option" == "4" ]; then
     echo "provide the directory where the odbc-module library is present (eg, ${HOME}/odbc-module)"
-    read -r $folder </dev/tty
-    cd $folder
+    read -r folder </dev/tty
+    cd "$folder"
 fi
 
 if [ "$option" == "1" ] || [ "$option" == "2" ];then 
