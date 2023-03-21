@@ -37,15 +37,9 @@ echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)
 
 function printconfig() {
     echo -e "\n\n-----------------------------------------------------------------------"
-    echo -e "Done. This is the resulting configuration at ${HOME}/.env, check that it is correct:"
-    cat "${HOME}/.env"
-    echo -e "\n-----------------------------------------------------------------------\n\n"
-    echo -e "\n\n-----------------------------------------------------------------------"
     echo -e "This is the resulting configuration of the driver, check that it is correct:"
     echo -e "\n\n-- ~/.odbc.ini ---"
     cat "${HOME}/.odbc.ini"
-    echo -e "\n\n-- ~/.odbcinst.ini ---"
-    cat "${HOME}/.odbcinst.ini"
     echo -e "\n-----------------------------------------------------------------------\n\n"
 }
 
