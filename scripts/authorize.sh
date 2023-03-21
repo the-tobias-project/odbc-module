@@ -2,7 +2,7 @@
 
 # Written by Douglas Spencer for Stanford University
 
-set -euo pipefail
+set -e pipefail
 
 YELLOW='\033[1;33m'
 NC='\033[0m' 

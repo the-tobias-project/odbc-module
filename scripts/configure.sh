@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -e pipefail
 
 ## The goal of this script is to create a .env file with all the paths, and the odbc.ini/odbcinst.ini files
 
