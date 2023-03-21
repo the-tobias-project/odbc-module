@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+YELLOW='\033[1;33m'
+NC='\033[0m' 
+
 THISPATH=$1
 DISTRO=centos7
 R_VERSION=4.2
@@ -23,4 +26,4 @@ R CMD build loaddatabricks
 R CMD INSTALL -l ${R_LIBS_USER} loaddatabricks*.tar.gz
 rm -rf loaddatabricks*
 
-echo "R modules succesfully installed!"
+echo "${YELLOW}R modules succesfully installed!${NC}"

@@ -8,7 +8,7 @@ NC='\033[0m'
 
 while true; do
 
-    echo -e "${YELLOW}Select an option:${NC}"
+    echo -e "Select an option:"
     echo -e "${YELLOW}1) Personal${NC}"
     echo -e "${YELLOW}2) Group${NC}"
 

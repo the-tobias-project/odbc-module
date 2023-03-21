@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+YELLOW='\033[1;33m'
+NC='\033[0m' 
+
 # ----------------------------------------------------------------------------------------------
 # This script will generate the module creating the content for the following two main folders:
 ## /user/open/databricks-odbc
@@ -52,4 +55,4 @@ rm -rf docs opt simbaspark-2.6.29.1049-1.x86_64.rpm
 envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini" > temporal.txt
 mv temporal.txt "${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark/lib/64/simba.sparkodbc.ini"
 
-echo "Databricks modules succesfully installed!"
+echo "${YELLOW}Databricks modules succesfully installed!${NC}"
