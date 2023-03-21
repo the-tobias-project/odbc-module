@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Leandro Roser, for Stanford University.
+
 set -e
 
 YELLOW='\033[1;33m'
