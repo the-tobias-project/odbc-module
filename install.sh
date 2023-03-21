@@ -122,7 +122,6 @@ if [ "$option" != "3" ];then
         case "$installlib" in
             [yY]*)
                 cd "${basepath}/odbc-module"
-                make install check=false group="${group}"
                 make get_azure
                 echo "Azure-cli successfully installed."
                 break
