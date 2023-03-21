@@ -114,6 +114,29 @@ if [ "$option" != "3" ];then
     done
 fi
 
+if [ "$option" != "3" ];then 
+    while true; do
+        printf "\n--> Install Azure-cli? (y/n): " 
+        read -r installlib </dev/tty
+        case "$installlib" in
+            [yY]*)
+                cd "${basepath}/odbc-module"
+                make install check=false group="${group}"
+                make get_azure
+                echo "Azure-cli successfully installed."
+                break
+                ;;
+            [nN]*)
+                :
+                break
+                ;;
+            *)
+                echo "Invalid input."
+                ;;
+            esac
+    done
+fi
+
 
 if [ "$option" != "2" ];then 
     while true; do
