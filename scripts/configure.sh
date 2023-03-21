@@ -16,6 +16,7 @@ databricks_hostname=$2
 databricks_path=$3
 databricks_port=$4
 
+echo "Generating ${HOME}/.env"
 cat > "${HOME}/.env" <<EOF  
 #[DATABRICKS SETTINGS]
 DATABRICKS_HOSTNAME=${databricks_hostname}
