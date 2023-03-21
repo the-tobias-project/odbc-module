@@ -66,7 +66,7 @@ if [ "${stdin}" = "true" ]; then
 
         read -p "Is your configuration correct? (y/n) " yn </dev/tty
         case $yn in
-            [Yy]* ) echo "Success!"; break;;
+            [Yy]* ) echo "Success!"; exit 0;;
             [Nn]* ) continue;;
             * ) echo "Please answer yes or no.";;
         esac
