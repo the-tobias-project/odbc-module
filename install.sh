@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eo pipefail
+set -e
 
 YELLOW='\033[1;33m'
 NC='\033[0m' 
@@ -15,7 +15,6 @@ while true; do
 
     read -r option </dev/tty
     
-    set +e
     case $option in
         1)
             echo -e "\n\n${YELLOW}Installing and configuring in your personal folder...${NC}"
@@ -42,64 +41,86 @@ while true; do
             echo -e "\n\n${YELLOW}Invalid option. Please select 1, 2 or 3.${NC}"
             ;;
     esac
-    set -e
 done
 
-if [ "${BASH_SOURCE[0]}" == "/dev/fd/63" ]; then
-  # Script is being run remotely via curl
-  git clone https://github.com/the-tobias-project/odbc-module
-  cd odbc-module
-fi
+
+while true; do
+    printf "Download repo? (y/n): " 
+    read -r repo </dev/tty
+    case "$repo" in
+        [yY]*)
+            git clone https://github.com/the-tobias-project/odbc-module
+            cd odbc-module
+            break
+            ;;
+        [nN]*)
+            break
+            ;;
+        *)
+            echo "Invalid input."
+            ;;
+        esac
+done
 
 git checkout devel
 
 
 if [ "$install" == "true" ]; then
-    printf "Install libraries and databricks-cli? (y/n): " 
-    read -r installlib </dev/tty
-    case "$installlib" in
-        [yY]*)
-            make install check=false group="${group}"
-            make get_databricks
-            ;;
-        [nN]*)
-             :
-            ;;
-        *)
-            echo "Invalid input."
-            ;;
-        esac
+    while true; do
+        printf "Install libraries and databricks-cli? (y/n): " 
+        read -r installlib </dev/tty
+        case "$installlib" in
+            [yY]*)
+                make install check=false group="${group}"
+                make get_databricks
+                break
+                ;;
+            [nN]*)
+                :
+                break
+                ;;
+            *)
+                echo "Invalid input."
+                ;;
+            esac
+    done
 
-    printf "Install azure-cli? (y/n): "  
-    read -r installlib </dev/tty
-    case "$installlib" in
-        [yY]*)
-            make get_azure
-            ;;
-        [nN]*)
-             :
-            ;;
-        *)
-            echo "Invalid input."
-            ;;
-        esac
+    while true; do
+        printf "Install azure-cli? (y/n): "  
+        read -r installlib </dev/tty
+        case "$installlib" in
+            [yY]*)
+                make get_azure
+                break
+                ;;
+            [nN]*)
+                break
+                ;;
+            *)
+                echo "Invalid input."
+                ;;
+            esac
+    done
 fi
 
 
 if [ "$install" == "true" ] && [ "$configure" == "true" ];then
-    printf "Configure? (y/n): "   
-    read -r config </dev/tty
-    case "$config" in
-        [yY]*)
-            make configure group="${group}"
-            ;;
-        [nN]*)
-             :
-            ;;
-        *)
-            echo "Invalid input."
-            ;;
-        esac
+    while true; do
+        printf "Configure? (y/n): "   
+        read -r config </dev/tty
+        case "$config" in
+            [yY]*)
+                make configure group="${group}"
+                break
+                ;;
+            [nN]*)
+                break
+                ;;
+            *)
+                echo "Invalid input."
+                ;;
+            esac
+    done
 fi
 
 if [ "$install" == "false" ] && [ "$configure" == "true" ];then
