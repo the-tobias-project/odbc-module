@@ -27,7 +27,9 @@ while true; do
         2)
             echo -e "\n\n${YELLOW}Installing in group folder...${NC}"
             group=true
-            cd "/home/groups/$(id -ng)"
+            groupfol="/home/groups/$(id -ng)"
+            echo "Switching to $groupfol"
+            cd "$groupfol"
             break
             ;;
         3) 
