@@ -4,6 +4,7 @@ set -e
 
 YELLOW='\033[1;33m'
 NC='\033[0m' 
+option=""
 
 while true; do
 
@@ -21,6 +22,7 @@ while true; do
             group=false
             install=true
             configure=true
+            cd ${HOME}
             break
             ;;
         2)
@@ -28,6 +30,7 @@ while true; do
             group=true
             install=true
             configure=false
+            cd /home/groups/$(id -ng)
             break
             ;;
         3) 
@@ -35,6 +38,11 @@ while true; do
             group=true
             install=false
             configure=true
+            cd ${HOME}
+            break
+            ;;
+        4)
+            echo -e "\n\n${YELLOW}Continue with previous installation...${NC}"
             break
             ;;
         *)
@@ -44,28 +52,43 @@ while true; do
 done
 
 
-while true; do
-    printf "Download repo? (y/n): " 
-    read -r repo </dev/tty
-    case "$repo" in
-        [yY]*)
-            git clone https://github.com/the-tobias-project/odbc-module
-            cd odbc-module
-            break
-            ;;
-        [nN]*)
-            break
-            ;;
-        *)
-            echo "Invalid input."
-            ;;
-        esac
-done
+if [ "$option" == "3" ];then 
+    make configure group="${group}"
+    echo "Module successfully configured. To use this module type: module load databricks-odbc/4.2.0"
+    exit 0
+fi
+
+
+if [ "$option" == "4" ]; then;
+    echo "provide the directory where the odbc-module library is present (eg, ${HOME}/odbc-module)"
+    read -r $folder </dev/tty
+    cd $folder
+fi
+
+if [ "$option" == "1" ] || [ "$option" == "2" ];then 
+    while true; do
+        printf "Download repo? (y/n): " 
+        read -r repo </dev/tty
+        case "$repo" in
+            [yY]*)
+                git clone https://github.com/the-tobias-project/odbc-module
+                cd odbc-module
+                break
+                ;;
+            [nN]*)
+                break
+                ;;
+            *)
+                echo "Invalid input."
+                ;;
+            esac
+    done
+fi
+
 
 git checkout devel
 
-
-if [ "$install" == "true" ]; then
+if [ "$option" != "3" ];then 
     while true; do
         printf "Install libraries and databricks-cli? (y/n): " 
         read -r installlib </dev/tty
@@ -73,6 +96,7 @@ if [ "$install" == "true" ]; then
             [yY]*)
                 make install check=false group="${group}"
                 make get_databricks
+                echo "Libraries successfully installed."
                 break
                 ;;
             [nN]*)
@@ -84,33 +108,17 @@ if [ "$install" == "true" ]; then
                 ;;
             esac
     done
-
-    while true; do
-        printf "Install azure-cli? (y/n): "  
-        read -r installlib </dev/tty
-        case "$installlib" in
-            [yY]*)
-                make get_azure
-                break
-                ;;
-            [nN]*)
-                break
-                ;;
-            *)
-                echo "Invalid input."
-                ;;
-            esac
-    done
 fi
 
 
-if [ "$install" == "true" ] && [ "$configure" == "true" ];then
+if [ "$option" != "2" ];then 
     while true; do
         printf "Configure? (y/n): "   
         read -r config </dev/tty
         case "$config" in
             [yY]*)
                 make configure group="${group}"
+                echo "Module successfully configured. To use this module type: module load databricks-odbc/4.2.0"
                 break
                 ;;
             [nN]*)
@@ -123,11 +131,6 @@ if [ "$install" == "true" ] && [ "$configure" == "true" ];then
     done
 fi
 
-if [ "$install" == "false" ] && [ "$configure" == "true" ];then
-    make configure group="${group}"
-fi
-
-echo "Module successfully installed. To use this module type: module load databricks-odbc/4.2.0"
 
 
 
