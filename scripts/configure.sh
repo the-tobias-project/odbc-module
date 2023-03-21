@@ -11,6 +11,10 @@ YELLOW='\033[1;33m'
 NC='\033[0m' 
 
 function setfiles() {
+THISPATH=$1
+databricks_hostname=$2
+databricks_path=$3
+databricks_port=$4
 
 cat > "${HOME}/.env" <<EOF  
 #[DATABRICKS SETTINGS]
@@ -54,7 +58,8 @@ if [ "${stdin}" = "true" ]; then
         read -p "Databricks port (default: 443, press enter to use default): ${NC}" databricks_port </dev/tty
         databricks_port=${databricks_port:-443}
 
-        setfiles && printconfig
+        setfiles "${THISPATH}" "${databricks_hostname}" "${databricks_path}" "${databricks_port}"
+        printconfig
 
         export $(grep -v '^#' ${HOME}/.env | xargs)
         . ${THISPATH}/scripts/setenv.sh ${THISPATH}
