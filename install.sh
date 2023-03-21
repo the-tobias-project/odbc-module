@@ -6,6 +6,12 @@ YELLOW='\033[1;33m'
 NC='\033[0m' 
 option=""
 
+download () {
+    git clone https://github.com/the-tobias-project/odbc-module
+    cd odbc-module
+    git checkout devel
+}
+
 while true; do
     echo -e "\nSelect an  option:"
     echo -e "--------------------------\n"
@@ -50,6 +56,9 @@ done
 
 
 if [ "$option" == "3" ];then 
+    git clone https://github.com/the-tobias-project/odbc-module
+    cd odbc-module
+    git checkout devel
     make configure group="${group}"
     echo "Module successfully configured. To use this module type: module load databricks-odbc/4.2.0"
     exit 0
