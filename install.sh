@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# Define colors
 YELLOW='\033[1;33m'
 NC='\033[0m' 
 
