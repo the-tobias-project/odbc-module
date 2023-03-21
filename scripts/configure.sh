@@ -9,9 +9,9 @@ export THISPATH=$1
 while true; do
 
     echo "CONFIGURATION : ---------------------------------------------"
-    read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname
-    read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path
-    read -p "Databricks port (default: 443, press enter to use default): " databricks_port
+    read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname </dev/tty
+    read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path </dev/tty
+    read -p "Databricks port (default: 443, press enter to use default): " databricks_port </dev/tty
     databricks_port=${databricks_port:-443}
 
 cat > "${HOME}/.env" <<EOF  
