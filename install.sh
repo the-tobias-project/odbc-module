@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e pipefail
+set -e
 
 # Define colors
 YELLOW='\033[1;33m'
