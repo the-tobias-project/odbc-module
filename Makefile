@@ -6,12 +6,12 @@ verbose := true
 stdin := true
 
 uninstall:
-	git reset --hard
-	git clean -fdx
+	@git reset --hard
+	@git clean -fdx
 	@echo You can remove now this folder" 
 
 partial_install: uninstall
-	echo "Installing at ${installdir}"
+	@echo "Installing at ${installdir}"
 	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
 	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
 
@@ -22,13 +22,13 @@ setenv:
 	. $(DIR)/scripts/setenv.sh $(installdir)
 
 authorize:
-	module load python/3.6.1 && \
+	@module load python/3.6.1 && \
 	. $(DIR)/scripts/authorize.sh
 	
 getaz:
-	module load python/3.6.1 && \
-	pip install databricks-cli && \
-	curl -L https://aka.ms/InstallAzureCli | bash 
+	@module load python/3.6.1 && \
+	@pip install databricks-cli && \
+	@curl -L https://aka.ms/InstallAzureCli | bash 
 
 install: partial_install getaz 
 
