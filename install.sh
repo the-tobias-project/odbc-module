@@ -45,7 +45,7 @@ while true; do
     set -e
 done
 
-if [[ "$HTTP_USER_AGENT" =~ ^curl/ ]]; then
+if [ "${BASH_SOURCE[0]}" == "/dev/fd/63" ]; then
   # Script is being run remotely via curl
   git clone https://github.com/the-tobias-project/odbc-module
   cd odbc-module
@@ -54,7 +54,7 @@ fi
 git checkout devel
 
 
-if [[ "$install" = "true" ]]; then
+if [ "$install" == "true" ]; then
     printf "Install libraries and databricks-cli? (y/n): " 
     read -r installlib </dev/tty
     case "$installlib" in
@@ -86,7 +86,7 @@ if [[ "$install" = "true" ]]; then
 fi
 
 
-if [[ "$install" = "true" ]] && [[ "$configure" = "true" ]];then
+if [ "$install" == "true" ] && [ "$configure" == "true" ];then
     printf "Configure? (y/n): "   
     read -r config </dev/tty
     case "$config" in
@@ -102,7 +102,7 @@ if [[ "$install" = "true" ]] && [[ "$configure" = "true" ]];then
         esac
 fi
 
-if [[ "$install" = "false" ]] && [[ "$configure" = "true" ]];then
+if [ "$install" == "false" ] && [ "$configure" == "true" ];then
     make configure group="${group}"
 fi
 
