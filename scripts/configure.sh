@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-set -e pipefail
+set -e 
 
 ## The goal of this script is to create a .env file with all the paths, and the odbc.ini/odbcinst.ini files
+
 
 export THISPATH=$1
 stdin=$2
@@ -51,7 +52,6 @@ function printconfig() {
     echo -e "\n-----------------------------------------------------------------------\n\n"
 }
 
-
 if [ "${stdin}" = "true" ]; then
     while true; do
         echo -e "\n\n${YELLOW}CONFIGURATION : ---------------------------------------------${NC}"
@@ -63,7 +63,9 @@ if [ "${stdin}" = "true" ]; then
         setfiles "${THISPATH}" "${databricks_hostname}" "${databricks_path}" "${databricks_port}"
 
         export $(grep -v '^#' ${HOME}/.env | xargs)
-        . ${THISPATH}/scripts/setenv.sh ${THISPATH}
+        
+        envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${HOME}/.odbc.ini"
+        envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
 
         printconfig
 
