@@ -3,5 +3,5 @@
 
 set -eo pipefail
 
-module load python/3.6
+module load python/3
 pip install databricks-cli
