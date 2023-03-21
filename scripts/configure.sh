@@ -17,7 +17,7 @@ databricks_hostname=$2
 databricks_path=$3
 databricks_port=$4
 
-echo "Generating ${HOME}/.env"
+echo -e "\nGenerating ${HOME}/.env"
 
 cat > "${HOME}/.env" <<EOF  
 #[DATABRICKS SETTINGS]
@@ -39,7 +39,7 @@ SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
 EOF
 
-echo -e "\n\nThe following lines will be aded to ${HOME}/.bashrc:"
+echo -e "\nThe following lines will be aded to ${HOME}/.bashrc:"
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 }
@@ -47,7 +47,7 @@ echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)
 function printconfig() {
     echo -e "\n\n-----------------------------------------------------------------------"
     echo -e "This is the resulting configuration of the driver, check that it is correct:"
-    echo -e "${YELLOW}\n\n-- ~/.odbc.ini ---${NC}"
+    echo -e "${YELLOW}\n-- ~/.odbc.ini ---${NC}"
     cat "${HOME}/.odbc.ini"
     echo -e "\n-----------------------------------------------------------------------\n\n"
 }
