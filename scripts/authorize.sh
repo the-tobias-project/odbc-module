@@ -31,4 +31,4 @@ sed -i "s/PWD=.*/PWD=${DATABRICKS_PAT}/" "${HOME}/.odbc.ini"
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 echo "Done."
 
-module unload python/3.6.1
+module unload python/3.9.0
