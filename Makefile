@@ -26,7 +26,7 @@ authorize:
 getaz:
 	module load python/3.6.1 && \
 	pip install databricks-cli && \
-	curl -L https://aka.ms/InstallAzureCli | bash -s -- -y
+	curl -L https://aka.ms/InstallAzureCli | bash 
 
 install: partial_install getaz 
 
