@@ -8,7 +8,7 @@ NC='\033[0m'
 option=""
 
 function printfcol () {
- printf '%b' "$1" "$2" "${NC}" '\n'
+ printf '%b' "$1" "$2" "${NC}"
 }
 
 
