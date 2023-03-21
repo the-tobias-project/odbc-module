@@ -14,24 +14,24 @@ while true; do
     read -p "Databricks port (default: 443, press enter to use default): " databricks_port
     databricks_port=${databricks_port:-443}
 
-    cat > "${HOME}/.env" <<EOF  
-    #[DATABRICKS SETTINGS]
-    DATABRICKS_HOSTNAME=${databricks_hostname}
-    DATABRICKS_TOKEN=
-    DATABRICKS_HTTP_PATH=${databricks_path}
-    DATABRICKS_PORT=${databricks_port}
+cat > "${HOME}/.env" <<EOF  
+#[DATABRICKS SETTINGS]
+DATABRICKS_HOSTNAME=${databricks_hostname}
+DATABRICKS_TOKEN=
+DATABRICKS_HTTP_PATH=${databricks_path}
+DATABRICKS_PORT=${databricks_port}
 
 EOF
 
-    cat >> "${HOME}/.env" <<EOF  
-    #[ENVIRONMENTAL VARIABLES] # do not modify
-    MODULE_FOLDER=${THISPATH}
-    ODBCINI=${HOME}/.odbc.ini
-    ODBCSYSINI=${HOME}
-    MODULEPATH=${MODULEPATH}:${THISPATH}/software/modules/contribs
-    R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
-    SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
-    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
+cat >> "${HOME}/.env" <<EOF  
+#[ENVIRONMENTAL VARIABLES] # do not modify
+MODULE_FOLDER=${THISPATH}
+ODBCINI=${HOME}/.odbc.ini
+ODBCSYSINI=${HOME}
+MODULEPATH=${MODULEPATH}:${THISPATH}/software/modules/contribs
+R_LIBS_USER=${THISPATH}/R/x86_64-pc-linux-gnu-library/4.2
+SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs
 EOF
     echo -e "\n\nThe following lines will be aded to ${HOME}/.bashrc:"
     echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
