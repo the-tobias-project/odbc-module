@@ -59,7 +59,7 @@ if [ "${stdin}" = "true" ]; then
         databricks_port=${databricks_port:-443}
 
         setfiles
-        printconfi
+        printconfig
 
         export $(grep -v '^#' ${HOME}/.env | xargs)
         . ${THISPATH}/scripts/setenv.sh ${THISPATH}
