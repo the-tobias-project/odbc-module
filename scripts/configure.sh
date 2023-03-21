@@ -12,10 +12,9 @@ YELLOW='\033[1;33m'
 NC='\033[0m' 
 
 function setfiles() {
-THISPATH=$1
-databricks_hostname=$2
-databricks_path=$3
-databricks_port=$4
+databricks_hostname=${1:-""}
+databricks_path=${2:-""}
+databricks_port=${3:-""}
 
 echo -e "\nGenerating ${HOME}/.env"
 
@@ -61,10 +60,8 @@ if [ "$stdin" == "true" ]; then
         echo -e "${YELLOW}------------------------------------------------------------------${NC}"
         databricks_port=${databricks_port:-443}
 
-        setfiles "${THISPATH}" "${databricks_hostname}" "${databricks_path}" "${databricks_port}"
-
+        setfiles "${databricks_hostname}" "${databricks_path}" "${databricks_port}"
         export $(grep -v '^#' ${HOME}/.env | xargs)
-
         envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${HOME}/.odbc.ini"
         envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
         printconfig
@@ -80,6 +77,7 @@ fi
 
 if [ "$stdin" == "false" ]; then
     setfiles
+    export $(grep -v '^#' ${HOME}/.env | xargs)
     envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${HOME}/.odbc.ini"
     envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
     printconfig
