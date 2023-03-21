@@ -11,12 +11,22 @@ while [ "$group" == "false" ]; do
 
     case $option in
         1)
-            echo "Installing in your personal folder..."
+            echo "Installing and configuring in your personal folder..."
             group=false
+            install=true
+            configure=true
             ;;
         2)
             echo "Installing in group folder..."
             group=true
+            install=true
+            configure=false
+            ;;
+        3) 
+            echo "Configuring your personal folder for a group installation..."
+            group=true
+            install=false
+            configure=true
             ;;
         *)
             echo "Invalid option. Please select 1 or 2."
@@ -28,8 +38,13 @@ git clone https://github.com/the-tobias-project/odbc-module
 cd odbc-module
 git checkout devel
 
-make install check=false group="${group}"
-make configure group="${group}"
+if [ "$install" == "true" ]; then
+    make install check=false group="${group}"
+fi
+
+if [ "$configure" == "true" ]; then
+    make configure group="${group}"
+fi
 
 echo "All done!"
 
