@@ -3,30 +3,35 @@
 set -e
 
 YELLOW='\033[1;33m'
+PURPLE='\033[0;35m'
 NC='\033[0m' 
 option=""
+
+function printfcol () {
+ printf '%b' "$1" "$2" "${NC}" '\n'
+}
 
 
 while true; do
     echo -e "\nSelect an  option:"
-    echo -e "--------------------------\n"
-    echo -e "${YELLOW}1 <- Install in personal folder${NC}"
-    echo -e "${YELLOW}2 <- Install in group folder${NC}"
-    echo -e "${YELLOW}3 <- Configure your personal folder after a group install${NC}"
-    echo -e "${YELLOW}4 <- Continue a previous installation${NC}"
-    printf "Your option: "
+    printfcol "${PURPLE}" "-------------------------\n"
+    printfcol "${YELLOW}" "1 <- Install in personal folder"
+    printfcol "${YELLOW}" "2 <- Install in group folder"
+    printfcol "${YELLOW}" "3 <- Configure your personal folder after a group install"
+    printfcol "${YELLOW}" "4 <- Continue a previous installation"
+    printfcol "${PURPLE}" "Your option: "
 
     read -r option </dev/tty
     
     case $option in
         1)
-            echo -e "\n\n${YELLOW}Installing and configuring in your personal folder...${NC}"
+            printfcol "${YELLOW}" "\n\nInstalling and configuring in your personal folder..."
             group=false
             basepath="${HOME}"
             break
             ;;
         2)
-            echo -e "\n\n${YELLOW}Installing in group folder...${NC}"
+            printfcol "${YELLOW}" "\n\nInstalling in group folder..."
             group=true
             groupfol="/home/groups/$(id -ng)"
             echo "Switching to $groupfol"
@@ -34,17 +39,17 @@ while true; do
             break
             ;;
         3) 
-            echo -e "\n\n${YELLOW}Configuring your personal folder for a group installation...${NC}"
+            printfcol "${YELLOW}" "\n\nConfiguring your personal folder for a group installation..."
             group=true
             basepath="${HOME}"
             break
             ;;
         4)
-            echo -e "\n\n${YELLOW}Continue with previous installation...${NC}"
+            printfcol "${YELLOW}" "\n\nContinue with previous installation..."
             break
             ;;
         *)
-            echo -e "\n\n${YELLOW}Invalid option. Please select 1, 2, 3 or 4.${NC}"
+            printfcol "${YELLOW}" "\n\nInvalid option. Please select 1, 2, 3 or 4."
             ;;
     esac
 done
@@ -62,7 +67,7 @@ fi
 
 if [ "$option" == "4" ]; then
     default="${HOME}/odbc-module"
-    printf "\n--> Provide the path where the odbc-module library is present (default: ${default}): "
+    printfcol "${PURPLE}" "\n--> Provide the path where the odbc-module library is present (default: ${default}): "
     read -r folder </dev/tty
     folder=${folder:-$default}
     cd "$folder"
@@ -71,7 +76,7 @@ fi
 
 if [ "$option" == "1" ] || [ "$option" == "2" ];then 
     while true; do
-        printf "\n--> Download repo? (y/n): " 
+        printfcol "${PURPLE}" "\n--> Download repo? (y/n): " 
         read -r repo </dev/tty
         case "$repo" in
             [yY]*)
@@ -94,7 +99,7 @@ git checkout devel
 
 if [ "$option" != "3" ];then 
     while true; do
-        printf "\n--> Install libraries and databricks-cli? (y/n): " 
+        printfcol "${PURPLE}" "\n--> Install libraries and databricks-cli? (y/n): " 
         read -r installlib </dev/tty
         case "$installlib" in
             [yY]*)
@@ -117,7 +122,7 @@ fi
 
 if [ "$option" != "3" ];then 
     while true; do
-        printf "\n--> Install Azure-cli? (y/n): " 
+        printfcol "${PURPLE}" "\n--> Install Azure-cli? (y/n): " 
         read -r installlib </dev/tty
         case "$installlib" in
             [yY]*)
@@ -140,7 +145,7 @@ fi
 
 if [ "$option" != "2" ];then 
     while true; do
-        printf "\n--> Configure? (y/n): "   
+        printfcol "${PURPLE}" "\n--> Configure? (y/n): "   
         read -r config </dev/tty
         case "$config" in
             [yY]*)
