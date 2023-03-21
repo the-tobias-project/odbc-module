@@ -48,7 +48,7 @@ function printconfig() {
 
 if [ "${stdin}" = "true" ]; then
     while true; do
-        echo -e "${YELLOW}CONFIGURATION : ---------------------------------------------${NC}"
+        echo -e "\n\n${YELLOW}CONFIGURATION : ---------------------------------------------${NC}"
         read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname </dev/tty
         read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path </dev/tty
         read -p "Databricks port (default: 443, press enter to use default): ${NC}" databricks_port </dev/tty

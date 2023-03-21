@@ -54,7 +54,7 @@ if [ "$configure" == "true" ]; then
     make configure group="${group}"
 fi
 
-echo -e "${YELLOW}All done!${NC}"
+echo -e "${YELLOW}Module successfully installed!${NC}"
 
 
 
