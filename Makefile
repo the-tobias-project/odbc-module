@@ -8,6 +8,7 @@ stdin := true
 uninstall:
 	git reset --hard
 	git clean -fdx
+	@echo You can remove now this folder" 
 
 partial_install: uninstall
 	echo "Installing at ${installdir}"
