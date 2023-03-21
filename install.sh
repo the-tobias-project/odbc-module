@@ -127,7 +127,7 @@ if [ "$install" == "false" ] && [ "$configure" == "true" ];then
     make configure group="${group}"
 fi
 
-echo"Module successfully installed!"
+echo "Module successfully installed!"
 
 
 
