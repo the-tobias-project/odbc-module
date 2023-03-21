@@ -66,8 +66,10 @@ fi
 
 
 if [ "$option" == "4" ]; then
-    echo "provide the directory where the odbc-module library is present (eg, ${HOME}/odbc-module)"
+    default=${HOME}/odbc-module
+    printf "provide the directory where the odbc-module library is present (default: ${default})"
     read -r folder </dev/tty
+    folder=${folder:-$default}
     cd "$folder"
 fi
 
