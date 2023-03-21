@@ -54,8 +54,7 @@ if [ "${stdin}" = "true" ]; then
         read -p "Databricks port (default: 443, press enter to use default): ${NC}" databricks_port </dev/tty
         databricks_port=${databricks_port:-443}
 
-        setfiles
-        printconfig
+        setfiles && printconfig
 
         export $(grep -v '^#' ${HOME}/.env | xargs)
         . ${THISPATH}/scripts/setenv.sh ${THISPATH}
