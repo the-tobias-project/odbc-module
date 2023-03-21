@@ -8,10 +8,12 @@ option=""
 
 while true; do
 
-    echo -e "\nSelect an install option:"
+    echo -e "\nSelect an  option:"
     echo -e "--------------------------\n"
-    echo -e "${YELLOW}1) Personal${NC}"
-    echo -e "${YELLOW}2) Group${NC}"
+    echo -e "${YELLOW}1 <- Install in personal folder${NC}"
+    echo -e "${YELLOW}2 <- Install in group folder${NC}"
+    echo -e "${YELLOW}3 <- Configure your personal folder after a group install${NC}"
+    echo -e "${YELLOW}4 <- Continue a previous installation${NC}"
     printf "Your option: "
 
     read -r option </dev/tty
@@ -59,7 +61,7 @@ if [ "$option" == "3" ];then
 fi
 
 
-if [ "$option" == "4" ]; then;
+if [ "$option" == "4" ]; then
     echo "provide the directory where the odbc-module library is present (eg, ${HOME}/odbc-module)"
     read -r $folder </dev/tty
     cd $folder
