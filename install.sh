@@ -127,7 +127,7 @@ if [ "$install" == "false" ] && [ "$configure" == "true" ];then
     make configure group="${group}"
 fi
 
-echo "Module successfully installed!"
+echo "Module successfully installed. To use this module type: module load databricks-odbc/4.2.0"
 
 
 
