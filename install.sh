@@ -11,9 +11,9 @@ while true; do
     echo -e "${YELLOW}1) Personal${NC}"
     echo -e "${YELLOW}2) Group${NC}"
     
-    printf "Your option: "
+    echo -e "Your option: "
     read -r option </dev/tty
-    
+
     set +e
     case $option in
         1)
