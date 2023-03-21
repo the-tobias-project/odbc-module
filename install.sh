@@ -2,34 +2,38 @@
 
 set -e
 
+# Define colors
+YELLOW='\033[1;33m'
+NC='\033[0m' 
+
 while [ "$group" == "false" ]; do
-    echo "Select an option:"
-    echo "1) Personal"
-    echo "2) Group"
+    echo -e "${YELLOW}Select an option:${NC}"
+    echo -e "${YELLOW}1) Personal${NC}"
+    echo -e "${YELLOW}2) Group${NC}"
 
     read option
 
     case $option in
         1)
-            echo "Installing and configuring in your personal folder..."
+            echo -e "${YELLOW}Installing and configuring in your personal folder...${NC}"
             group=false
             install=true
             configure=true
             ;;
         2)
-            echo "Installing in group folder..."
+            echo -e "${YELLOW}Installing in group folder...${NC}"
             group=true
             install=true
             configure=false
             ;;
         3) 
-            echo "Configuring your personal folder for a group installation..."
+            echo -e "${YELLOW}Configuring your personal folder for a group installation...${NC}"
             group=true
             install=false
             configure=true
             ;;
         *)
-            echo "Invalid option. Please select 1, 2 or 3."
+            echo -e "${YELLOW}Invalid option. Please select 1, 2 or 3.${NC}"
             ;;
     esac
 done
@@ -46,7 +50,6 @@ if [ "$configure" == "true" ]; then
     make configure group="${group}"
 fi
 
-echo "All done!"
-
+echo -e "${YELLOW}All done!${NC}"
 
 
