@@ -5,12 +5,7 @@ installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell 
 verbose := true
 stdin := true
 
-uninstall:
-	@git reset --hard
-	@git clean -fdx
-	@echo You can remove now this folder" 
-
-partial_install: uninstall
+partial_install: clean reset
 	@echo "Installing at ${installdir}"
 	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
 	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
@@ -39,5 +34,12 @@ clean:
 	@sed '/#ODBC CONFIGURATION>>>>/,/#<<<<ODBC CONFIGURATION/d' ~/.bashrc > tmp_bashrc && mv tmp_bashrc ${HOME}/.bashrc
 	@rm -f ${HOME}/.odbc.ini ${HOME}/.odbcinst.ini
 	@if command -v az > /dev/null; then az logout; fi
+
+reset:
+	@git reset --hard
+	@git clean -fdx
+
+uninstall: clean reset
+	@echo "You can remove now this folder" 
 
 .PHONY: configure install clean````````````````````````````````````````````````````````````````````````````````````````````````````````
