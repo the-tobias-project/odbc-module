@@ -51,7 +51,7 @@ git checkout devel
 
 
 if [ "$install" == "true" ]; then
-    printf "%sInstall libraries and databricks-cli? (y/n):%s " "${YELLOW}" "${NC}" 
+    echo "Install libraries and databricks-cli? (y/n): " 
     read -r installlib </dev/tty
     case "$installlib" in
         [yY]*)
@@ -66,7 +66,7 @@ if [ "$install" == "true" ]; then
             ;;
         esac
 
-    printf "%sInstall azure-cli? (y/n):%s " "${YELLOW}" "${NC}"  
+    echo "Install azure-cli? (y/n): "  
     read -r installlib </dev/tty
     case "$installlib" in
         [yY]*)
@@ -83,7 +83,7 @@ fi
 
 
 if [ "$install" == "true" ] && [ "$configure" == "true" ];then
-    printf "%sConfigure? (y/n):%s "  "${YELLOW}" "${NC}"  
+    echo "Configure? (y/n): "   
     read -r config </dev/tty
     case "$config" in
         [yY]*)
