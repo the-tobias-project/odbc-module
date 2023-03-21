@@ -78,4 +78,10 @@ if [ "$stdin" == "true" ]; then
     done
 fi
 
-[ "$stdin" == "false" ] && setfiles && printconfig && echo 0
+if [ "$stdin" == "false" ]; then
+    setfiles
+    envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${HOME}/.odbc.ini"
+    envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
+    printconfig
+fi
+    
