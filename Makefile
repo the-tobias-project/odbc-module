@@ -3,6 +3,7 @@ check := true
 group := false
 installdir := $(if $(filter $(group),true),/home/groups/$(shell id -ng),$(shell pwd))
 verbose := true
+stdin := true
 
 uninstall:
 	git reset --hard
@@ -14,7 +15,7 @@ partial_install: uninstall
 	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
 
 partial_configure:
-	. $(DIR)/scripts/configure.sh $(installdir)
+	. $(DIR)/scripts/configure.sh $(installdir) $(stdin)
 
 setenv:
 	. $(DIR)/scripts/setenv.sh $(installdir)

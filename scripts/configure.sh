@@ -5,6 +5,7 @@ set -e
 ## The goal of this script is to create a .env file with all the paths
 
 export THISPATH=$1
+stdin=$2
 
 function setfiles() {
 
@@ -34,37 +35,37 @@ echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)
 
 }
 
-while true; do
 
-    echo "CONFIGURATION : ---------------------------------------------"
-    read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname </dev/tty
-    read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path </dev/tty
-    read -p "Databricks port (default: 443, press enter to use default): " databricks_port </dev/tty
-    databricks_port=${databricks_port:-443}
+if [ "${stdin}" = "true" ]; then
+    while true; do
+        echo "CONFIGURATION : ---------------------------------------------"
+        read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname </dev/tty
+        read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path </dev/tty
+        read -p "Databricks port (default: 443, press enter to use default): " databricks_port </dev/tty
+        databricks_port=${databricks_port:-443}
 
-    setfiles
+        setfiles
 
-    export $(grep -v '^#' ${HOME}/.env | xargs)
-    . ${THISPATH}/scripts/setenv.sh ${THISPATH}
+        export $(grep -v '^#' ${HOME}/.env | xargs)
+        . ${THISPATH}/scripts/setenv.sh ${THISPATH}
 
-    echo -e "\n\n-----------------------------------------------------------------------"
-    echo -e "Done. This is the resulting configuration at ${HOME}/.env, check that it is correct:"
-    cat "${HOME}/.env"
-    echo -e "\n-----------------------------------------------------------------------\n\n"
-    echo -e "\n\n-----------------------------------------------------------------------"
-    echo -e "This is the resulting configuration of the driver, check that it is correct:"
-    echo -e "\n\n-- ~/.odbc.ini ---"
-    cat "${HOME}/.odbc.ini"
-    echo -e "\n\n-- ~/.odbcinst.ini ---"
-    cat "${HOME}/.odbcinst.ini"
-    echo -e "\n-----------------------------------------------------------------------\n\n"
+        read -p "Is your configuration correct? (y/n) " yn
+        case $yn in
+            [Yy]* ) echo "Success!"; break;;
+            [Nn]* ) continue;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+fi
 
-    read -p "Is your configuration correct? (y/n) " yn
-    case $yn in
-        [Yy]* ) echo "Success!"; break;;
-        [Nn]* ) continue;;
-        * ) echo "Please answer yes or no.";;
-    esac
-     
-
-done
+echo -e "\n\n-----------------------------------------------------------------------"
+echo -e "Done. This is the resulting configuration at ${HOME}/.env, check that it is correct:"
+cat "${HOME}/.env"
+echo -e "\n-----------------------------------------------------------------------\n\n"
+echo -e "\n\n-----------------------------------------------------------------------"
+echo -e "This is the resulting configuration of the driver, check that it is correct:"
+echo -e "\n\n-- ~/.odbc.ini ---"
+cat "${HOME}/.odbc.ini"
+echo -e "\n\n-- ~/.odbcinst.ini ---"
+cat "${HOME}/.odbcinst.ini"
+echo -e "\n-----------------------------------------------------------------------\n\n"
