@@ -17,6 +17,7 @@ databricks_path=$3
 databricks_port=$4
 
 echo "Generating ${HOME}/.env"
+
 cat > "${HOME}/.env" <<EOF  
 #[DATABRICKS SETTINGS]
 DATABRICKS_HOSTNAME=${databricks_hostname}
@@ -56,14 +57,17 @@ if [ "${stdin}" = "true" ]; then
         echo -e "\n\n${YELLOW}CONFIGURATION : ---------------------------------------------${NC}"
         read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname </dev/tty
         read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path </dev/tty
-        read -p "Databricks port (default: 443, press enter to use default): ${NC}" databricks_port </dev/tty
+        read -p "Databricks port (default: 443, press enter to use default): " databricks_port </dev/tty
         databricks_port=${databricks_port:-443}
 
         setfiles "${THISPATH}" "${databricks_hostname}" "${databricks_path}" "${databricks_port}"
-        printconfig
 
         export $(grep -v '^#' ${HOME}/.env | xargs)
         . ${THISPATH}/scripts/setenv.sh ${THISPATH}
+
+        printconfig
+
+
 
         read -p "Is your configuration correct? (y/n)" yn </dev/tty
         case $yn in
@@ -74,4 +78,4 @@ if [ "${stdin}" = "true" ]; then
     done
 fi
 
-[ "${stdin}" = "false" ] && setfiles && printconfig && echo 0
+[ "${stdin}" = "false" ] && setfiles && echo 0
