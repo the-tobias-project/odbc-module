@@ -66,7 +66,7 @@ if [ "$option" == "4" ]; then
     read -r folder </dev/tty
     folder=${folder:-$default}
     cd "$folder"
-    basepath=${PWD}
+    basepath="$(dirname "$folder")"
 fi
 
 if [ "$option" == "1" ] || [ "$option" == "2" ];then 
