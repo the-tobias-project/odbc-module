@@ -190,7 +190,7 @@ jobs:
           release_name: Release odbc-module
           draft: false
           prerelease: false
-        if: ${{github.ref == 'refs/heads/main' && github.event_name == 'pull_request'}}
+        if: github.ref == 'refs/heads/main'
 
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -202,4 +202,4 @@ jobs:
           asset_path: /home/sherlock/module.tar.gz 
           asset_name: odbc-centos7-R_${{ env.R_VERSION }}-devtoolset_${{ env.DEVTOOLSET_VERSION }}-unixodbc_${{ env.UNIXODBC_VERSION }}.tar.gz 
           asset_content_type: application/gzip 
-        if: ${{github.ref == 'refs/heads/main' && github.event_name == 'pull_request'}}
+        if: github.ref == 'refs/heads/main'
