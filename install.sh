@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Leandro Roser, for Stanford University.
+# # Written by Leandro Roser for Stanford University
 
 set -e
 
