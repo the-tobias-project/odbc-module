@@ -9,6 +9,7 @@ export THISPATH=$1
 stdin=$2
 
 YELLOW='\033[1;33m'
+PURPLE='\033[0;35m'
 NC='\033[0m' 
 
 function setfiles() {
@@ -38,7 +39,7 @@ SPARKPATH=${THISPATH}/software/user/open/databricks-odbc/4.2.0/simba/spark
 LD_LIBRARY_PATH=${THISPATH}/driver/unixODBC-2.3.11/DriverManager/.libs:${THISPATH}/driver/unixODBC-2.3.11/odbcinst/.libs:${LD_LIBRARY_PATH}
 EOF
 
-echo -e "\nThe following lines will be aded to ${HOME}/.bashrc:"
+echo -e "\n{YELLOW}The following lines will be aded to ${HOME}/.bashrc:{NC}"
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" 
 echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)\n#<<<<ODBC CONFIGURATION" >> "${HOME}/.bashrc"
 }
@@ -46,18 +47,19 @@ echo -e "\n#ODBC CONFIGURATION>>>>\nexport \$(grep -v '^#' ${HOME}/.env | xargs)
 function printconfig() {
     echo -e "\n\n-----------------------------------------------------------------------"
     echo -e "This is the resulting configuration of the driver, check that it is correct:"
-    echo -e "${YELLOW}\n-- ~/.odbc.ini ---${NC}"
-    cat "${HOME}/.odbc.ini"
+    echo -e "${PURPLE}\n-- ~/.odbc.ini ---${NC}"
+    var=$(< "${HOME}/.odbc.ini")
+    echo -e "${YELLOW}$var${NC}"
     echo -e "\n-----------------------------------------------------------------------\n\n"
 }
 
 if [ "$stdin" == "true" ]; then
     while true; do
-        echo -e "\n\n${YELLOW}CONFIGURATION : ---------------------------------------------${NC}"
+        echo -e "\n\n${PURPLE}CONFIGURATION : ---------------------------------------------${NC}"
         read -p "Databricks hostname (eg, adb-xxxxxxxxxx.2.azuredatabricks.net): " databricks_hostname </dev/tty
         read -p "Databricks http path (eg, sql/protocolv1/o/123456789/1234-12345-abcde): " databricks_path </dev/tty
         read -p "Databricks port (default: 443, press enter to use default): " databricks_port </dev/tty
-        echo -e "${YELLOW}------------------------------------------------------------------${NC}"
+        echo -e "${PURPLE}------------------------------------------------------------------${NC}"
         databricks_port=${databricks_port:-443}
 
         setfiles "${databricks_hostname}" "${databricks_path}" "${databricks_port}"
@@ -65,8 +67,8 @@ if [ "$stdin" == "true" ]; then
         envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbc.ini" > "${HOME}/.odbc.ini"
         envsubst < "${THISPATH}/software/user/open/databricks-odbc/4.2.0/conf/odbcinst.ini" > "${HOME}/.odbcinst.ini"
         printconfig
-
-        read -p "Does your configuration look correct? (y/n) " yn </dev/tty
+        printf "%b" "${YELLOW}" "Does your configuration look correct? (y/n): " "${NC}"
+        read -r yn </dev/tty
         case $yn in
             [Yy]* ) echo "Success!"; exit 0;;
             [Nn]* ) continue;;

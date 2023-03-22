@@ -2,9 +2,6 @@
 
 set -eo pipefail
 
-YELLOW='\033[1;33m'
-NC='\033[0m' 
-
 THISPATH=$1
 DISTRO=centos7
 R_VERSION=4.2

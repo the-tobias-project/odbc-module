@@ -2,9 +2,6 @@
 
 set -eo pipefail
 
-YELLOW='\033[1;33m'
-NC='\033[0m' 
-
 # ----------------------------------------------------------------------------------------------
 # This script will generate the module creating the content for the following two main folders:
 ## /user/open/databricks-odbc

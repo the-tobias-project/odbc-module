@@ -4,11 +4,6 @@
 
 set -eo pipefail
 
-YELLOW='\033[1;33m'
-NC='\033[0m' 
-
-echo -e "Authorizing...\n"
-
 module load python/3.9.0
 
 which az >/dev/null || echo Azure CLI not found. Please go to https://learn.microsoft.com/en-us/cli/azure/install-azure-cli and install the appropriate version
