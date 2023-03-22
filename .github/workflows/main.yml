@@ -166,7 +166,8 @@ jobs:
         id: get_version
         run: |
           VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\///')
-          echo "::set-output name=version::$VERSION"
+          res="::set-output name=version::$VERSION"
+          [ "$res" == "" ] && echo "v1.0.0" || echo $res
         
       - name: Increment release version
         id: increment_version
@@ -186,7 +187,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: "v1.${{ steps.increment_version.outputs.version }}.0"
-          release_name: Release odbc-module
+          release_name: odbc-module-v1.${{ steps.increment_version.outputs.version }}.0
           draft: false
           prerelease: false
         if: github.ref == 'refs/heads/main'
