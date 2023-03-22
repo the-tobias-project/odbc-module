@@ -186,7 +186,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-        if: ${{ github.event_name == 'pull_request' }}
+        if: github.ref == 'refs/heads/main'
 
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -200,4 +200,4 @@ jobs:
           asset_content_type: application/gzip 
           tag_name: ${{ github.ref }} 
           repository: ${{ env.REPOSITORY }}
-        if: ${{ github.event_name == 'pull_request' }}
+        if: github.ref == 'refs/heads/main'
