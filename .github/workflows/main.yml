@@ -165,14 +165,13 @@ jobs:
       - name: Get current release version
         id: get_version
         run: |
-          VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\///')
-          res="::set-output name=version::$VERSION"
-          [ "$res" == "" ] && echo "v1.0.0" || echo $res
-        
+          VERSION=$(echo "${{ github.ref }}" | cut -d '/' -f 3)
+          echo "::set-output name=version::$VERSION"
+
       - name: Increment release version
         id: increment_version
         run: |
-          VERSION=$(/usr/bin/env bash -c 'echo $((`echo ${{ steps.get_version.outputs.version }} | awk -F "." '\''{print $3}'\''` + 1))')
+          VERSION=$((${{ steps.get_version.outputs.version }} + 1))
           echo "::set-output name=version::$VERSION"
 
       - name: Create tarball of artifacts
@@ -187,7 +186,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: "v1.${{ steps.increment_version.outputs.version }}.0"
-          release_name: odbc-module-v1.${{ steps.increment_version.outputs.version }}.0
+          release_name: "odbc-module-v1.${{ steps.increment_version.outputs.version }}.0"
           draft: false
           prerelease: false
         if: github.ref == 'refs/heads/main'
