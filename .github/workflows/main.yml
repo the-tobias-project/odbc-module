@@ -174,7 +174,7 @@ jobs:
       - name: Create tarball of artifacts
         run: tar -czvf /home/sherlock/base.tar.gz /home/sherlock/odbc-module
         working-directory: /home/sherlock
-        if: ${{ github.event_name == 'pull_request' }}
+        if: github.ref == 'refs/heads/main'
 
       - name: Create Release
         id: create_release
