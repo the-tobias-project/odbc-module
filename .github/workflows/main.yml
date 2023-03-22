@@ -176,7 +176,7 @@ jobs:
           echo "::set-output name=version::$VERSION"
 
       - name: Create tarball of artifacts
-        run: tar -czvf /home/sherlock/module.tar.gz /home/sherlock/odbc-module
+        run: tar -czvf /home/sherlock/module.tar.gz odbc-module
         working-directory: /home/sherlock
         if: github.ref == 'refs/heads/main'
 
