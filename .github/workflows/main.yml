@@ -6,8 +6,7 @@ on:
       - main 
       - devel
   pull_request:
-    branches:
-      - main
+    types: [closed]
 
     # Publish `v1.2.3` tags as releases.
     tags:
