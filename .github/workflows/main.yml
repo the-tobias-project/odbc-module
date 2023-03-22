@@ -2,7 +2,8 @@ name: base
 
 on:
   push:
-    branches: 
+    branches:
+      - main 
       - devel
   pull_request:
     branches:
