@@ -2,7 +2,8 @@ name: base
 
 on:
   push:
-    branches: 
+    branches:
+      - main 
       - devel
   pull_request:
     branches:
@@ -136,7 +137,7 @@ jobs:
           su - sherlock 
           git clone https://github.com/the-tobias-project/odbc-module
           cd odbc-module 
-          git checkout $(echo $GITHUB_REF | sed 's/refs\/heads\///')
+          git checkout ${GITHUB_REF##*/}
 
       - name: Install the module
         working-directory: /home/sherlock/odbc-module
