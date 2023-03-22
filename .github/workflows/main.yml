@@ -24,11 +24,6 @@ jobs:
       DEVTOOLSET_VERSION: "10"
       REPOSITORY: "the-tobias-project/odbc-module"
       HOME: /home/sherlock
-      __DATABRICKS_HOSTNAME: ${{ secrets.DATABRICKS_HOSTNAME }}
-      __DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-      __DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}   
-      __TEST_SECRET: ${{ secrets.TEST_SECRET }}  
-
 
     container:
       image: centos:7.9.2009
@@ -165,10 +160,6 @@ jobs:
           su - sherlock
           source /home/sherlock/.bashrc
           module load databricks-odbc/${{ env.R_VERSION }}
-          # overload
-          ## export DATABRICKS_HOSTNAME=${{ env.__DATABRICKS_HOSTNAME }}
-          ## export DATABRICKS_TOKEN=${{ env.__DATABRICKS_TOKEN }}
-          ## export DATABRICKS_HTTP_PATH=${{ env.__DATABRICKS_HTTP_PATH }}
           R -e "library(loaddatabricks)" # ; con <- connect_cluster(\"/home/sherlock/.env\"); library(DBI); dbListTables(con)"
 
       - name: Create tarball of artifacts
