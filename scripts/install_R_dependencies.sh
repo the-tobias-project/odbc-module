@@ -13,7 +13,10 @@ mkdir -p ${R_LIBS_USER}
 
 module unload R
 module load R/4.2.0
+module load python/3.9.0
 module load unixodbc/2.3.9
+
+pip3 install pyodbc
 
 curl -L "${REPO}/${package}.tar.gz?r_version=${R_VERSION}" | tar xvz -C "${R_LIBS_USER}"
 Rscript ${THISPATH}/scripts/dependencies.R
@@ -25,5 +28,6 @@ rm -rf loaddatabricks*
 
 module unload R/4.2.0
 module unload unixodbc/2.3.9
+module unload python/3.9.0
 
-echo "R modules succesfully installed!"
+echo "R and Python modules succesfully installed!"
