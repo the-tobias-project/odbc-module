@@ -8,7 +8,7 @@ stdin := true
 install: clean reset
 	@echo "Installing at ${installdir}"
 	. $(DIR)/scripts/install_drivers.sh $(installdir) $(check) 
-	. $(DIR)/scripts/install_R_dependencies.sh $(installdir) 
+	. $(DIR)/scripts/install_language_dependencies.sh $(installdir) 
 
 configure:
 	. $(DIR)/scripts/configure.sh $(installdir) $(stdin)
